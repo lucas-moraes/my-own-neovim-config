@@ -26,6 +26,16 @@ return require("packer").startup(function(use)
 	-- Colorschema
 	use("rebelot/kanagawa.nvim")
 
+	-- multiline select
+	use("mg979/vim-visual-multi")
+	use("terryma/vim-multiple-cursors")
+
+	-- barbar
+	use({
+		"romgrk/barbar.nvim",
+		requires = { "nvim-tree/nvim-web-devicons" },
+	})
+
 	-- Statusline
 	use({
 		"nvim-lualine/lualine.nvim",
@@ -118,7 +128,7 @@ return require("packer").startup(function(use)
 	-- File manager
 	use({
 		"nvim-neo-tree/neo-tree.nvim",
-		branch = "v2.x",
+		branch = "v3.x",
 		requires = {
 			"nvim-lua/plenary.nvim",
 			"nvim-tree/nvim-web-devicons",

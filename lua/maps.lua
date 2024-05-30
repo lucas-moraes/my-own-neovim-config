@@ -4,15 +4,15 @@ end
 
 local status, telescope = pcall(require, "telescope.builtin")
 if status then
--- Telescope
-map("n", "<leader>ff", telescope.find_files)
-map("n", "<leader>fg", telescope.live_grep)
-map("n", "<leader>fb", telescope.buffers)
-map("n", "<leader>fh", telescope.help_tags)
-map("n", "<leader>fs", telescope.git_status)
-map("n", "<leader>fc", telescope.git_commits)
+	-- Telescope
+	map("n", "<leader>ff", telescope.find_files)
+	map("n", "<leader>fg", telescope.live_grep)
+	map("n", "<leader>fb", telescope.buffers)
+	map("n", "<leader>fh", telescope.help_tags)
+	map("n", "<leader>fs", telescope.git_status)
+	map("n", "<leader>fc", telescope.git_commits)
 else
-print("Telescope not found")
+	print("Telescope not found")
 end
 
 -- Save
@@ -55,3 +55,43 @@ map("n", "<C-Left>", "<C-w><")
 map("n", "<C-Right>", "<C-w>>")
 map("n", "<C-Up>", "<C-w>+")
 map("n", "<C-Down>", "<C-w>-")
+
+-- Atalhos de teclado para navegar entre buffers
+map("n", "<S-l>", ":BufferLineCycleNext<CR>", { noremap = true, silent = true })
+map("n", "<S-h>", ":BufferLineCyclePrev<CR>", { noremap = true, silent = true })
+
+-- Atalhos de teclado para mover buffers
+map("n", "<A-l>", ":BufferLineMoveNext<CR>", { noremap = true, silent = true })
+map("n", "<A-h>", ":BufferLineMovePrev<CR>", { noremap = true, silent = true })
+
+-- Atalho de teclado para fechar buffer
+map("n", "<leader>c", ":bdelete<CR>", { noremap = true, silent = true })
+
+-- Atalho de teclado para PackerSync
+map("n", "<leader>ps", ":PackerSync<CR>", { noremap = true, silent = true })
+
+-- Atalho de teclado para PackerSync
+map("n", "<leader>ps", ":PackerSync<CR>", { noremap = true, silent = true })
+
+-- Configuração do vim-multiple
+vim.g.VM_maps = {
+	["Find Under"] = "<C-d>",
+	["Find Subword Under"] = "<C-d>",
+}
+
+-- Configuração do vim-multiple-cursors
+vim.g.multi_cursor_use_default_mapping = 0
+map("n", "<C-d>", "<Plug>(multiple-cursors-find)", {})
+map("v", "<C-d>", "<Plug>(multiple-cursors-find)", {})
+map("i", "<C-d>", "<Plug>(multiple-cursors-find)", {})
+
+-- Atalhos de teclado para navegar entre buffers
+map("n", "<S-l>", ":BufferNext<CR>", { noremap = true, silent = true })
+map("n", "<S-h>", ":BufferPrevious<CR>", { noremap = true, silent = true })
+
+-- Atalhos de teclado para mover buffers
+map("n", "<A-l>", ":BufferMoveNext<CR>", { noremap = true, silent = true })
+map("n", "<A-h>", ":BufferMovePrevious<CR>", { noremap = true, silent = true })
+
+-- Atalho de teclado para fechar buffer
+map("n", "<leader>c", ":BufferClose<CR>", { noremap = true, silent = true })

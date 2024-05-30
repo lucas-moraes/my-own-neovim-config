@@ -11,6 +11,7 @@ lualine.setup({
 		section_separators = { left = "", right = "" },
 		disabled_filetypes = {
 			"neo-tree",
+			"packer",
 			statusline = {},
 			winbar = {},
 		},
