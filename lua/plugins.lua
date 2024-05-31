@@ -1,10 +1,4 @@
-local fn = vim.fn
-local install_path = fn.stdpath("data") .. "/site/pack/packer/start/packer.nvim"
-
-if fn.empty(fn.glob(install_path)) > 0 then
-	fn.system({ "git", "clone", "--depth", "1", "https://github.com/wbthomason/packer.nvim", install_path })
-	vim.cmd([[packadd packer.nvim]])
-end
+vim.cmd([[packadd packer.nvim]])
 
 -- Automatically run: PackerCompile
 vim.api.nvim_create_autocmd("BufWritePost", {
@@ -24,7 +18,12 @@ return require("packer").startup(function(use)
 	use("nvim-tree/nvim-web-devicons")
 
 	-- Colorschema
-	use("rebelot/kanagawa.nvim")
+	use({
+		"rebelot/kanagawa.nvim",
+		config = function()
+			require("configs.kanagawa")
+		end,
+	})
 
 	-- multiline select
 	use("mg979/vim-visual-multi")
@@ -114,16 +113,11 @@ return require("packer").startup(function(use)
 	use({
 		"williamboman/mason.nvim",
 		config = function()
-			require("mason").setup()
+			require("configs.mason")
 		end,
 	})
 
-	use({
-		"williamboman/mason-lspconfig.nvim",
-		config = function()
-			require("configs.mason-lsp")
-		end,
-	})
+	use("williamboman/mason-lspconfig.nvim")
 
 	-- File manager
 	use({
