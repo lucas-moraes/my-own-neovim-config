@@ -95,3 +95,13 @@ map("n", "<A-h>", ":BufferMovePrevious<CR>", { noremap = true, silent = true })
 
 -- Atalho de teclado para fechar buffer
 map("n", "<leader>c", ":BufferClose<CR>", { noremap = true, silent = true })
+
+-- Mover linha para baixo
+map("n", "<A-j>", ":m .+1<CR>==", { noremap = true, silent = true })
+map("i", "<A-j>", "<Esc>:m .+1<CR>==gi", { noremap = true, silent = true })
+map("v", "<A-j>", ":m '>+1<CR>gv=gv", { noremap = true, silent = true })
+
+-- Mover linha para cima
+map("n", "<A-k>", ":m .-2<CR>==", { noremap = true, silent = true })
+map("i", "<A-k>", "<Esc>:m .-2<CR>==gi", { noremap = true, silent = true })
+map("v", "<A-k>", ":m '<-2<CR>gv=gv", { noremap = true, silent = true })
