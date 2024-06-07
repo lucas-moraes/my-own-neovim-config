@@ -25,15 +25,26 @@ return require("packer").startup(function(use)
 		end,
 	})
 
+	use({
+		"numToStr/Comment.nvim",
+		config = function()
+			require("Comment").setup()
+		end,
+	})
+
+	use({
+		"jwalton512/vim-blade",
+		ft = { "blade" },
+	})
+
+	use({
+		"neoclide/coc.nvim",
+		branch = "release",
+	})
+
 	-- multiline select
 	use("mg979/vim-visual-multi")
 	use("terryma/vim-multiple-cursors")
-
-	-- barbar
-	use({
-		"romgrk/barbar.nvim",
-		requires = { "nvim-tree/nvim-web-devicons" },
-	})
 
 	-- Statusline
 	use({
@@ -176,6 +187,14 @@ return require("packer").startup(function(use)
 		config = function()
 			require("which-key").setup({})
 		end,
+	})
+
+	-- nvim v0.7.2
+	use({
+		"kdheepak/lazygit.nvim",
+		requires = {
+			"nvim-lua/plenary.nvim",
+		},
 	})
 
 	-- Background Transparent

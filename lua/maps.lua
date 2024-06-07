@@ -2,9 +2,25 @@ local function map(mode, lhs, rhs)
 	vim.keymap.set(mode, lhs, rhs, { silent = true })
 end
 
+-- Remapear teclas de navegação
+
+-- left
+map("n", "j", "h", { noremap = true, silent = true })
+-- down
+map("n", "k", "j", { noremap = true, silent = true })
+-- right
+map("n", "l", "l", { noremap = true, silent = true })
+-- up
+map("n", "i", "k", { noremap = true, silent = true })
+
+-- edit
+map("n", "e", "i", { noremap = true, silent = true })
+
+-- leader key
+
+-- Telescope
 local status, telescope = pcall(require, "telescope.builtin")
 if status then
-	-- Telescope
 	map("n", "<leader>ff", telescope.find_files)
 	map("n", "<leader>fg", telescope.live_grep)
 	map("n", "<leader>fb", telescope.buffers)
@@ -21,20 +37,12 @@ map("n", "<leader>w", "<CMD>update<CR>")
 -- Quit
 map("n", "<leader>q", "<CMD>q<CR>")
 
--- Exit insert mode
-map("i", "jk", "<ESC>")
-
 -- Windows
 map("n", "<leader>|", "<CMD>vsplit<CR>")
 map("n", "<leader>-", "<CMD>split<CR>")
 
 -- NeoTree
 map("n", "<leader>e", "<CMD>Neotree toggle<CR>")
-map("n", "<leader>o", "<CMD>Neotree focus<CR>")
-
--- Buffer
-map("n", "<TAB>", "<CMD>bnext<CR>")
-map("n", "<BS>", "<CMD>bprevious<CR>")
 
 -- Terminal
 map("n", "<leader>th", "<CMD>ToggleTerm size=10 direction=horizontal<CR>")
@@ -43,6 +51,34 @@ map("n", "<leader>tv", "<CMD>ToggleTerm size=80 direction=vertical<CR>")
 -- Markdown Preview
 map("n", "<leader>m", "<CMD>MarkdownPreview<CR>")
 map("n", "<leader>mn", "<CMD>MarkdownPreviewStop<CR>")
+
+-- Atalho de teclado para fechar buffer
+map("n", "<leader>cc", ":bdelete<CR>", { noremap = true, silent = true })
+
+-- Atalho de teclado para PackerSync
+map("n", "<leader>ps", ":PackerSync<CR>", { noremap = true, silent = true })
+
+-- Atalho de teclado para fechar buffer
+map("n", "<leader>c", ":BufferClose<CR>", { noremap = true, silent = true })
+
+-- Atalho lazygit
+map("n", "<leader>lg", ":LazyGit<CR>", { noremap = true, silent = true })
+
+-- Atalho para sair de tudo
+map("n", "<leader>wqa", ":wqa!<CR>", { noremap = true, silent = true })
+
+-- Atalho para salvar e sair de tudo
+map("n", "<leader>qa", ":qa!<CR>", { noremap = true, silent = true })
+
+-- Atalho para dar refresh no neovim
+map("n", "<leader>r", ":source $MYVIMRC<CR>", { noremap = true, silent = true })
+
+-- Exit insert mode
+map("i", "jk", "<ESC>")
+
+-- Buffer
+map("n", "<BS>", "<CMD>bnext<CR>")
+map("n", "<TAB>", "<CMD>bprevious<CR>")
 
 -- Window Navigation
 map("n", "<C-h>", "<C-w>h")
@@ -56,23 +92,6 @@ map("n", "<C-Right>", "<C-w>>")
 map("n", "<C-Up>", "<C-w>+")
 map("n", "<C-Down>", "<C-w>-")
 
--- Atalhos de teclado para navegar entre buffers
-map("n", "<S-l>", ":BufferLineCycleNext<CR>", { noremap = true, silent = true })
-map("n", "<S-h>", ":BufferLineCyclePrev<CR>", { noremap = true, silent = true })
-
--- Atalhos de teclado para mover buffers
-map("n", "<A-l>", ":BufferLineMoveNext<CR>", { noremap = true, silent = true })
-map("n", "<A-h>", ":BufferLineMovePrev<CR>", { noremap = true, silent = true })
-
--- Atalho de teclado para fechar buffer
-map("n", "<leader>c", ":bdelete<CR>", { noremap = true, silent = true })
-
--- Atalho de teclado para PackerSync
-map("n", "<leader>ps", ":PackerSync<CR>", { noremap = true, silent = true })
-
--- Atalho de teclado para PackerSync
-map("n", "<leader>ps", ":PackerSync<CR>", { noremap = true, silent = true })
-
 -- Configuração do vim-multiple
 vim.g.VM_maps = {
 	["Find Under"] = "<C-d>",
@@ -85,23 +104,23 @@ map("n", "<C-d>", "<Plug>(multiple-cursors-find)", {})
 map("v", "<C-d>", "<Plug>(multiple-cursors-find)", {})
 map("i", "<C-d>", "<Plug>(multiple-cursors-find)", {})
 
--- Atalhos de teclado para navegar entre buffers
-map("n", "<S-l>", ":BufferNext<CR>", { noremap = true, silent = true })
-map("n", "<S-h>", ":BufferPrevious<CR>", { noremap = true, silent = true })
-
--- Atalhos de teclado para mover buffers
-map("n", "<A-l>", ":BufferMoveNext<CR>", { noremap = true, silent = true })
-map("n", "<A-h>", ":BufferMovePrevious<CR>", { noremap = true, silent = true })
-
--- Atalho de teclado para fechar buffer
-map("n", "<leader>c", ":BufferClose<CR>", { noremap = true, silent = true })
-
 -- Mover linha para baixo
-map("n", "<A-j>", ":m .+1<CR>==", { noremap = true, silent = true })
-map("i", "<A-j>", "<Esc>:m .+1<CR>==gi", { noremap = true, silent = true })
-map("v", "<A-j>", ":m '>+1<CR>gv=gv", { noremap = true, silent = true })
+map("n", "<A-k>", ":m .+1<CR>==", { noremap = true, silent = true })
+map("i", "<A-k>", "<Esc>:m .+1<CR>==gi", { noremap = true, silent = true })
+map("v", "<A-k>", ":m '>+1<CR>gv=gv", { noremap = true, silent = true })
 
 -- Mover linha para cima
-map("n", "<A-k>", ":m .-2<CR>==", { noremap = true, silent = true })
-map("i", "<A-k>", "<Esc>:m .-2<CR>==gi", { noremap = true, silent = true })
-map("v", "<A-k>", ":m '<-2<CR>gv=gv", { noremap = true, silent = true })
+map("n", "<A-i>", ":m .-2<CR>==", { noremap = true, silent = true })
+map("i", "<A-i>", "<Esc>:m .-2<CR>==gi", { noremap = true, silent = true })
+map("v", "<A-i>", ":m '<-2<CR>gv=gv", { noremap = true, silent = true })
+
+--toggle fold
+map("n", "<A-t>", "za", { noremap = true, silent = true })
+
+-- Adicionar mapeamento de teclado para Ctrl+Alt+Down para copiar a linha abaixo
+map("n", "<C-A-k>", "yyp", { noremap = true, silent = true })
+map("v", "<C-A-k>", "y`>pgv", { noremap = true, silent = true })
+
+-- Adicionar mapeamento de teclado para Ctrl+Alt+Up para copiar a linha acima
+map("n", "<C-A-i>", "yyP", { noremap = true, silent = true })
+map("v", "<C-A-i>", "y`<Pgv", { noremap = true, silent = true })

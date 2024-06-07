@@ -31,3 +31,14 @@ o.showmatch = true -- When a bracket is inserted, briefly jump to the matching o
 o.inccommand = "split" -- When nonempty, shows the effects of :substitute, :smagic, :snomagic and user commands with the :command-preview flag as you type.
 o.splitbelow = true -- When on, splitting a window will put the new window below the current one
 o.splitright = true -- When on, splitting a window will put the new window right of the current one
+o.foldmethod = "expr"
+o.foldexpr = "nvim_treesitter#foldexpr()"
+o.foldenable = true
+o.foldlevelstart = 99
+o.foldnestmax = 3
+o.fillchars = "fold: "
+o.termguicolors = true
+vim.cmd([[
+  highlight Folded guibg=#282c34 guifg=#abb2bf
+  highlight FoldColumn guibg=#282c34 guifg=#abb2bf
+]])
