@@ -3,9 +3,27 @@ if not status then
 	return
 end
 
+function _G.close_current_buffer()
+	local current_buf = vim.api.nvim_get_current_buf()
+	local alt_buf = vim.fn.bufnr("#")
+	-- Se o buffer alternativo não estiver disponível ou for o mesmo que o atual, crie um novo buffer
+	if alt_buf == -1 or alt_buf == current_buf then
+		vim.cmd("enew")
+	else
+		vim.cmd("buffer " .. alt_buf)
+	end
+	vim.api.nvim_buf_delete(current_buf, { force = true })
+	-- Atualiza o lualine após fechar o buffer
+	require("lualine").refresh()
+end
+
+vim.api.nvim_set_keymap("n", "<leader>cc", ":lua close_current_buffer()<CR>", { noremap = true, silent = true })
+
 vim.cmd([[
   highlight LualineBufferActive guifg=#ffffff guibg=#5f00af
   highlight LualineBufferInactive guifg=#999999 guibg=#3a3a3a
+  highlight WinbarLeftIndent guifg=#3a3a3a guibg=NONE
+  highlight WinbarNormal guifg=#999999 guibg=NONE
 ]])
 
 local function buffer_list()
@@ -17,7 +35,6 @@ local function buffer_list()
 	for _, buf in ipairs(buffers) do
 		if vim.api.nvim_buf_is_loaded(buf) then
 			local buf_name = vim.fn.fnamemodify(vim.api.nvim_buf_get_name(buf), ":t")
-			-- Verifique se o buffer não é do neo-tree
 			if not buf_name:match("neo%-tree filesystem") then
 				if vim.bo[buf].modified then
 					buf_name = buf_name .. unsaved_icon
@@ -32,11 +49,15 @@ local function buffer_list()
 		end
 	end
 
+	if #buffer_names == 0 then
+		return "%#LualineBufferInactive# No buffers %*"
+	end
+
 	return table.concat(buffer_names, "%*" .. " | " .. "%*")
 end
 
 local function left_separator()
-	local separator = "%*" .. "   "
+	local separator = "   "
 	return separator
 end
 
@@ -44,8 +65,8 @@ require("lualine").setup({
 	options = {
 		icons_enabled = true,
 		theme = "horizon",
-		component_separators = { left = "", right = "" },
 		section_separators = { left = "", right = "" },
+		component_separators = { left = "", right = "" },
 		disabled_filetypes = {
 			statusline = { "neo-tree", "neo-tree filesystem [1]" },
 			winbar = { "neo-tree", "neo-tree filesystem [1]" },
@@ -77,16 +98,16 @@ require("lualine").setup({
 	},
 	tabline = {},
 	winbar = {
-		lualine_a = { left_separator, buffer_list },
-		lualine_b = {},
+		lualine_a = { left_separator },
+		lualine_b = { buffer_list },
 		lualine_c = {},
 		lualine_x = {},
 		lualine_y = {},
 		lualine_z = {},
 	},
 	inactive_winbar = {
-		lualine_a = { left_separator, buffer_list },
-		lualine_b = {},
+		lualine_a = { left_separator },
+		lualine_b = { buffer_list },
 		lualine_c = {},
 		lualine_x = {},
 		lualine_y = {},

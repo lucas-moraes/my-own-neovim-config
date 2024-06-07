@@ -2,6 +2,11 @@ local function map(mode, lhs, rhs)
 	vim.keymap.set(mode, lhs, rhs, { silent = true })
 end
 
+local function close_current_buffer()
+	local current_buf = vim.api.nvim_get_current_buf()
+	vim.api.nvim_buf_delete(current_buf, { force = true })
+end
+
 -- Remapear teclas de navegação
 
 -- left
@@ -52,14 +57,8 @@ map("n", "<leader>tv", "<CMD>ToggleTerm size=80 direction=vertical<CR>")
 map("n", "<leader>m", "<CMD>MarkdownPreview<CR>")
 map("n", "<leader>mn", "<CMD>MarkdownPreviewStop<CR>")
 
--- Atalho de teclado para fechar buffer
-map("n", "<leader>cc", ":bdelete<CR>", { noremap = true, silent = true })
-
 -- Atalho de teclado para PackerSync
 map("n", "<leader>ps", ":PackerSync<CR>", { noremap = true, silent = true })
-
--- Atalho de teclado para fechar buffer
-map("n", "<leader>c", ":BufferClose<CR>", { noremap = true, silent = true })
 
 -- Atalho lazygit
 map("n", "<leader>lg", ":LazyGit<CR>", { noremap = true, silent = true })
