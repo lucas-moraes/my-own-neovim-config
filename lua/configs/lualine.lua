@@ -13,7 +13,6 @@ function _G.close_current_buffer()
 		vim.cmd("buffer " .. alt_buf)
 	end
 	vim.api.nvim_buf_delete(current_buf, { force = true })
-	-- Atualiza o lualine após fechar o buffer
 	require("lualine").refresh()
 end
 
@@ -33,7 +32,11 @@ local function buffer_list()
 	for _, buf in ipairs(buffers) do
 		if vim.api.nvim_buf_is_loaded(buf) then
 			local buf_name = vim.fn.fnamemodify(vim.api.nvim_buf_get_name(buf), ":t")
-			if not buf_name:match("neo%-tree filesystem") then
+			if
+				not buf_name:match("neo%-tree filesystem")
+				and not buf_name:match("toggleterm")
+				and not buf_name:match(" | ")
+			then
 				if vim.bo[buf].modified then
 					buf_name = buf_name .. unsaved_icon
 				end
@@ -66,10 +69,10 @@ require("lualine").setup({
 		section_separators = { left = "", right = "" },
 		component_separators = { left = "", right = "" },
 		disabled_filetypes = {
-			statusline = { "neo-tree", "neo-tree filesystem [1]" },
-			winbar = { "neo-tree", "neo-tree filesystem [1]" },
+			statusline = { "neo-tree", "neo-tree filesystem [1]", "toggleterm" },
+			winbar = { "neo-tree", "packer", "neo-tree filesystem [1]", "toggleterm" },
 		},
-		ignore_focus = { "neo-tree", "neo-tree filesystem [1]" },
+		ignore_focus = { "neo-tree", "packer", "neo-tree filesystem [1]", "toggleterm" },
 		always_divide_middle = true,
 		globalstatus = false,
 		refresh = {
