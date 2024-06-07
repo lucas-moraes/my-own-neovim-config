@@ -69,8 +69,14 @@ map("n", "<leader>wqa", ":wqa!<CR>", { noremap = true, silent = true })
 -- Atalho para salvar e sair de tudo
 map("n", "<leader>qa", ":qa!<CR>", { noremap = true, silent = true })
 
+-- Atalho para salvar tudo
+map("n", "<leader>wa", ":wa<CR>", { noremap = true, silent = true })
+
 -- Atalho para dar refresh no neovim
 map("n", "<leader>r", ":source $MYVIMRC<CR>", { noremap = true, silent = true })
+
+-- Atalho para fechar buffer
+map("n", "<leader>cc", ":lua close_current_buffer()<CR>", { noremap = true, silent = true })
 
 -- Exit insert mode
 map("i", "jk", "<ESC>")

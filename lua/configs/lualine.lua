@@ -17,8 +17,6 @@ function _G.close_current_buffer()
 	require("lualine").refresh()
 end
 
-vim.api.nvim_set_keymap("n", "<leader>cc", ":lua close_current_buffer()<CR>", { noremap = true, silent = true })
-
 vim.cmd([[
   highlight LualineBufferActive guifg=#ffffff guibg=#5f00af
   highlight LualineBufferInactive guifg=#999999 guibg=#3a3a3a
