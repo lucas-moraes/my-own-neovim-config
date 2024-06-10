@@ -18,10 +18,24 @@ return require("packer").startup(function(use)
 	use("nvim-tree/nvim-web-devicons")
 
 	-- Colorschema
+	-- use({
+	-- "rebelot/kanagawa.nvim",
+	-- config = function()
+	-- require("configs.theme-kanagawa")
+	-- end,
+	-- })
+
+	-- use({
+	-- "AlexvZyl/nordic.nvim",
+	-- config = function()
+	-- require("configs.theme-nordic")
+	-- end,
+	-- })
+
 	use({
-		"rebelot/kanagawa.nvim",
+		"scottmckendry/cyberdream.nvim",
 		config = function()
-			require("configs.kanagawa")
+			require("configs.theme-cyberdream")
 		end,
 	})
 
@@ -66,8 +80,6 @@ return require("packer").startup(function(use)
 			require("configs.treesitter")
 		end,
 	})
-
-	use({ "windwp/nvim-ts-autotag", after = "nvim-treesitter" })
 
 	-- Telescope
 	use({
