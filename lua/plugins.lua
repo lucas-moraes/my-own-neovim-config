@@ -17,28 +17,6 @@ return require("packer").startup(function(use)
 	-- Icons
 	use("nvim-tree/nvim-web-devicons")
 
-	-- Colorschema
-	-- use({
-	-- "rebelot/kanagawa.nvim",
-	-- config = function()
-	-- require("configs.theme-kanagawa")
-	-- end,
-	-- })
-
-	-- use({
-	-- "AlexvZyl/nordic.nvim",
-	-- config = function()
-	-- require("configs.theme-nordic")
-	-- end,
-	-- })
-
-	use({
-		"scottmckendry/cyberdream.nvim",
-		config = function()
-			require("configs.theme-cyberdream")
-		end,
-	})
-
 	use({
 		"numToStr/Comment.nvim",
 		config = function()
