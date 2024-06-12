@@ -47,7 +47,7 @@ local function buffer_list()
 	end
 
 	if #buffer_names == 0 then
-		return "%#LualineBufferInactive# No buffers %*"
+		return "%#LualineBufferInactive# No buffers "
 	end
 
 	return table.concat(buffer_names, "%*" .. " | " .. "%*")
