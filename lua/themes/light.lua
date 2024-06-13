@@ -1,12 +1,15 @@
 local theme = {}
 
 theme.base0A = "#dadddb"
+theme.base0B = "#ccccf2"
 theme.base00 = "#f3f6f4"
 theme.base01 = "#ff3b30"
 theme.base02 = "#FF9500"
 theme.base03 = "#3cad50"
 theme.base04 = "#007AAF"
-theme.base05 = "#5856D6"
+theme.base05 = "#6866da"
+theme.base06 = "#abaaea"
+theme.base07 = "#2c2b6b"
 
 function theme.setup()
 	vim.cmd("highlight clear")
@@ -14,18 +17,27 @@ function theme.setup()
 	vim.o.background = "light"
 
 	-- Define highlights
-	vim.api.nvim_set_hl(0, "Normal", { bg = theme.base00 })
-	vim.api.nvim_set_hl(0, "NormalNC", { bg = theme.base00 })
+	vim.api.nvim_set_hl(0, "Normal", { bg = "#fffef5" })
+	vim.api.nvim_set_hl(0, "NormalNC", { bg = "#f3f6f4" })
 	vim.api.nvim_set_hl(0, "EndOfBuffer", { bg = "NONE" })
-	vim.api.nvim_set_hl(0, "Comment", { fg = theme.base04, italic = true })
-	vim.api.nvim_set_hl(0, "Constant", { fg = theme.base02 })
-
-	-- Adicione mais definições de highlights conforme necessário
-	vim.api.nvim_set_hl(0, "Function", { fg = theme.base01 })
-	vim.api.nvim_set_hl(0, "Identifier", { fg = theme.base01 })
-	vim.api.nvim_set_hl(0, "String", { fg = theme.base04 })
-	vim.api.nvim_set_hl(0, "Type", { fg = theme.base02 })
-	vim.api.nvim_set_hl(0, "Keyword", { fg = theme.base01, bold = true })
+	vim.api.nvim_set_hl(0, "Comment", { fg = "#abaaea", italic = true })
+	-- constants
+	vim.api.nvim_set_hl(0, "Constant", { fg = "#ff9500" })
+	vim.api.nvim_set_hl(0, "String", { fg = "#ff9500" })
+	vim.api.nvim_set_hl(0, "Character", { fg = "#ff9500" })
+	vim.api.nvim_set_hl(0, "Number", { fg = "#FF9500" })
+	vim.api.nvim_set_hl(0, "Boolean", { fg = "#FF9500" })
+	vim.api.nvim_set_hl(0, "Float", { fg = "#FF9500" })
+	-- indicators
+	vim.api.nvim_set_hl(0, "Identifier", { fg = "#6866da" })
+	vim.api.nvim_set_hl(0, "Function", { fg = "#6866da" })
+	vim.api.nvim_set_hl(0, "TSFunction", { fg = "#6866da" })
+	vim.api.nvim_set_hl(0, "TSMethod", { fg = "#6866da" })
+	vim.api.nvim_set_hl(0, "TSConstructor", { fg = "#61afef" })
+	vim.api.nvim_set_hl(0, "TSParameter", { fg = "#61afef" })
+	vim.api.nvim_set_hl(0, "TSParameterReference", { fg = "#61afef" })
+	vim.api.nvim_set_hl(0, "TSVariable", { fg = "#61afef" })
+	vim.api.nvim_set_hl(0, "TSVariableBuiltin", { fg = "#61afef" })
 
 	-- NeoTree
 	vim.api.nvim_set_hl(0, "NeoTreeRootName", { fg = theme.base04, bold = true })

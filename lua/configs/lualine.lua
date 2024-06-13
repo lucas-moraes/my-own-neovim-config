@@ -50,7 +50,7 @@ local function buffer_list()
 		return "%#LualineBufferInactive# No buffers "
 	end
 
-	return table.concat(buffer_names, "%*" .. " | " .. "%*")
+	return table.concat(buffer_names, "%*" .. " " .. "%*")
 end
 
 local function left_separator()
@@ -58,10 +58,46 @@ local function left_separator()
 	return separator
 end
 
+local function right_separator()
+	local separator = "   "
+	return separator
+end
+
 require("lualine").setup({
 	options = {
 		icons_enabled = true,
-		theme = "horizon",
+		theme = {
+			normal = {
+				a = { fg = "#282a36", bg = "#bd93f9", gui = "bold" },
+				b = { fg = "#282a36", bg = "#d7befb" },
+				c = { fg = "#282a36", bg = "#ebdefd" },
+			},
+			insert = {
+				a = { fg = "#282a36", bg = "#50fa7b", gui = "bold" },
+				b = { fg = "#282a36", bg = "#96fcaf" },
+				c = { fg = "#282a36", bg = "#dcfee4" },
+			},
+			visual = {
+				a = { fg = "#282a36", bg = "#ffb86c", gui = "bold" },
+				b = { fg = "#282a36", bg = "#ffdbb5" },
+				c = { fg = "#282a36", bg = "#fff0e1" },
+			},
+			replace = {
+				a = { fg = "#282a36", bg = "#ff5555", gui = "bold" },
+				b = { fg = "#282a36", bg = "#ff9999" },
+				c = { fg = "#282a36", bg = "#ffdddd" },
+			},
+			command = {
+				a = { fg = "#282a36", bg = "#8be9fd", gui = "bold" },
+				b = { fg = "#282a36", bg = "#c5f4fe" },
+				c = { fg = "#282a36", bg = "#e7fafe" },
+			},
+			inactive = {
+				a = { fg = "#f8f8f2", bg = "NONE", gui = "bold" },
+				b = { fg = "#f8f8f2", bg = "NONE" },
+				c = { fg = "#f8f8f2", bg = "NONE" },
+			},
+		},
 		section_separators = { left = "", right = "" },
 		component_separators = { left = "", right = "" },
 		disabled_filetypes = {
@@ -97,14 +133,14 @@ require("lualine").setup({
 	winbar = {
 		lualine_a = { left_separator },
 		lualine_b = { buffer_list },
-		lualine_c = {},
+		lualine_c = { right_separator },
 		lualine_x = {},
 		lualine_y = {},
 		lualine_z = {},
 	},
 	inactive_winbar = {
-		lualine_a = { left_separator },
-		lualine_b = { buffer_list },
+		lualine_a = {},
+		lualine_b = {},
 		lualine_c = {},
 		lualine_x = {},
 		lualine_y = {},

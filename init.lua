@@ -1,4 +1,4 @@
 require("settings")
 require("plugins")
-require("theme").setup()
+require("themes.light").setup()
 require("maps")
