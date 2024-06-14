@@ -38,13 +38,18 @@ return require("packer").startup(function(use)
 	use("mg979/vim-visual-multi")
 	use("terryma/vim-multiple-cursors")
 
-	-- Statusline
+	-- lualine
 	use({
 		"nvim-lualine/lualine.nvim",
 		event = "BufEnter",
 		config = function()
-			require("configs.lualine")
+			require("configs.lualine.light")
 		end,
+		--[[
+    config = function()
+		  require("configs.lualine.dark")
+		end,
+    ]]
 		requires = { "nvim-web-devicons" },
 	})
 
