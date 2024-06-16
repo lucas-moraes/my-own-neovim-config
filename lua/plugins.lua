@@ -42,14 +42,14 @@ return require("packer").startup(function(use)
 	use({
 		"nvim-lualine/lualine.nvim",
 		event = "BufEnter",
-		config = function()
-			require("configs.lualine.light")
-		end,
 		--[[
     config = function()
-		  require("configs.lualine.dark")
+			require("configs.lualine.light")
 		end,
     ]]
+		config = function()
+			require("configs.lualine.dark")
+		end,
 		requires = { "nvim-web-devicons" },
 	})
 

@@ -9,6 +9,14 @@ function theme.setup()
 	vim.api.nvim_set_hl(0, "NormalNC", { bg = "#fafeff" })
 	vim.api.nvim_set_hl(0, "EndOfBuffer", { bg = "#fafeff" })
 
+	-- Indent
+	vim.o.list = true
+
+	vim.o.listchars = "space:·,eol:↴,tab:│ ,trail:·,extends:>,precedes:<,conceal:┊,nbsp:+"
+
+	vim.api.nvim_set_hl(0, "Whitespace", { fg = "#d3d3d3" }) -- cor para os caracteres de espaços e tabulações
+	vim.api.nvim_set_hl(0, "NonText", { fg = "#d3d3d3" }) -- cor para caracteres eol, trail, extends, precedes
+
 	-- NeoTree
 	vim.api.nvim_set_hl(0, "NeoTreeRootName", { fg = "#007AAF", bold = true })
 	vim.api.nvim_set_hl(0, "NeoTreeDirectoryIcon", { fg = "#FF9500" })

@@ -73,12 +73,12 @@ require("lualine").setup({
 				c = { fg = "#f8f8f2", bg = "#282a36" },
 			},
 			insert = {
-				a = { fg = "#f8f8f2", bg = "#206431", gui = "bold" },
+				a = { fg = "#104c00", bg = "#38ff00", gui = "bold" },
 				b = { fg = "#f8f8f2", bg = "#3b4048" },
 				c = { fg = "#f8f8f2", bg = "#282a36" },
 			},
 			visual = {
-				a = { fg = "#f8f8f2", bg = "#7f5c36", gui = "bold" },
+				a = { fg = "#4c4100", bg = "#ffd900", gui = "bold" },
 				b = { fg = "#f8f8f2", bg = "#3b4048" },
 				c = { fg = "#f8f8f2", bg = "#282a36" },
 			},

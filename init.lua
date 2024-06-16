@@ -1,5 +1,5 @@
 require("settings")
 require("plugins")
+require("themes.dark").setup()
 -- require("themes.light").setup()
-require("themes.light").setup()
 require("maps")
