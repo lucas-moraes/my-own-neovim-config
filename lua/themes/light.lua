@@ -1,13 +1,15 @@
 local theme = {}
 
 function theme.setup()
+	vim.o.termguicolors = true
+
 	vim.cmd("highlight clear")
 	vim.cmd("syntax reset")
 	vim.o.background = "light"
 
-	vim.api.nvim_set_hl(0, "Normal", { bg = "#fafeff" })
-	vim.api.nvim_set_hl(0, "NormalNC", { bg = "#fafeff" })
-	vim.api.nvim_set_hl(0, "EndOfBuffer", { bg = "#fafeff" })
+	vim.api.nvim_set_hl(0, "Normal", { fg = "#6e6e6e", bg = "#f3f6f4" })
+	vim.api.nvim_set_hl(0, "NormalNC", { bg = "#f3f6f4" })
+	vim.api.nvim_set_hl(0, "EndOfBuffer", { bg = "#f3f6f4" })
 
 	-- Indent
 	vim.o.list = true
@@ -71,8 +73,8 @@ function theme.setup()
 	vim.api.nvim_set_hl(0, "Exception", { fg = "#a626a4", bold = true })
 
 	-- Tipos e Classes
-	vim.api.nvim_set_hl(0, "Type", { fg = "#50a14f" })
-	vim.api.nvim_set_hl(0, "StorageClass", { fg = "#50a14f" })
+	vim.api.nvim_set_hl(0, "Type", { fg = "#3cad50" })
+	vim.api.nvim_set_hl(0, "StorageClass", { fg = "#3cad50" })
 	vim.api.nvim_set_hl(0, "Structure", { fg = "#50a14f" })
 	vim.api.nvim_set_hl(0, "Typedef", { fg = "#50a14f" })
 

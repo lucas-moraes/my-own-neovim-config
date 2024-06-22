@@ -30,6 +30,13 @@ return require("packer").startup(function(use)
 	})
 
 	use({
+		"mhartington/formatter.nvim",
+		config = function()
+			require("configs.formatter")
+		end,
+	})
+
+	use({
 		"neoclide/coc.nvim",
 		branch = "release",
 	})
@@ -173,7 +180,14 @@ return require("packer").startup(function(use)
 	use({
 		"windwp/nvim-autopairs",
 		config = function()
-			require("configs.autopairs")
+			require("nvim-autopairs").setup()
+		end,
+	})
+
+	use({
+		"m4xshen/autoclose.nvim",
+		config = function()
+			require("autoclose").setup()
 		end,
 	})
 
