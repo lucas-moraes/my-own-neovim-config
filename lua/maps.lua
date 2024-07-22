@@ -78,6 +78,9 @@ map("n", "<leader>r", ":source $MYVIMRC<CR>", { noremap = true, silent = true })
 -- Atalho para fechar buffer
 map("n", "<leader>cc", ":lua close_current_buffer()<CR>", { noremap = true, silent = true })
 
+-- Atalho para formatar o código
+vim.api.nvim_set_keymap("n", "<leader>cf", ":Format<CR>", { noremap = true, silent = true })
+
 -- Exit insert mode
 map("i", "jk", "<ESC>")
 
