@@ -61,7 +61,10 @@ map("n", "<leader>mn", "<CMD>MarkdownPreviewStop<CR>")
 map("n", "<leader>ps", ":PackerSync<CR>", { noremap = true, silent = true })
 
 -- Atalho lazygit
-map("n", "<leader>lg", ":LazyGit<CR>", { noremap = true, silent = true })
+-- map("n", "<leader>lg", ":LazyGit<CR>", { noremap = true, silent = true })
+
+-- Atalho lazydocker
+-- map("n", "<leader>ld", ":LazyDocker<CR>", { noremap = true, silent = true })
 
 -- Atalho para sair de tudo
 map("n", "<leader>wqa", ":wqa!<CR>", { noremap = true, silent = true })

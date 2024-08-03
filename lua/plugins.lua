@@ -209,6 +209,14 @@ return require("packer").startup(function(use)
 		end,
 	})
 
+	use({
+		"mgierada/lazydocker.nvim",
+		drequires = { "akinsho/toggleterm.nvim" },
+		config = function()
+			require("lazydocker").setup({})
+		end,
+	})
+
 	-- nvim v0.7.2
 	use({
 		"kdheepak/lazygit.nvim",
