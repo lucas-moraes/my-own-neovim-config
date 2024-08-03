@@ -20,6 +20,12 @@ end
 
 local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
+-- JavaScript / TypeScript
+nvim_lsp.tsserver.setup({
+	on_attach = on_attach,
+	capabilities = capabilities,
+})
+
 -- CSS
 nvim_lsp.cssls.setup({
 	on_attach = on_attach,
