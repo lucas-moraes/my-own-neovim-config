@@ -21,9 +21,9 @@
 
 ### Principals commands:
 
-- <space> + ps: Install and sync plugins
-- <space> + qa: Close all buffers
-- <space> + cc: Close current buffer
-- <space> + wa: Save all files
-- <space> + w: Save current file
-- <space> + q: Quit neovim
+- `<space> + ps`: Install and sync plugins
+- `<space> + qa`: Close all buffers
+- `<space> + cc`: Close current buffer
+- `<space> + wa`: Save all files
+- `<space> + w`: Save current file
+- `<space> + q`: Quit neovim
