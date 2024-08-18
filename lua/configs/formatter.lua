@@ -98,12 +98,11 @@ formatter.setup({
 			end,
 		},
 		prisma = {
-			-- prisma-fmt
 			function()
 				return {
-					exe = "prisma-fmt",
-					args = { "--stdin" },
-					stdin = true,
+					exe = "prisma",
+					args = { "format", "--schema", vim.api.nvim_buf_get_name(0) },
+					stdin = false,
 				}
 			end,
 		},
