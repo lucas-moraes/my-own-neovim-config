@@ -97,6 +97,15 @@ formatter.setup({
 				}
 			end,
 		},
+		prisma = {
+			function()
+				return {
+					exe = "prisma",
+					args = { "format", "--schema", vim.api.nvim_buf_get_name(0) },
+					stdin = false,
+				}
+			end,
+		},
 	},
 })
 
@@ -106,6 +115,16 @@ vim.api.nvim_exec(
   augroup FormatAutogroup
     autocmd!
     autocmd BufWritePost *.css FormatWrite
+  augroup END
+]],
+	true
+)
+
+vim.api.nvim_exec(
+	[[
+  augroup FormatAutogroup
+    autocmd!
+    autocmd BufWritePost *.prisma FormatWrite
   augroup END
 ]],
 	true

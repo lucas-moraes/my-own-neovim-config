@@ -25,6 +25,11 @@ return require("packer").startup(function(use)
 	-- Common utilities
 	use("nvim-lua/plenary.nvim")
 
+	-- Prisma File manager
+	use({
+		"pantharshit00/vim-prisma",
+	})
+
 	-- Icons
 	use("nvim-tree/nvim-web-devicons")
 
