@@ -102,7 +102,11 @@ return require("packer").startup(function(use)
 		end,
 	})
 
-	use("onsails/lspkind-nvim")
+	use({ "onsails/lspkind-nvim" })
+
+	use({ "windwp/nvim-ts-autotag" })
+
+	use({ "weilbith/nvim-code-action-menu" })
 
 	use({
 		"L3MON4D3/LuaSnip",
@@ -188,21 +192,6 @@ return require("packer").startup(function(use)
 		"iamcco/markdown-preview.nvim",
 		run = function()
 			vim.fn["mkdp#util#install"]()
-		end,
-	})
-
-	-- Auto pairs
-	use({
-		"windwp/nvim-autopairs",
-		config = function()
-			require("nvim-autopairs").setup()
-		end,
-	})
-
-	use({
-		"m4xshen/autoclose.nvim",
-		config = function()
-			require("autoclose").setup()
 		end,
 	})
 

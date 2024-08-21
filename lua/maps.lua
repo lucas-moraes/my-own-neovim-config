@@ -115,15 +115,17 @@ map("n", "<C-d>", "<Plug>(multiple-cursors-find)", {})
 map("v", "<C-d>", "<Plug>(multiple-cursors-find)", {})
 map("i", "<C-d>", "<Plug>(multiple-cursors-find)", {})
 
--- Mover linha para baixo
-map("n", "<A-k>", ":m .+1<CR>==", { noremap = true, silent = true })
-map("i", "<A-k>", "<Esc>:m .+1<CR>==gi", { noremap = true, silent = true })
-map("v", "<A-k>", ":m '>+1<CR>gv=gv", { noremap = true, silent = true })
+-- Mover linha para baixo no modo normal
+vim.api.nvim_set_keymap("n", "<C-S-j>", ":m .+1<CR>==", { noremap = true, silent = true })
 
--- Mover linha para cima
-map("n", "<A-i>", ":m .-2<CR>==", { noremap = true, silent = true })
-map("i", "<A-i>", "<Esc>:m .-2<CR>==gi", { noremap = true, silent = true })
-map("v", "<A-i>", ":m '<-2<CR>gv=gv", { noremap = true, silent = true })
+-- Mover linha para cima no modo normal
+vim.api.nvim_set_keymap("n", "<C-S-k>", ":m .-2<CR>==", { noremap = true, silent = true })
+
+-- Mover linha para baixo no modo visual
+vim.api.nvim_set_keymap("v", "<C-S-j>", ":m '>+1<CR>gv=gv", { noremap = true, silent = true })
+
+-- Mover linha para cima no modo visual
+vim.api.nvim_set_keymap("v", "<C-S-k>", ":m '<-2<CR>gv=gv", { noremap = true, silent = true })
 
 --toggle fold
 map("n", "<A-t>", "za", { noremap = true, silent = true })

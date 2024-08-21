@@ -10,7 +10,7 @@ local t = ls.text_node
 -- React default function
 ls.add_snippets("javascriptreact", {
 	s("rdf", {
-		t({ "export default function ReactDefaultFunction() {", "  return (<div></div>;", "}" }),
+		t({ "export default function ReactDefaultFunction() {", "  return (<div></div>);", "}" }),
 	}),
 })
 
@@ -32,6 +32,34 @@ ls.add_snippets("javascriptreact", {
 ls.add_snippets("typescriptreact", {
 	s("raf", {
 		t({ "export default const ReactArrowFunction = () => {", "  return (<div>, </div>);", "}" }),
+	}),
+})
+
+-- React function
+ls.add_snippets("javascriptreact", {
+	s("f", {
+		t({ "export function ReactFunction() {", " console.log('hi');", "}" }),
+	}),
+})
+
+-- React function
+ls.add_snippets("typescriptreact", {
+	s("f", {
+		t({ "export function ReactFunction() :void {", "  console.log('hi');", "}" }),
+	}),
+})
+
+-- console log
+ls.add_snippets("javascriptreact", {
+	s("cl", {
+		t({ "console.log(`=>`, 'hi')" }),
+	}),
+})
+
+-- console log
+ls.add_snippets("typescriptreact", {
+	s("cl", {
+		t({ "console.log(`=>`, 'hi')" }),
 	}),
 })
 
