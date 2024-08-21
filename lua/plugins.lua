@@ -41,11 +41,6 @@ return require("packer").startup(function(use)
 	})
 
 	use({
-		"jwalton512/vim-blade",
-		ft = { "blade" },
-	})
-
-	use({
 		"mhartington/formatter.nvim",
 		config = function()
 			require("configs.formatter")
@@ -108,10 +103,14 @@ return require("packer").startup(function(use)
 	})
 
 	use("onsails/lspkind-nvim")
+
 	use({
 		"L3MON4D3/LuaSnip",
 		-- follow latest release.
-		tag = "*",
+		tag = "v2.*",
+		config = function()
+			require("configs.luasnip")
+		end,
 	})
 
 	-- cmp: Autocomplete
