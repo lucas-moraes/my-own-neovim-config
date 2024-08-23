@@ -1,3 +1,5 @@
+local wk = require("which-key")
+
 local function map(mode, lhs, rhs)
 	vim.keymap.set(mode, lhs, rhs, { silent = true })
 end
@@ -21,71 +23,94 @@ map("n", "i", "k", { noremap = true, silent = true })
 -- edit
 map("n", "e", "i", { noremap = true, silent = true })
 
--- leader key
-
 -- Telescope
 local status, telescope = pcall(require, "telescope.builtin")
 if status then
-	map("n", "<leader>ff", telescope.find_files)
-	map("n", "<leader>fg", telescope.live_grep)
-	map("n", "<leader>fb", telescope.buffers)
-	map("n", "<leader>fh", telescope.help_tags)
-	map("n", "<leader>fs", telescope.git_status)
-	map("n", "<leader>fc", telescope.git_commits)
+	wk.add({
+		{ "<leader>f", group = "Telescope" },
+		{ "<leader>ff", telescope.find_files, desc = "Telescope Find Files" },
+		{ "<leader>fg", telescope.live_grep, desc = "Telescope Live Grep" },
+		{ "<leader>fb", telescope.buffers, desc = "Telescope Buffers" },
+		{ "<leader>fh", telescope.help_tags, desc = "Telescope Help Tags" },
+		{ "<leader>fo", telescope.lsp_document_diagnostics, desc = "Telescope LSP Document Diagnostics" },
+		{ "<leader>ft", telescope.lsp_workspace_diagnostics, desc = "Telescope LSP Workspace Diagnostics" },
+		{ "<leader>fm", telescope.lsp_implementations, desc = "Telescope LSP Implementations" },
+		{ "<leader>fq", telescope.quickfix, desc = "Telescope Quickfix" },
+		{ "<leader>fl", telescope.loclist, desc = "Telescope Loclist" },
+		{ "<leader>fp", telescope.project, desc = "Telescope Project" },
+		{ "<leader>fw", telescope.file_browser, desc = "Telescope File Browser" },
+		{ "<leader>ft", telescope.filetypes, desc = "Telescope Filetypes" },
+		{ "<leader>fk", telescope.keymaps, desc = "Telescope Keymaps" },
+		{ "<leader>fo", telescope.oldfiles, desc = "Telescope Oldfiles" },
+		{ "<leader>fh", telescope.help_tags, desc = "Telescope Help Tags" },
+		{ "<leader>fs", telescope.search_history, desc = "Telescope Search History" },
+		{ "<leader>fc", telescope.commands, desc = "Telescope Commands" },
+	})
 else
 	print("Telescope not found")
 end
 
 -- Save
-map("n", "<leader>w", "<CMD>update<CR>")
+wk.add({
+	{ "<leader>w", "<CMD>update<CR>", desc = "Save this file" },
+	{ "<leader>wa", ":wa<CR>", desc = "Save all files" },
+	{ "<leader>wqa", ":wqa!<CR>", desc = "Save and quit all" },
+})
 
 -- Quit
-map("n", "<leader>q", "<CMD>q<CR>")
+wk.add({
+	{ "<leader>q", "<CMD>q<CR>", desc = "Quit" },
+	{ "<leader>qa", "<CMD>qa!<CR>", desc = "Quit all" },
+})
 
 -- Windows
-map("n", "<leader>|", "<CMD>vsplit<CR>")
-map("n", "<leader>-", "<CMD>split<CR>")
+wk.add({
+	{ "<leader>|", "<CMD>vsplit<CR>", desc = "Window vertical split" },
+	{ "<leader>-", "<CMD>split<CR>", desc = "window horizontal split" },
+})
 
 -- NeoTree
-map("n", "<leader>e", "<CMD>Neotree toggle<CR>")
+wk.add({
+	{ "<leader>e", "<CMD>Neotree toggle<CR>", desc = "Toggle Neotree" },
+})
 
 -- Terminal
-map("n", "<leader>th", "<CMD>ToggleTerm size=10 direction=horizontal<CR>")
-map("n", "<leader>tv", "<CMD>ToggleTerm size=80 direction=vertical<CR>")
+wk.add({
+	{ "<leader>th", "<CMD>ToggleTerm size=10 direction=horizontal<CR>", desc = "Terminal Toggle horizontal" },
+	{ "<leader>tv", "<CMD>ToggleTerm size=80 direction=vertical<CR>", desc = "Terminal Toggle vertical" },
+})
 
 -- Markdown Preview
-map("n", "<leader>m", "<CMD>MarkdownPreview<CR>")
-map("n", "<leader>mn", "<CMD>MarkdownPreviewStop<CR>")
+wk.add({
+	{ "<leader>m", "<CMD>MarkdownPreview<CR>", desc = "Markdown Preview" },
+	{ "<leader>mn", "<CMD>MarkdownPreviewStop<CR>", desc = "Markdown Preview Stop" },
+})
 
 -- Atalho de teclado para PackerSync
-map("n", "<leader>ps", ":PackerSync<CR>", { noremap = true, silent = true })
+wk.add({
+	{ "<leader>ps", "<CMD>PackerSync<CR>", desc = "PackerSync" },
+})
 
 -- Atalho lazygit
--- map("n", "<leader>lg", ":LazyGit<CR>", { noremap = true, silent = true })
+map("n", "<leader>lg", ":LazyGit<CR>", { noremap = true, silent = true })
 
 -- Atalho lazydocker
 -- map("n", "<leader>ld", ":LazyDocker<CR>", { noremap = true, silent = true })
 
--- Atalho para sair de tudo
-map("n", "<leader>wqa", ":wqa!<CR>", { noremap = true, silent = true })
-
 -- Atalho para salvar e sair de tudo
-map("n", "<leader>qa", ":qa!<CR>", { noremap = true, silent = true })
-
--- Atalho para salvar tudo
-map("n", "<leader>wa", ":wa<CR>", { noremap = true, silent = true })
-
--- Atalho para dar refresh no neovim
-map("n", "<leader>r", ":source $MYVIMRC<CR>", { noremap = true, silent = true })
+wk.add({
+	{ "<leader>qa", "<CMD>qa!<CR>", desc = "Save and quit all" },
+})
 
 -- Atalho para fechar buffer
-map("n", "<leader>cc", ":lua close_current_buffer()<CR>", { noremap = true, silent = true })
+wk.add({
+	{ "<leader>cc", ":lua close_current_buffer()<CR>", desc = "Close current buffer" },
+})
 
 -- Atalho para formatar o código
-vim.api.nvim_set_keymap("n", "<leader>cf", ":Format<CR>", { noremap = true, silent = true })
-
--- Exit insert mode
-map("i", "jk", "<ESC>")
+wk.add({
+	{ "<leader>cf", ":Format<CR>", desc = "Format code" },
+})
 
 -- Buffer
 map("n", "<BS>", "<CMD>bnext<CR>")
@@ -112,20 +137,14 @@ vim.g.VM_maps = {
 -- Configuração do vim-multiple-cursors
 vim.g.multi_cursor_use_default_mapping = 0
 map("n", "<C-d>", "<Plug>(multiple-cursors-find)", {})
-map("v", "<C-d>", "<Plug>(multiple-cursors-find)", {})
-map("i", "<C-d>", "<Plug>(multiple-cursors-find)", {})
 
 -- Mover linha para baixo no modo normal
-vim.api.nvim_set_keymap("n", "<C-S-j>", ":m .+1<CR>==", { noremap = true, silent = true })
+vim.api.nvim_set_keymap("v", "<C-k-k>", ":m '>+1<CR>gv=gv", { noremap = true, silent = true })
+vim.api.nvim_set_keymap("n", "<C-k-k>", ":m .+1<CR>==", { noremap = true, silent = true })
 
 -- Mover linha para cima no modo normal
-vim.api.nvim_set_keymap("n", "<C-S-k>", ":m .-2<CR>==", { noremap = true, silent = true })
-
--- Mover linha para baixo no modo visual
-vim.api.nvim_set_keymap("v", "<C-S-j>", ":m '>+1<CR>gv=gv", { noremap = true, silent = true })
-
--- Mover linha para cima no modo visual
-vim.api.nvim_set_keymap("v", "<C-S-k>", ":m '<-2<CR>gv=gv", { noremap = true, silent = true })
+vim.api.nvim_set_keymap("n", "<C-i-i>", ":m .-2<CR>==", { noremap = true, silent = true })
+vim.api.nvim_set_keymap("v", "<C-i-i>", ":m '<-2<CR>gv=gv", { noremap = true, silent = true })
 
 --toggle fold
 map("n", "<A-t>", "za", { noremap = true, silent = true })
