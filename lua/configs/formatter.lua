@@ -87,16 +87,6 @@ formatter.setup({
 				}
 			end,
 		},
-		php = {
-			-- intelephense
-			function()
-				return {
-					exe = "intelephense",
-					args = { "--stdin-filepath", vim.api.nvim_buf_get_name(0) },
-					stdin = true,
-				}
-			end,
-		},
 		prisma = {
 			function()
 				return {

@@ -96,19 +96,6 @@ function theme.setup()
 	vim.api.nvim_set_hl(0, "TSXAttribute", { fg = "#50a14f" })
 	vim.api.nvim_set_hl(0, "TSXComponent", { fg = "#c41a16" })
 	vim.api.nvim_set_hl(0, "TSXText", { fg = "#000000" })
-
-	-- Interface e UI
-	vim.api.nvim_set_hl(0, "CursorLine", { bg = "#e8e8e8" })
-	vim.api.nvim_set_hl(0, "CursorColumn", { bg = "#e8e8e8" })
-	vim.api.nvim_set_hl(0, "ColorColumn", { bg = "#e8e8e8" })
-	vim.api.nvim_set_hl(0, "LineNr", { fg = "#6e6e6e" })
-	vim.api.nvim_set_hl(0, "CursorLineNr", { fg = "#4078f2" })
-	vim.api.nvim_set_hl(0, "StatusLine", { fg = "#000000", bg = "#e8e8e8" })
-	vim.api.nvim_set_hl(0, "StatusLineNC", { fg = "#6e6e6e", bg = "#f0f0f0" })
-	vim.api.nvim_set_hl(0, "VertSplit", { fg = "#e8e8e8" })
-	vim.api.nvim_set_hl(0, "TabLine", { fg = "#000000", bg = "#f0f0f0" })
-	vim.api.nvim_set_hl(0, "TabLineFill", { bg = "#f0f0f0" })
-	vim.api.nvim_set_hl(0, "TabLineSel", { fg = "#000000", bg = "#e8e8e8" })
 end
 
 return theme

@@ -41,11 +41,6 @@ return require("packer").startup(function(use)
 	})
 
 	use({
-		"jwalton512/vim-blade",
-		ft = { "blade" },
-	})
-
-	use({
 		"mhartington/formatter.nvim",
 		config = function()
 			require("configs.formatter")
@@ -107,11 +102,19 @@ return require("packer").startup(function(use)
 		end,
 	})
 
-	use("onsails/lspkind-nvim")
+	use({ "onsails/lspkind-nvim" })
+
+	use({ "windwp/nvim-ts-autotag" })
+
+	use({ "weilbith/nvim-code-action-menu" })
+
 	use({
 		"L3MON4D3/LuaSnip",
 		-- follow latest release.
-		tag = "*",
+		tag = "v2.*",
+		config = function()
+			require("configs.luasnip")
+		end,
 	})
 
 	-- cmp: Autocomplete
@@ -192,27 +195,14 @@ return require("packer").startup(function(use)
 		end,
 	})
 
-	-- Auto pairs
-	use({
-		"windwp/nvim-autopairs",
-		config = function()
-			require("nvim-autopairs").setup()
-		end,
-	})
-
-	use({
-		"m4xshen/autoclose.nvim",
-		config = function()
-			require("autoclose").setup()
-		end,
-	})
-
 	use({
 		"folke/which-key.nvim",
 		config = function()
-			require("which-key").setup({})
+			require("which-key")
 		end,
 	})
+
+	use({ "echasnovski/mini.nvim", version = false })
 
 	use({
 		"mgierada/lazydocker.nvim",

@@ -6,6 +6,9 @@
 
 - LazyGit: https://github.com/jesseduffield/lazygit
 - LazyDocker: https://github.com/jesseduffield/LazyDocker
+- Packer.nvim: https://github.com/wbthomason/packer.nvim
+- Prettier: https://github.com/prettier/prettier
+- BiomeJS: https://github.com/biomejs/biome
 
 ### Configurations dependencies:
 

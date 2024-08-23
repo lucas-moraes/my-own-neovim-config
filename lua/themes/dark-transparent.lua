@@ -20,6 +20,19 @@ function theme.setup()
 	vim.api.nvim_set_hl(0, "Whitespace", { fg = "#281f4f" })
 	vim.api.nvim_set_hl(0, "NonText", { fg = "#281f4f" })
 
+	-- Interface e UI
+	vim.api.nvim_set_hl(0, "CursorLine", { bg = "#44475a" })
+	vim.api.nvim_set_hl(0, "CursorColumn", { bg = "#44475a" })
+	vim.api.nvim_set_hl(0, "ColorColumn", { bg = "#44475a" })
+	vim.api.nvim_set_hl(0, "LineNr", { fg = "#6272a4" })
+	vim.api.nvim_set_hl(0, "CursorLineNr", { fg = "#f1fa8c" })
+	vim.api.nvim_set_hl(0, "StatusLine", { fg = "#ff9500", bg = "#44475a" })
+	vim.api.nvim_set_hl(0, "StatusLineNC", { fg = "#ff9500", bg = "#282a36" })
+	vim.api.nvim_set_hl(0, "TabLine", { fg = "#f8f8f2", bg = "#282a36" })
+	vim.api.nvim_set_hl(0, "TabLineFill", { bg = "#282a36" })
+	vim.api.nvim_set_hl(0, "TabLineSel", { fg = "#f8f8f2", bg = "#44475a" })
+	vim.api.nvim_set_hl(0, "WinSeparator", { fg = "#bd93f9", bg = "none" })
+
 	-- NeoTree
 	vim.api.nvim_set_hl(0, "NeoTreeRootName", { fg = "#a093d8", bold = true })
 	vim.api.nvim_set_hl(0, "NeoTreeDirectoryIcon", { fg = "#FF9500" })
@@ -36,19 +49,6 @@ function theme.setup()
 	vim.api.nvim_set_hl(0, "NeoTreeEndOfBuffer", { fg = "NONE" })
 	vim.api.nvim_set_hl(0, "NeoTreeCursorLine", { bg = "#281f4f" })
 	vim.api.nvim_set_hl(0, "NeoTreeTitleBar", { fg = "#6866da", bg = "none" })
-
-	-- User Interface
-	vim.api.nvim_set_hl(0, "CursorLine", { bg = "#261e4c" }) -- Linha do cursor
-	vim.api.nvim_set_hl(0, "CursorColumn", { bg = "#3a2d72" }) -- Coluna do cursor
-	vim.api.nvim_set_hl(0, "ColorColumn", { bg = "#261e4c" }) -- Coluna de cores
-	vim.api.nvim_set_hl(0, "LineNr", { fg = "#433585" }) -- Números de linha
-	vim.api.nvim_set_hl(0, "CursorLineNr", { fg = "#fdff00" }) -- Número da linha do cursor
-	vim.api.nvim_set_hl(0, "StatusLine", { fg = "#6866da", bg = "#FF9500" }) -- Linha de status
-	vim.api.nvim_set_hl(0, "StatusLineNC", { fg = "#007AAF", bg = "#ff3b30" }) -- Linha de status não ativa
-	vim.api.nvim_set_hl(0, "VertSplit", { fg = "#FF9500" }) -- Divisões verticais
-	vim.api.nvim_set_hl(0, "TabLine", { fg = "#3cad50", bg = "#ff3b30" }) -- Linha de abas
-	vim.api.nvim_set_hl(0, "TabLineFill", { fg = "#ff3b30", bg = "NONE" }) -- Preenchimento da linha de abas
-	vim.api.nvim_set_hl(0, "TabLineSel", { fg = "#6866da", bg = "#FF9500" }) -- Aba selecionada
 
 	-- Comentários
 	vim.api.nvim_set_hl(0, "Comment", { fg = "#6272a4", italic = true })
@@ -97,19 +97,6 @@ function theme.setup()
 	vim.api.nvim_set_hl(0, "TSXAttribute", { fg = "#8be9fd" })
 	vim.api.nvim_set_hl(0, "TSXComponent", { fg = "#50fa7b" })
 	vim.api.nvim_set_hl(0, "TSXText", { fg = "#f8f8f2" })
-
-	-- Interface e UI
-	vim.api.nvim_set_hl(0, "CursorLine", { bg = "#44475a" })
-	vim.api.nvim_set_hl(0, "CursorColumn", { bg = "#44475a" })
-	vim.api.nvim_set_hl(0, "ColorColumn", { bg = "#44475a" })
-	vim.api.nvim_set_hl(0, "LineNr", { fg = "#6272a4" })
-	vim.api.nvim_set_hl(0, "CursorLineNr", { fg = "#f1fa8c" })
-	vim.api.nvim_set_hl(0, "StatusLine", { fg = "#f8f8f2", bg = "#44475a" })
-	vim.api.nvim_set_hl(0, "StatusLineNC", { fg = "#6272a4", bg = "#282a36" })
-	vim.api.nvim_set_hl(0, "VertSplit", { fg = "#44475a" })
-	vim.api.nvim_set_hl(0, "TabLine", { fg = "#f8f8f2", bg = "#282a36" })
-	vim.api.nvim_set_hl(0, "TabLineFill", { bg = "#282a36" })
-	vim.api.nvim_set_hl(0, "TabLineSel", { fg = "#f8f8f2", bg = "#44475a" })
 end
 
 return theme

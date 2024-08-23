@@ -22,8 +22,21 @@ local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
 -- JavaScript / TypeScript
 nvim_lsp.tsserver.setup({
-	on_attach = on_attach,
-	capabilities = capabilities,
+	on_attach = function(client, bufnr)
+		local opts = { noremap = true, silent = true }
+
+		-- Mapear Ctrl+. para abrir o menu de ações de código
+		vim.api.nvim_buf_set_keymap(bufnr, "n", "<C-.>", "<cmd>CodeActionMenu<CR>", opts)
+
+		-- Mapeamento para ir para a definição (usando <leader>gd)
+		vim.api.nvim_buf_set_keymap(bufnr, "n", "<leader>gd", "<Cmd>lua vim.lsp.buf.definition()<CR>", opts)
+
+		-- Mapeamento para mostrar informações sobre o símbolo (usando <leader>K)
+		vim.api.nvim_buf_set_keymap(bufnr, "n", "<leader>K", "<Cmd>lua vim.lsp.buf.hover()<CR>", opts)
+
+		-- Mapeamento para renomear (usando <leader>rn)
+		vim.api.nvim_buf_set_keymap(bufnr, "n", "<leader>rn", "<Cmd>lua vim.lsp.buf.rename()<CR>", opts)
+	end,
 })
 
 -- CSS
