@@ -20,6 +20,28 @@ end
 
 local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
+-- rust-analyzer
+nvim_lsp.rust_analyzer.setup({
+	on_attach = on_attach,
+	capabilities = capabilities,
+	settings = {
+		["rust-analyzer"] = {
+			checkOnSave = {
+				cargo = {
+					allFeatures = true,
+				},
+				command = "clippy",
+			},
+		},
+	},
+})
+
+-- HTML
+nvim_lsp.html.setup({
+	on_attach = on_attach,
+	capabilities = capabilities,
+})
+
 -- JavaScript / TypeScript
 nvim_lsp.tsserver.setup({
 	on_attach = function(client, bufnr)
@@ -41,18 +63,6 @@ nvim_lsp.tsserver.setup({
 
 -- CSS
 nvim_lsp.cssls.setup({
-	on_attach = on_attach,
-	capabilities = capabilities,
-})
-
--- Tailwind
-nvim_lsp.tailwindcss.setup({
-	on_attach = on_attach,
-	capabilities = capabilities,
-})
-
--- PHP
-nvim_lsp.intelephense.setup({
 	on_attach = on_attach,
 	capabilities = capabilities,
 })

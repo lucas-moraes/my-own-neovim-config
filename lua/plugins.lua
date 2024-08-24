@@ -47,6 +47,30 @@ return require("packer").startup(function(use)
 		end,
 	})
 
+	-- rust-tools
+	use({
+		"simrat39/rust-tools.nvim",
+		config = function()
+			require("rust-tools").setup({})
+		end,
+	})
+
+	-- crates
+	use({
+		"saecki/crates.nvim",
+		config = function()
+			require("crates").setup({})
+		end,
+	})
+
+	-- dap
+	use({
+		"mfussenegger/nvim-dap",
+		config = function()
+			require("configs.dap")
+		end,
+	})
+
 	use({
 		"neoclide/coc.nvim",
 		branch = "release",
