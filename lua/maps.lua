@@ -45,6 +45,7 @@ if status then
 		{ "<leader>fh", telescope.help_tags, desc = "Telescope Help Tags" },
 		{ "<leader>fs", telescope.search_history, desc = "Telescope Search History" },
 		{ "<leader>fc", telescope.commands, desc = "Telescope Commands" },
+		{ "<leader>fr", "<cmd>lua search_and_replace()<CR>", desc = "Telescope find and replace" },
 	})
 else
 	print("Telescope not found")

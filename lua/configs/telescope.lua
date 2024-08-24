@@ -1,4 +1,5 @@
 local status, telescope = pcall(require, "telescope")
+local lga_actions = require("telescope._extensions.live_grep_args.actions")
 
 if not status then
 	return
@@ -52,12 +53,17 @@ telescope.setup({
 		},
 	},
 	extensions = {
-		-- Your extension configuration goes here:
-		-- extension_name = {
-		--   extension_config_key = value,
-		-- }
-		-- please take a look at the readme of the extension you want to configure
+		live_grep_args = {
+			auto_quoting = true, -- Habilita a adição automática de aspas aos argumentos do rg
+			mappings = { -- Extensão de mapeamento para as ações da extensão
+				i = {
+					["<C-k>"] = lga_actions.quote_prompt(), -- Adiciona citações em torno da string de busca
+					["<C-i>"] = lga_actions.quote_prompt({ postfix = " --iglob " }), -- Adiciona citações em torno da string de busca e usa glob para incluir arquivos
+				},
+			},
+		},
 	},
 })
 
 require("telescope").load_extension("fzf")
+require("telescope").load_extension("live_grep_args")

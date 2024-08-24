@@ -60,14 +60,16 @@ return require("packer").startup(function(use)
 	use({
 		"nvim-lualine/lualine.nvim",
 		event = "BufEnter",
-		--[[
-    config = function()
+
+		--[[ config = function()
 			require("configs.lualine.light")
 		end,
     ]]
+
 		config = function()
 			require("configs.lualine.dark")
 		end,
+
 		requires = { "nvim-web-devicons" },
 	})
 
@@ -87,6 +89,14 @@ return require("packer").startup(function(use)
 		"nvim-telescope/telescope.nvim",
 		tag = "0.1.6",
 		requires = { { "nvim-lua/plenary.nvim" } },
+	})
+
+	use({
+		"nvim-telescope/telescope-live-grep-args.nvim",
+		requires = { "nvim-telescope/telescope.nvim" },
+		config = function()
+			require("configs.live-grep-args")
+		end,
 	})
 
 	use({
@@ -160,6 +170,9 @@ return require("packer").startup(function(use)
 			"nvim-tree/nvim-web-devicons",
 			"MunifTanjim/nui.nvim",
 		},
+		config = function()
+			require("configs.neo-tree")
+		end,
 	})
 
 	-- Show colors
