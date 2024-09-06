@@ -21,7 +21,7 @@ end
 local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
 -- JavaScript / TypeScript
-nvim_lsp.tsserver.setup({
+nvim_lsp.ts_ls.setup({
 	on_attach = function(client, bufnr)
 		local opts = { noremap = true, silent = true }
 

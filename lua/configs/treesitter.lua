@@ -6,7 +6,6 @@ end
 ts.setup({
 	highlight = {
 		enable = true,
-		additional_vim_regex_highlighting = false,
 	},
 	context_commentstring = {
 		enable = true,
@@ -21,10 +20,8 @@ ts.setup({
 		"typescript",
 		"javascript",
 		"toml",
-		"c_sharp",
 		"json",
 		"yaml",
-		"rust",
 		"css",
 		"html",
 		"lua",
@@ -32,11 +29,9 @@ ts.setup({
 	},
 	rainbow = {
 		enable = true,
-		disable = { "html" },
 		extended_mode = false,
 		max_file_lines = nil,
 	},
-	autotag = { enable = true },
 	incremental_selection = { enable = true },
 	indent = { enable = true },
 })
