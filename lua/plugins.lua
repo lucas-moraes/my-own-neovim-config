@@ -97,14 +97,17 @@ return require("packer").startup(function(use)
 		requires = { "nvim-web-devicons" },
 	})
 
-	-- Treesitter
 	use({
-		"nvim-treesitter/nvim-treesitter",
-		run = function()
-			require("nvim-treesitter.install").update({ with_sync = true })
-		end,
+		"neoclide/coc/nvim",
+		branch = "release",
+	})
+
+	use({
+		"~/.config/nvim/lua/themes",
 		config = function()
-			require("configs.treesitter")
+			require("themes.dark-transparent").setup()
+			-- require("themes.dark").setup()
+			-- require("themes.light").setup()
 		end,
 	})
 

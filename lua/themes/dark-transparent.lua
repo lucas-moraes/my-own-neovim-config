@@ -50,53 +50,62 @@ function theme.setup()
 	vim.api.nvim_set_hl(0, "NeoTreeCursorLine", { bg = "#281f4f" })
 	vim.api.nvim_set_hl(0, "NeoTreeTitleBar", { fg = "#6866da", bg = "none" })
 
-	-- Comentários
-	vim.api.nvim_set_hl(0, "Comment", { fg = "#6272a4", italic = true })
+	-- Definição de destaques para TypeScript
+	-- Palavras-chave (ex.: const, let, async, function)
+	vim.api.nvim_set_hl(0, "Keyword", { fg = "#ff79c6", bold = true })
+
+	-- Funções
+	vim.api.nvim_set_hl(0, "Function", { fg = "#50fa7b", bold = true })
+
+	-- Variáveis e identificadores
+	vim.api.nvim_set_hl(0, "Identifier", { fg = "#8be9fd" })
+
+	-- Parâmetros de função
+	vim.api.nvim_set_hl(0, "Parameter", { fg = "#f1fa8c" })
 
 	-- Strings
 	vim.api.nvim_set_hl(0, "String", { fg = "#f1fa8c" })
-	vim.api.nvim_set_hl(0, "Character", { fg = "#f1fa8c" })
 
-	-- Números e Booleans
+	-- Tipos (ex.: number, string, boolean)
+	vim.api.nvim_set_hl(0, "Type", { fg = "#bd93f9" })
+
+	-- Números
 	vim.api.nvim_set_hl(0, "Number", { fg = "#bd93f9" })
+
+	-- Booleanos
 	vim.api.nvim_set_hl(0, "Boolean", { fg = "#bd93f9" })
-	vim.api.nvim_set_hl(0, "Float", { fg = "#bd93f9" })
 
-	-- Variáveis e Identificadores
-	vim.api.nvim_set_hl(0, "Identifier", { fg = "#50fa7b" })
-	vim.api.nvim_set_hl(0, "Function", { fg = "#50fa7b" })
-
-	-- Palavras-chave
-	vim.api.nvim_set_hl(0, "Keyword", { fg = "#ff79c6", bold = true })
-	vim.api.nvim_set_hl(0, "Conditional", { fg = "#ff79c6", bold = true })
-	vim.api.nvim_set_hl(0, "Repeat", { fg = "#ff79c6", bold = true })
+	-- Operadores (ex.: +, -, *, /, etc.)
 	vim.api.nvim_set_hl(0, "Operator", { fg = "#ff79c6" })
-	vim.api.nvim_set_hl(0, "Exception", { fg = "#ff79c6", bold = true })
 
-	-- Tipos e Classes
-	vim.api.nvim_set_hl(0, "Type", { fg = "#8be9fd" })
-	vim.api.nvim_set_hl(0, "StorageClass", { fg = "#8be9fd" })
-	vim.api.nvim_set_hl(0, "Structure", { fg = "#8be9fd" })
-	vim.api.nvim_set_hl(0, "Typedef", { fg = "#8be9fd" })
+	-- Delimitadores e pontuações (parênteses, chaves, colchetes)
+	vim.api.nvim_set_hl(0, "PunctuationBracket", { fg = "#f8f8f2" })
+	vim.api.nvim_set_hl(0, "PunctuationDelimiter", { fg = "#f8f8f2" })
 
-	-- Preproc
-	vim.api.nvim_set_hl(0, "PreProc", { fg = "#ff79c6" })
-	vim.api.nvim_set_hl(0, "Include", { fg = "#ff79c6" })
-	vim.api.nvim_set_hl(0, "Define", { fg = "#ff79c6" })
-	vim.api.nvim_set_hl(0, "Macro", { fg = "#ff79c6" })
-	vim.api.nvim_set_hl(0, "PreCondit", { fg = "#ff79c6" })
+	-- Comentários
+	vim.api.nvim_set_hl(0, "Comment", { fg = "#6272a4", italic = true })
 
-	-- Constantes
+	-- Constantes (ex.: true, false, null)
 	vim.api.nvim_set_hl(0, "Constant", { fg = "#bd93f9" })
-	vim.api.nvim_set_hl(0, "TSConstant", { fg = "#bd93f9" })
-	vim.api.nvim_set_hl(0, "TSConstBuiltin", { fg = "#bd93f9" })
-	vim.api.nvim_set_hl(0, "TSConstMacro", { fg = "#bd93f9" })
 
-	-- React e TypeScript específico
-	vim.api.nvim_set_hl(0, "TSXTag", { fg = "#ff79c6" })
+	-- Pré-processadores (ex.: imports, defines)
+	vim.api.nvim_set_hl(0, "PreProc", { fg = "#ff79c6" })
+
+	-- Erros
+	vim.api.nvim_set_hl(0, "Error", { fg = "#ff5555", bold = true, undercurl = true })
+
+	-- Atributos JSX/TSX
 	vim.api.nvim_set_hl(0, "TSXAttribute", { fg = "#8be9fd" })
-	vim.api.nvim_set_hl(0, "TSXComponent", { fg = "#50fa7b" })
+
+	-- Texto JSX
 	vim.api.nvim_set_hl(0, "TSXText", { fg = "#f8f8f2" })
+
+	-- Texto JSX dentro de tags (por exemplo: <div>texto aqui</div>)
+	vim.api.nvim_set_hl(0, "TSXTag", { fg = "#ff79c6", bold = true })
+	vim.api.nvim_set_hl(0, "TSXTagName", { fg = "#50fa7b", bold = true })
+
+	-- Propriedades de objetos
+	vim.api.nvim_set_hl(0, "Property", { fg = "#ffa500" })
 end
 
 return theme

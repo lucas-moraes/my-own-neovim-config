@@ -1,5 +1,3 @@
 require("settings")
 require("plugins")
-require("themes.dark-transparent").setup()
--- require("themes.light").setup()
 require("maps")
