@@ -7,6 +7,7 @@ end
 
 telescope.setup({
 	defaults = {
+    cwb = vim.fn.getcwd(),
 		vimgrep_arguments = {
 			"rg",
 			"--color=never",
