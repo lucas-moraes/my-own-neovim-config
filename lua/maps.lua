@@ -30,7 +30,7 @@ if status then
 		{ "<leader>f", group = "Telescope" },
 		{ "<leader>ff", telescope.find_files, desc = "Telescope Find Files" },
 		{ "<leader>fg", telescope.live_grep, desc = "Telescope Live Grep" },
-		{ "<leader>fb", telescope.buffers, desc = "Telescope Buffers" },
+		{ "<leader>fb", telescope.current_buffer_fuzzy_find, desc = "Telescope current buffer" },
 		{ "<leader>fh", telescope.help_tags, desc = "Telescope Help Tags" },
 		{ "<leader>fo", telescope.lsp_document_diagnostics, desc = "Telescope LSP Document Diagnostics" },
 		{ "<leader>ft", telescope.lsp_workspace_diagnostics, desc = "Telescope LSP Workspace Diagnostics" },
@@ -49,6 +49,23 @@ if status then
 	})
 else
 	print("Telescope not found")
+end
+
+
+-- gitsigns
+local status, gitsigns = pcall(require, "gitsigns")
+if status then
+
+  function _G.git_signs_blame()
+    gitsigns.blame_line{full=true}
+  end
+
+  wk.add({
+    { "<leader>gb", git_signs_blame, desc = "git commit blame" },
+    { "<leader>gl", gitsigns.toggle_current_line_blame, desc = "git line blame" },
+  })
+else
+  print("gitsigns not found")
 end
 
 -- Save
