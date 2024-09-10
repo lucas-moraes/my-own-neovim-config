@@ -25,6 +25,17 @@ return require("packer").startup(function(use)
 	-- Common utilities
 	use("nvim-lua/plenary.nvim")
 
+	-- Treesitter
+	use({
+		"nvim-treesitter/nvim-treesitter",
+		run = function()
+			require("nvim-treesitter.install").update({ with_sync = true })
+		end,
+		config = function()
+			require("configs.treesitter")
+		end,
+	})
+
 	-- Prisma File manager
 	use({
 		"pantharshit00/vim-prisma",
@@ -71,17 +82,6 @@ return require("packer").startup(function(use)
 		end,
 
 		requires = { "nvim-web-devicons" },
-	})
-
-	-- Treesitter
-	use({
-		"nvim-treesitter/nvim-treesitter",
-		run = function()
-			require("nvim-treesitter.install").update({ with_sync = true })
-		end,
-		config = function()
-			require("configs.treesitter")
-		end,
 	})
 
 	-- Telescope
@@ -242,6 +242,15 @@ return require("packer").startup(function(use)
 		requires = {
 			"nvim-lua/plenary.nvim",
 		},
+	})
+
+	use({
+		"~/.config/nvim/lua/themes",
+		config = function()
+			require("themes.dark-transparent").setup()
+			-- require("themes.dark").setup()
+			-- require("themes.light").setup()
+		end,
 	})
 
 	-- Background Transparent
