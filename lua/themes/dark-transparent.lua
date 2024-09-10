@@ -17,8 +17,8 @@ function theme.setup()
 
 	vim.o.listchars = "space:·,eol:↴,tab:│ ,trail:·,extends:>,precedes:<,conceal:┊,nbsp:+"
 
-	vim.api.nvim_set_hl(0, "Whitespace", { fg = "#281f4f" })
-	vim.api.nvim_set_hl(0, "NonText", { fg = "#281f4f" })
+	vim.api.nvim_set_hl(0, "Whitespace", { fg = "#582085" })
+	vim.api.nvim_set_hl(0, "NonText", { fg = "#582085" })
 
 	-- Interface e UI
 	vim.api.nvim_set_hl(0, "CursorLine", { bg = "#44475a" })
