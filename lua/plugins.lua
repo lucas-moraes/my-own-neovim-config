@@ -1,12 +1,19 @@
 local ensure_packer = function()
 	local fn = vim.fn
 	local install_path = fn.stdpath("data") .. "/site/pack/packer/start/packer.nvim"
-	if fn.empty(fn.glob(install_path)) > 0 then
+	local is_installed = fn.empty(fn.glob(install_path)) == 0
+
+	if not is_installed then
 		fn.system({ "git", "clone", "--depth", "1", "https://github.com/wbthomason/packer.nvim", install_path })
 		vim.cmd([[packadd packer.nvim]])
-		return true
 	end
-	return false
+
+	-- Se o Packer foi instalado agora, executa o PackerSync
+	if not is_installed then
+		vim.cmd("PackerSync")
+	end
+
+	return not is_installed
 end
 
 local packer_bootstrap = ensure_packer()
@@ -271,4 +278,9 @@ return require("packer").startup(function(use)
 			})
 		end,
 	})
+
+	if packer_bootstrap then
+		require("packer").sync()
+	end
+
 end)
