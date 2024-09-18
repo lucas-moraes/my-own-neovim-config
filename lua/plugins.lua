@@ -1,22 +1,19 @@
-local ensure_packer = function()
-	local fn = vim.fn
-	local install_path = fn.stdpath("data") .. "/site/pack/packer/start/packer.nvim"
-	local is_installed = fn.empty(fn.glob(install_path)) == 0
+vim.api.nvim_create_autocmd("VimEnter", {
+  group = vim.api.nvim_create_augroup("PACKER", { clear = true }),
+  callback = function()
 
-	if not is_installed then
-		fn.system({ "git", "clone", "--depth", "1", "https://github.com/wbthomason/packer.nvim", install_path })
-		vim.cmd([[packadd packer.nvim]])
-	end
+    local fn = vim.fn
+    local install_path = fn.stdpath("data") .. "/site/pack/packer/start/packer.nvim"
+    local is_installed = fn.empty(fn.glob(install_path)) == 0
 
-	-- Se o Packer foi instalado agora, executa o PackerSync
-	if not is_installed then
-		vim.cmd("PackerSync")
-	end
+    if not is_installed then
+      fn.system({ "git", "clone", "--depth", "1", "https://github.com/wbthomason/packer.nvim", install_path })
+      vim.cmd([[packadd packer.nvim]])
+      vim.cmd("PackerSync")
+    end
 
-	return not is_installed
-end
-
-local packer_bootstrap = ensure_packer()
+  end,
+})
 
 -- Automatically run: PackerCompile
 vim.api.nvim_create_autocmd("BufWritePost", {
@@ -26,6 +23,7 @@ vim.api.nvim_create_autocmd("BufWritePost", {
 })
 
 return require("packer").startup(function(use)
+
 	-- Packer
 	use("wbthomason/packer.nvim")
 
@@ -69,22 +67,6 @@ return require("packer").startup(function(use)
 	use("mg979/vim-visual-multi")
 	use("terryma/vim-multiple-cursors")
 
-	-- lualine
-	use({
-		"nvim-lualine/lualine.nvim",
-		event = "BufEnter",
-
-		--[[ config = function()
-			require("configs.lualine.light")
-		end,
-    ]]
-
-		config = function()
-			require("configs.lualine.dark")
-		end,
-
-		requires = { "nvim-web-devicons" },
-	})
 
 	-- Telescope
 	use({
@@ -237,14 +219,40 @@ return require("packer").startup(function(use)
 		},
 	})
 
+
+--------Theme Adjust------------------------------------------------------------------------------------------
+  -- Tabs
+  use({
+		"nvim-lualine/lualine.nvim",
+		event = "BufEnter",
+
+		--[[ config = function()
+			require("configs.lualine.light")
+		end,
+    ]]
+
+		--[[ config = function()
+			require("configs.lualine.dark")
+		end,
+    ]]
+
+    config = function() 
+      require("configs.lualine.dark-orange")
+    end,
+
+		requires = { "nvim-web-devicons" },
+	})
+
+  -- UI theme
 	use({
 		"~/.config/nvim/lua/themes",
 		config = function()
-			require("themes.dark-transparent").setup()
-			-- require("themes.dark").setup()
+			-- require("themes.dark-transparent").setup()
+			require("themes.dark-orange").setup()
 			-- require("themes.light").setup()
 		end,
 	})
+--------------------------------------------------------------------------------------------------------------
 
 	-- Background Transparent
 	use({
@@ -279,8 +287,6 @@ return require("packer").startup(function(use)
 		end,
 	})
 
-	if packer_bootstrap then
-		require("packer").sync()
-	end
+
 
 end)

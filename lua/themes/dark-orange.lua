@@ -17,8 +17,8 @@ function theme.setup()
 
 	vim.o.listchars = "space:·,eol:↴,tab:│ ,trail:·,extends:>,precedes:<,conceal:┊,nbsp:+"
 
-	vim.api.nvim_set_hl(0, "Whitespace", { fg = "#ff8c00" })
-	vim.api.nvim_set_hl(0, "NonText", { fg = "#ff8c00" })
+	vim.api.nvim_set_hl(0, "Whitespace", { fg = "#3a2d22" })
+	vim.api.nvim_set_hl(0, "NonText", { fg = "#3a2d22" })
 
 	-- Interface e UI
 	vim.api.nvim_set_hl(0, "CursorLine", { bg = "#2c251b" })
@@ -50,7 +50,7 @@ function theme.setup()
 	vim.api.nvim_set_hl(0, "NeoTreeCursorLine", { bg = "#2c251b" })
 	vim.api.nvim_set_hl(0, "NeoTreeTitleBar", { fg = "#ffcc80", bg = "none" })
 
-	vim.api.nvim_set_hl(0, "GitSignsCurrentLineBlame", { fg = "#ff8c00", italic = true })
+	vim.api.nvim_set_hl(0, "GitSignsCurrentLineBlame", { fg = "#b25900", italic = true })
 
 	vim.api.nvim_set_hl(0, "Keyword", { fg = "#ff8000" })
 	vim.api.nvim_set_hl(0, "Function", { fg = "#ffa500" })
@@ -60,7 +60,7 @@ function theme.setup()
 	vim.api.nvim_set_hl(0, "Number", { fg = "#ff4500" })
 	vim.api.nvim_set_hl(0, "Boolean", { fg = "#ff4500" })
 	vim.api.nvim_set_hl(0, "Operator", { fg = "#ff8c00" })
-	vim.api.nvim_set_hl(0, "Comment", { fg = "#ffb84d", italic = true })
+	vim.api.nvim_set_hl(0, "Comment", { fg = "#b25900", italic = true })
 	vim.api.nvim_set_hl(0, "Constant", { fg = "#ffaf40" })
 	vim.api.nvim_set_hl(0, "PreProc", { fg = "#ff8c00" })
 	vim.api.nvim_set_hl(0, "Error", { fg = "#331111", bold = true, bg = "#ff4500" })
