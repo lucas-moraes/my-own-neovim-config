@@ -236,9 +236,15 @@ return require("packer").startup(function(use)
 		end,
     ]]
 
-    config = function() 
+    --[[config = function() 
       require("configs.lualine.dark-orange")
     end,
+    ]]
+
+    config = function() 
+      require("configs.lualine.dark-purple")
+    end,
+
 
 		requires = { "nvim-web-devicons" },
 	})
@@ -248,7 +254,8 @@ return require("packer").startup(function(use)
 		"~/.config/nvim/lua/themes",
 		config = function()
 			-- require("themes.dark-transparent").setup()
-			require("themes.dark-orange").setup()
+			-- require("themes.dark-orange").setup()
+			require("themes.dark-purple").setup()
 			-- require("themes.light").setup()
 		end,
 	})
