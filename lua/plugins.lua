@@ -1,15 +1,18 @@
-local ensure_packer = function()
-	local fn = vim.fn
-	local install_path = fn.stdpath("data") .. "/site/pack/packer/start/packer.nvim"
-	if fn.empty(fn.glob(install_path)) > 0 then
-		fn.system({ "git", "clone", "--depth", "1", "https://github.com/wbthomason/packer.nvim", install_path })
-		vim.cmd([[packadd packer.nvim]])
-		return true
-	end
-	return false
-end
+vim.api.nvim_create_autocmd("VimEnter", {
+  group = vim.api.nvim_create_augroup("PACKER", { clear = true }),
+  callback = function()
+    local fn = vim.fn
+    local install_path = fn.stdpath("data") .. "/site/pack/packer/start/packer.nvim"
+    local is_installed = fn.empty(fn.glob(install_path)) == 0
 
-local packer_bootstrap = ensure_packer()
+    if not is_installed then
+      fn.system({ "git", "clone", "--depth", "1", "https://github.com/wbthomason/packer.nvim", install_path })
+      vim.cmd([[packadd packer.nvim]])
+      vim.cmd("PackerSync")
+    end
+
+  end,
+})
 
 -- Automatically run: PackerCompile
 vim.api.nvim_create_autocmd("BufWritePost", {
@@ -19,11 +22,23 @@ vim.api.nvim_create_autocmd("BufWritePost", {
 })
 
 return require("packer").startup(function(use)
+
 	-- Packer
 	use("wbthomason/packer.nvim")
 
 	-- Common utilities
 	use("nvim-lua/plenary.nvim")
+
+	-- Treesitter
+	use({
+		"nvim-treesitter/nvim-treesitter",
+		run = function()
+			require("nvim-treesitter.install").update({ with_sync = true })
+		end,
+		config = function()
+			require("configs.treesitter")
+		end,
+	})
 
 	-- Prisma File manager
 	use({
@@ -47,42 +62,10 @@ return require("packer").startup(function(use)
 		end,
 	})
 
-	use({
-		"neoclide/coc.nvim",
-		branch = "release",
-	})
-
 	-- multiline select
 	use("mg979/vim-visual-multi")
 	use("terryma/vim-multiple-cursors")
 
-	-- lualine
-	use({
-		"nvim-lualine/lualine.nvim",
-		event = "BufEnter",
-
-		--[[ config = function()
-			require("configs.lualine.light")
-		end,
-    ]]
-
-		config = function()
-			require("configs.lualine.dark")
-		end,
-
-		requires = { "nvim-web-devicons" },
-	})
-
-	-- Treesitter
-	use({
-		"nvim-treesitter/nvim-treesitter",
-		run = function()
-			require("nvim-treesitter.install").update({ with_sync = true })
-		end,
-		config = function()
-			require("configs.treesitter")
-		end,
-	})
 
 	-- Telescope
 	use({
@@ -114,7 +97,18 @@ return require("packer").startup(function(use)
 
 	use({ "onsails/lspkind-nvim" })
 
-	use({ "windwp/nvim-ts-autotag" })
+	use({
+		"windwp/nvim-ts-autotag",
+		config = function()
+			require("nvim-ts-autotag").setup({
+				opts = {
+					enable_close = true,
+					enable_rename = true,
+					enable_close_on_slash = false,
+				},
+			})
+		end,
+	})
 
 	use({ "weilbith/nvim-code-action-menu" })
 
@@ -141,15 +135,6 @@ return require("packer").startup(function(use)
 	use({ "hrsh7th/cmp-path", after = "nvim-cmp" })
 
 	use({ "hrsh7th/cmp-buffer", after = "nvim-cmp" })
-
-	-- LSP diagnostics, code actions, and more via Lua.
-	use({
-		"jose-elias-alvarez/null-ls.nvim",
-		config = function()
-			require("configs.null-ls")
-		end,
-		requires = { "nvim-lua/plenary.nvim" },
-	})
 
 	-- Mason: Portable package manager
 	use({
@@ -233,6 +218,48 @@ return require("packer").startup(function(use)
 		},
 	})
 
+
+--------Theme Adjust------------------------------------------------------------------------------------------
+  -- Tabs
+  use({
+		"nvim-lualine/lualine.nvim",
+    event = "BufEnter",
+		--[[ config = function()
+			require("configs.lualine.light")
+		end,
+    ]]
+
+		config = function()
+			require("configs.lualine.dark")
+		end,
+    
+
+    --[[config = function() 
+      require("configs.lualine.dark-orange")
+    end,
+    ]]
+
+    --[[config = function() 
+      require("configs.lualine.dark-purple")
+    end,
+    ]]
+
+
+		requires = { "nvim-web-devicons" },
+	})
+
+  -- UI theme
+	use({
+		"~/.config/nvim/lua/themes",
+		config = function()
+			require("themes.dark-transparent").setup()
+			-- require("themes.dark-orange").setup()
+			-- require("themes.dark-purple").setup()
+			-- require("themes.light").setup()
+		end,
+	})
+--------------------------------------------------------------------------------------------------------------
+
 	-- Background Transparent
 	use({
 		"xiyaowong/nvim-transparent",
@@ -265,4 +292,7 @@ return require("packer").startup(function(use)
 			})
 		end,
 	})
+
+
+
 end)

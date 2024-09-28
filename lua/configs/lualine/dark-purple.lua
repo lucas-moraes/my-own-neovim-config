@@ -3,10 +3,41 @@ if not status then
 	return
 end
 
+-- Armazena o ícone do Copilot
+local copilot_status_icon = ""
+
+local function update_copilot_icon()
+  -- Chama o comando 'Copilot status' de forma assíncrona
+  vim.fn.jobstart("Copilot status 2>&1", {
+    stdout_buffered = true,
+    on_stdout = function(_, data)
+      -- Atualiza o ícone com base no resultado do comando
+      if data and table.concat(data):find("Copilot: Ready") then
+        copilot_status_icon = "" -- Ícone do Copilot
+      else
+        copilot_status_icon = ""
+      end
+      -- Atualiza o lualine após receber o resultado
+      require("lualine").refresh()
+    end,
+    on_stderr = function(_, _)
+      copilot_status_icon = "" -- Em caso de erro, não mostrar ícone
+      require("lualine").refresh()
+    end,
+  })
+end
+
+-- Função que retorna o ícone do Copilot
+local function copilot_icon()
+  return copilot_status_icon
+end
+
+-- Atualiza o ícone do Copilot ao inicializar
+update_copilot_icon()
+
 function _G.close_current_buffer()
 	local current_buf = vim.api.nvim_get_current_buf()
 	local alt_buf = vim.fn.bufnr("#")
-	-- Se o buffer alternativo não estiver disponível ou for o mesmo que o atual, crie um novo buffer
 	if alt_buf == -1 or alt_buf == current_buf then
 		vim.cmd("enew")
 	else
@@ -17,10 +48,10 @@ function _G.close_current_buffer()
 end
 
 vim.cmd([[
-  highlight LualineBufferActive guifg=#ffffff guibg=#5f00af
-  highlight LualineBufferInactive guifg=#999999 guibg=#3a3a3a
-  highlight WinbarLeftIndent guifg=#3a3a3a guibg=NONE
-  highlight WinbarNormal guifg=#999999 guibg=NONE
+  highlight LualineBufferActive guifg=#34004c guibg=#b000ff
+  highlight LualineBufferInactive guifg=#a799ad guibg=#34004c
+  highlight WinbarLeftIndent guifg=#4e325b guibg=NONE
+  highlight WinbarNormal guifg=#b0aba6 guibg=NONE
 ]])
 
 local function buffer_list()
@@ -36,9 +67,9 @@ local function buffer_list()
 				if vim.bo[buf].modified then
 					buf_name = buf_name .. unsaved_icon
 				end
-				buf_name = " " .. buf_name .. " " -- Adiciona espaços ao redor do nome do buffer
+				buf_name = " " .. buf_name .. " "
 				if buf == current_buf then
-					table.insert(buffer_names, "%#LualineBufferActive#" .. buf_name) -- "%*" é o reset do estilo
+					table.insert(buffer_names, "%#LualineBufferActive#" .. buf_name)
 				else
 					table.insert(buffer_names, "%#LualineBufferInactive#" .. buf_name)
 				end
@@ -68,34 +99,34 @@ lualine.setup({
 		icons_enabled = true,
 		theme = {
 			normal = {
-				a = { fg = "#f8f8f2", bg = "#5e497c", gui = "bold" },
-				b = { fg = "#f8f8f2", bg = "#3b4048" },
-				c = { fg = "#f8f8f2", bg = "#282a36" },
+				a = { fg = "#b000ff", bg = "#58007f", gui = "bold" },
+				b = { fg = "#b000ff", bg = "#34004c" },
+				c = { fg = "#b000ff", bg = "#110019" },
 			},
 			insert = {
-				a = { fg = "#104c00", bg = "#38ff00", gui = "bold" },
-				b = { fg = "#f8f8f2", bg = "#3b4048" },
-				c = { fg = "#f8f8f2", bg = "#282a36" },
+				a = { fg = "#34004c", bg = "#00ff04", gui = "bold" },
+				b = { fg = "#b000ff", bg = "#34004c" },
+				c = { fg = "#b000ff", bg = "#110019" },
 			},
 			visual = {
-				a = { fg = "#4c4100", bg = "#ffd900", gui = "bold" },
-				b = { fg = "#f8f8f2", bg = "#3b4048" },
-				c = { fg = "#f8f8f2", bg = "#282a36" },
+				a = { fg = "#34004c", bg = "#fdff00", gui = "bold" },
+				b = { fg = "#b000ff", bg = "#34004c" },
+				c = { fg = "#b000ff", bg = "#110019" },
 			},
 			replace = {
-				a = { fg = "#f8f8f2", bg = "#7f2a2a", gui = "bold" },
-				b = { fg = "#f8f8f2", bg = "#3b4048" },
-				c = { fg = "#f8f8f2", bg = "#282a36" },
+				a = { fg = "#b000ff", bg = "#ff00c1", gui = "bold" },
+				b = { fg = "#b000ff", bg = "#34004c" },
+				c = { fg = "#b000ff", bg = "#110019" },
 			},
 			command = {
-				a = { fg = "#f8f8f2", bg = "#375d65", gui = "bold" },
-				b = { fg = "#f8f8f2", bg = "#3b4048" },
-				c = { fg = "#f8f8f2", bg = "#282a36" },
+				a = { fg = "#34004c", bg = "#00dfff", gui = "bold" },
+				b = { fg = "#b000ff", bg = "#34004c" },
+				c = { fg = "#b000ff", bg = "#110019" },
 			},
 			inactive = {
-				a = { fg = "#6272a4", bg = "#282a36", gui = "bold" },
-				b = { fg = "#6272a4", bg = "#282a36" },
-				c = { fg = "#6272a4", bg = "#282a36" },
+				a = { fg = "#b000ff", bg = "#110019", gui = "bold" },
+				b = { fg = "#b000ff", bg = "#110019" },
+				c = { fg = "#b000ff", bg = "#110019" },
 			},
 		},
 		section_separators = { left = "", right = "" },
@@ -117,8 +148,8 @@ lualine.setup({
 		lualine_a = { "mode" },
 		lualine_b = { "branch", "diff", "diagnostics" },
 		lualine_c = { "filename" },
-		lualine_x = { "" },
-		lualine_y = { "filetype"},
+		lualine_x = { copilot_icon, "filetype" },
+		lualine_y = { "progress" },
 		lualine_z = { "location" },
 	},
 	inactive_sections = {
