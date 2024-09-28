@@ -3,18 +3,6 @@ if not status then
 	return
 end
 
-local function is_copilot_authenticated()
-	local status = vim.fn.system("echo -n | copilot auth status 2>&1")
-	return string.find(status, "Copilot: Authenticated") ~= nil
-end
-
-local function copilot_icon()
-	if is_copilot_authenticated() then
-		return "" -- Copilot icon (use Nerd Fonts for this)
-	end
-	return ""
-end
-
 function _G.close_current_buffer()
 	local current_buf = vim.api.nvim_get_current_buf()
 	local alt_buf = vim.fn.bufnr("#")
@@ -25,7 +13,7 @@ function _G.close_current_buffer()
 		vim.cmd("buffer " .. alt_buf)
 	end
 	vim.api.nvim_buf_delete(current_buf, { force = true })
-	require("lualine").refresh()
+	lualine.refresh()
 end
 
 vim.cmd([[
@@ -75,7 +63,7 @@ local function right_separator()
 	return separator
 end
 
-require("lualine").setup({
+lualine.setup({
 	options = {
 		icons_enabled = true,
 		theme = {
@@ -129,8 +117,8 @@ require("lualine").setup({
 		lualine_a = { "mode" },
 		lualine_b = { "branch", "diff", "diagnostics" },
 		lualine_c = { "filename" },
-		lualine_x = { copilot_icon, "filetype" },
-		lualine_y = { "progress" },
+		lualine_x = { "" },
+		lualine_y = { "filetype"},
 		lualine_z = { "location" },
 	},
 	inactive_sections = {

@@ -1,7 +1,6 @@
 vim.api.nvim_create_autocmd("VimEnter", {
   group = vim.api.nvim_create_augroup("PACKER", { clear = true }),
   callback = function()
-
     local fn = vim.fn
     local install_path = fn.stdpath("data") .. "/site/pack/packer/start/packer.nvim"
     local is_installed = fn.empty(fn.glob(install_path)) == 0
@@ -224,26 +223,26 @@ return require("packer").startup(function(use)
   -- Tabs
   use({
 		"nvim-lualine/lualine.nvim",
-		event = "BufEnter",
-
+    event = "BufEnter",
 		--[[ config = function()
 			require("configs.lualine.light")
 		end,
     ]]
 
-		--[[ config = function()
+		config = function()
 			require("configs.lualine.dark")
 		end,
-    ]]
+    
 
     --[[config = function() 
       require("configs.lualine.dark-orange")
     end,
     ]]
 
-    config = function() 
+    --[[config = function() 
       require("configs.lualine.dark-purple")
     end,
+    ]]
 
 
 		requires = { "nvim-web-devicons" },
@@ -253,9 +252,9 @@ return require("packer").startup(function(use)
 	use({
 		"~/.config/nvim/lua/themes",
 		config = function()
-			-- require("themes.dark-transparent").setup()
+			require("themes.dark-transparent").setup()
 			-- require("themes.dark-orange").setup()
-			require("themes.dark-purple").setup()
+			-- require("themes.dark-purple").setup()
 			-- require("themes.light").setup()
 		end,
 	})
