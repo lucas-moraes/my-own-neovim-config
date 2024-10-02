@@ -71,11 +71,6 @@ return require("packer").startup(function(use)
 		end,
 	})
 
-	use({
-		"neoclide/coc.nvim",
-		branch = "release",
-	})
-
 	-- multiline select
 	use("mg979/vim-visual-multi")
 	use("terryma/vim-multiple-cursors")
@@ -95,11 +90,6 @@ return require("packer").startup(function(use)
 		end,
 
 		requires = { "nvim-web-devicons" },
-	})
-
-	use({
-		"neoclide/coc/nvim",
-		branch = "release",
 	})
 
 	use({

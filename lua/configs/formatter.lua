@@ -7,17 +7,17 @@ end
 formatter.setup({
 	logging = false,
 	filetype = {
+    rust = {
+      -- rustfmt
+      function()
+        return {
+          exe = "rustfmt",
+          args = { "--emit=stdout" },
+          stdin = true,
+        }
+      end,
+    },
 		javascript = {
-			-- biome
-			function()
-				return {
-					exe = "biome",
-					args = { "--stdin-filepath", vim.api.nvim_buf_get_name(0) },
-					stdin = true,
-				}
-			end,
-		},
-		typescript = {
 			-- biome
 			function()
 				return {
@@ -57,26 +57,6 @@ formatter.setup({
 				}
 			end,
 		},
-		scss = {
-			-- prettier
-			function()
-				return {
-					exe = "prettier",
-					args = { "--stdin-filepath", vim.api.nvim_buf_get_name(0) },
-					stdin = true,
-				}
-			end,
-		},
-		less = {
-			-- prettier
-			function()
-				return {
-					exe = "prettier",
-					args = { "--stdin-filepath", vim.api.nvim_buf_get_name(0) },
-					stdin = true,
-				}
-			end,
-		},
 		markdown = {
 			-- prettier
 			function()
@@ -84,15 +64,6 @@ formatter.setup({
 					exe = "prettier",
 					args = { "--stdin-filepath", vim.api.nvim_buf_get_name(0) },
 					stdin = true,
-				}
-			end,
-		},
-		prisma = {
-			function()
-				return {
-					exe = "prisma",
-					args = { "format", "--schema", vim.api.nvim_buf_get_name(0) },
-					stdin = false,
 				}
 			end,
 		},
