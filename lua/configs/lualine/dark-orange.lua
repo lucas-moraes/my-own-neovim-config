@@ -3,38 +3,6 @@ if not status then
 	return
 end
 
--- Armazena o ícone do Copilot
-local copilot_status_icon = ""
-
-local function update_copilot_icon()
-  -- Chama o comando 'Copilot status' de forma assíncrona
-  vim.fn.jobstart("Copilot status 2>&1", {
-    stdout_buffered = true,
-    on_stdout = function(_, data)
-      -- Atualiza o ícone com base no resultado do comando
-      if data and table.concat(data):find("Copilot: Ready") then
-        copilot_status_icon = "" -- Ícone do Copilot
-      else
-        copilot_status_icon = ""
-      end
-      -- Atualiza o lualine após receber o resultado
-      require("lualine").refresh()
-    end,
-    on_stderr = function(_, _)
-      copilot_status_icon = "" -- Em caso de erro, não mostrar ícone
-      require("lualine").refresh()
-    end,
-  })
-end
-
--- Função que retorna o ícone do Copilot
-local function copilot_icon()
-  return copilot_status_icon
-end
-
--- Atualiza o ícone do Copilot ao inicializar
-update_copilot_icon()
-
 function _G.close_current_buffer()
 	local current_buf = vim.api.nvim_get_current_buf()
 	local alt_buf = vim.fn.bufnr("#")
@@ -58,7 +26,7 @@ local function buffer_list()
 	local buffers = vim.api.nvim_list_bufs()
 	local buffer_names = {}
 	local current_buf = vim.api.nvim_get_current_buf()
-	local unsaved_icon = "  󰆓 " -- Ícone de exclamação do Nerd Fonts
+	local unsaved_icon = "  ◉" -- Ícone de exclamação do Nerd Fonts
 
 	for _, buf in ipairs(buffers) do
 		if vim.api.nvim_buf_is_loaded(buf) then
@@ -85,12 +53,12 @@ local function buffer_list()
 end
 
 local function left_separator()
-	local separator = "   "
+	local separator = " ▶ "
 	return separator
 end
 
 local function right_separator()
-	local separator = "   "
+	local separator = " ◀ "
 	return separator
 end
 

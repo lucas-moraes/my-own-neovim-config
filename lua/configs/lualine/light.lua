@@ -27,7 +27,7 @@ local function buffer_list()
 	local buffers = vim.api.nvim_list_bufs()
 	local buffer_names = {}
 	local current_buf = vim.api.nvim_get_current_buf()
-	local unsaved_icon = "  󰆓 " -- Ícone de exclamação do Nerd Fonts
+	local unsaved_icon = "  ◉" -- Ícone de exclamação do Nerd Fonts
 
 	for _, buf in ipairs(buffers) do
 		if vim.api.nvim_buf_is_loaded(buf) then
@@ -54,12 +54,12 @@ local function buffer_list()
 end
 
 local function left_separator()
-	local separator = "   "
+	local separator = " ▶ "
 	return separator
 end
 
 local function right_separator()
-	local separator = "   "
+	local separator = " ◀ "
 	return separator
 end
 
