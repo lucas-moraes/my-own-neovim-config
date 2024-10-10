@@ -1,23 +1,40 @@
-local dap = require('dap')
-
--- Configuração básica de exemplo para Node.js (usando `vscode-node-debug2`)
-dap.adapters.node2 = {
-  type = 'executable',
-  command = 'node',
-  args = {os.getenv('HOME') .. '/.config/nvim/vscode-js-debug-1.94.0/src/build/jsDebugCustom.js'},
-}
+local status, dap = pcall(require, "dap")
+if not status then
+	return
+end
 
 dap.configurations.javascript = {
   {
-    name = "Launch",
-    type = "node2",
+    type = "pwa-node",
     request = "launch",
+    name = "Launch arquivo",
     program = "${file}",
     cwd = vim.fn.getcwd(),
     sourceMaps = true,
     protocol = "inspector",
     console = "integratedTerminal",
   },
+  {
+    type = "pwa-node",
+    request = "attach",
+    name = "Anexar ao processo",
+    processId = require("dap.utils").pick_process,
+    cwd = vim.fn.getcwd(),
+  }
 }
 
-dap.configurations.typescript = dap.configurations.javascript
+dap.configurations.typescript = {
+  {
+    type = "pwa-node",
+    request = "launch",
+    name = "Launch arquivo TS",
+    program = "${file}",
+    cwd = vim.fn.getcwd(),
+    sourceMaps = true,
+    protocol = "inspector",
+    outFiles = { "${workspaceFolder}/dist/**/*.js" },
+    console = "integratedTerminal",
+  }
+}
+
+

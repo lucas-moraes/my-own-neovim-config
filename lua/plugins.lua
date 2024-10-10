@@ -14,7 +14,6 @@ vim.api.nvim_create_autocmd("VimEnter", {
   end,
 })
 
--- Automatically run: PackerCompile
 vim.api.nvim_create_autocmd("BufWritePost", {
 	group = vim.api.nvim_create_augroup("PACKER", { clear = true }),
 	pattern = "plugins.lua",
@@ -45,7 +44,38 @@ return require("packer").startup(function(use)
 		"pantharshit00/vim-prisma",
 	})
 
-	-- Icons
+  -- DAP
+  use({
+  "mxsdev/nvim-dap-vscode-js",
+  requires = {
+    {"mfussenegger/nvim-dap"},
+    {"rcarriga/nvim-dap-ui"},
+    {"nvim-neotest/nvim-nio"},
+    {'theHamsta/nvim-dap-virtual-text'}
+  },
+  config = function()
+    require("dap-vscode-js").setup({
+      node_path = "node",
+      debugger_path = os.getenv("HOME") .. "/.config/nvim/vscode-js-debug",
+      adapters = { 'pwa-node', 'pwa-chrome', 'pwa-msedge', 'node-terminal', 'pwa-extensionHost' },
+    })
+
+    require("configs.dap")
+
+    require("configs.dap-ui")
+
+    require("nvim-dap-virtual-text").setup({
+      enabled = true,  -- Habilita a exibição de variáveis inline
+      enabled_commands = false,  -- Não cria comandos automaticamente
+      highlight_changed_variables = true,
+      highlight_new_as_changed = true,
+    })
+
+  end,
+})
+
+
+  -- Icons
 	use("nvim-tree/nvim-web-devicons")
 
 	use({
