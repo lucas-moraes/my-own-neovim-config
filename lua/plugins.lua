@@ -39,6 +39,23 @@ return require("packer").startup(function(use)
 		end,
 	})
 
+  -- indent-blankline
+  use({
+    "lukas-reineke/indent-blankline.nvim",
+    config = function()
+          require("ibl").setup({
+      indent = {
+        char = "│",
+      },
+      scope = {
+        enabled = true,
+        show_start = true,
+        show_end = true,
+      },
+    })
+    end,
+  })
+
 	-- Prisma File manager
 	use({
 		"pantharshit00/vim-prisma",
