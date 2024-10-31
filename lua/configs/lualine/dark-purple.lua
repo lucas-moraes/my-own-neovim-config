@@ -62,6 +62,17 @@ local function right_separator()
 	return separator
 end
 
+local function copilot_icon()
+  local icon = "ﬦ"
+  return icon
+end
+
+
+local function relative_file_path()
+  local file_path = vim.fn.expand("%:~:.")
+  return file_path
+end
+
 lualine.setup({
 	options = {
 		icons_enabled = true,
@@ -115,8 +126,8 @@ lualine.setup({
 	sections = {
 		lualine_a = { "mode" },
 		lualine_b = { "branch", "diff", "diagnostics" },
-		lualine_c = { "filename" },
-		lualine_x = { copilot_icon, "filetype" },
+		lualine_c = { relative_file_path },
+		lualine_x = {},
 		lualine_y = { "progress" },
 		lualine_z = { "location" },
 	},
