@@ -56,42 +56,19 @@ return require("packer").startup(function(use)
     end,
   })
 
-	-- Prisma File manager
-	use({
-		"pantharshit00/vim-prisma",
-	})
+  -- DAP python
+  use({"mfussenegger/nvim-dap"})
 
-  -- DAP
-  use({
-  "mxsdev/nvim-dap-vscode-js",
-  requires = {
-    {"mfussenegger/nvim-dap"},
-    {"rcarriga/nvim-dap-ui"},
-    {"nvim-neotest/nvim-nio"},
-    {'theHamsta/nvim-dap-virtual-text'}
-  },
-  config = function()
-    require("dap-vscode-js").setup({
-      node_path = "node",
-      debugger_path = os.getenv("HOME") .. "/.config/nvim/vscode-js-debug",
-      adapters = { 'pwa-node', 'pwa-chrome', 'pwa-msedge', 'node-terminal', 'pwa-extensionHost' },
-    })
+  use({"mfussenegger/nvim-dap-python",
+    config = function()
+      require("dap-python").setup("~/usr/local/bin/python3.13")
+    end,
+  })
 
-    require("configs.dap")
+  -- python autocomplete and snippets
+  use({"rafamadriz/friendly-snippets"})
 
-    require("configs.dap-ui")
-
-    require("nvim-dap-virtual-text").setup({
-      enabled = true,  -- Habilita a exibição de variáveis inline
-      enabled_commands = false,  -- Não cria comandos automaticamente
-      highlight_changed_variables = true,
-      highlight_new_as_changed = true,
-    })
-
-  end,
-})
-
-
+ 
   -- Icons
 	use("nvim-tree/nvim-web-devicons")
 
@@ -143,19 +120,6 @@ return require("packer").startup(function(use)
 	})
 
 	use({ "onsails/lspkind-nvim" })
-
-	use({
-		"windwp/nvim-ts-autotag",
-		config = function()
-			require("nvim-ts-autotag").setup({
-				opts = {
-					enable_close = true,
-					enable_rename = true,
-					enable_close_on_slash = false,
-				},
-			})
-		end,
-	})
 
 	use({ "weilbith/nvim-code-action-menu" })
 

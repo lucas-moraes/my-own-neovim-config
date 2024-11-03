@@ -22,17 +22,15 @@ end
 formatter.setup({
 	logging = false,
 	filetype = {
-		javascript = { prettier_config },
-    typescript = { prettier_config },
-    javascriptreact = { prettier_config },
-    typescriptreact = { prettier_config },
-    html = { prettier_config },
-    css = { prettier_config },
-    scss = { prettier_config },
-    less = { prettier_config },
-    json = { prettier_config },
-    prisma = { prettier_config },
-    markdown = { prettier_config },
+    python = {
+      function()
+        return {
+          exe = "black",
+          args = {"--fast", "-"},
+          stdin = true
+        }
+      end
+    },
 	},
 })
 

@@ -7,13 +7,17 @@
 - LazyGit: https://github.com/jesseduffield/lazygit
 - LazyDocker: https://github.com/jesseduffield/LazyDocker
 - Packer.nvim: https://github.com/wbthomason/packer.nvim
-- Prettier: https://github.com/prettier/prettier
-- BiomeJS: https://github.com/biomejs/biome
+
 
 ### Configurations dependencies:
 
 - Node.js: We need to install Node.js to use some plugins like biome, prettier, etc.
+- Pip: We need to install pip to use some plugins like flake8, black, etc.
 
+```bash
+pyright: npm install -g pyright
+flake8 and black: pip install flake8 black
+```
 ### How to install:
 
 - Install neovim
