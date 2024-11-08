@@ -31,17 +31,9 @@ if status then
 		{ "<leader>ff", telescope.find_files, desc = "Telescope Find Files" },
 		{ "<leader>fg", telescope.live_grep, desc = "Telescope Live Grep" },
 		{ "<leader>fb", telescope.current_buffer_fuzzy_find, desc = "Telescope current buffer" },
-		{ "<leader>fh", telescope.help_tags, desc = "Telescope Help Tags" },
-		{ "<leader>fo", telescope.lsp_document_diagnostics, desc = "Telescope LSP Document Diagnostics" },
-		{ "<leader>ft", telescope.lsp_workspace_diagnostics, desc = "Telescope LSP Workspace Diagnostics" },
-		{ "<leader>fm", telescope.lsp_implementations, desc = "Telescope LSP Implementations" },
-		{ "<leader>fq", telescope.quickfix, desc = "Telescope Quickfix" },
-		{ "<leader>fl", telescope.loclist, desc = "Telescope Loclist" },
 		{ "<leader>fp", telescope.project, desc = "Telescope Project" },
 		{ "<leader>fw", telescope.file_browser, desc = "Telescope File Browser" },
-		{ "<leader>ft", telescope.filetypes, desc = "Telescope Filetypes" },
 		{ "<leader>fk", telescope.keymaps, desc = "Telescope Keymaps" },
-		{ "<leader>fo", telescope.oldfiles, desc = "Telescope Oldfiles" },
 		{ "<leader>fh", telescope.help_tags, desc = "Telescope Help Tags" },
 		{ "<leader>fs", telescope.search_history, desc = "Telescope Search History" },
 		{ "<leader>fc", telescope.commands, desc = "Telescope Commands" },
@@ -144,6 +136,11 @@ wk.add({
 -- Atalho para formatar o código
 wk.add({
 	{ "<leader>cf", ":Format<CR>", desc = "Format code" },
+})
+
+-- Atalho para o Troble
+wk.add({
+  { "<leader>se", "<CMD>TroubleToggle<CR>", desc = "Troubble - Show Errors" },
 })
 
 -- Buffer

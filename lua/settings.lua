@@ -1,8 +1,9 @@
 local global = vim.g
 local o = vim.o
+local d = vim.diagnostic
 
 vim.scriptencoding = "utf-8"
-
+ 
 -- Map <leader>
 
 global.mapleader = " "
@@ -42,3 +43,27 @@ vim.cmd([[
   highlight Folded guibg=#282c34 guifg=#abb2bf
   highlight FoldColumn guibg=#282c34 guifg=#abb2bf
 ]])
+
+d.config({
+ virtual_text = true,  -- Desativa o texto virtual ao lado do código
+  signs = true,  -- Habilita os sinais na coluna da esquerda
+  underline = true,  -- Sublinhar o texto com problemas
+  severity_sort = true,  -- Ordena diagnósticos por severidade
+  float = {
+    border = "rounded",
+    source = "always",
+    header = "",
+    prefix = "",
+  },
+})
+
+local signs = { Error = " ", Warn = " ", Hint = " ", Info = " " }
+for type, icon in pairs(signs) do
+  local hl = "DiagnosticSign" .. type
+  vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
+end
+
+
+
+
+

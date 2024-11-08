@@ -28,6 +28,37 @@ return require("packer").startup(function(use)
 	-- Common utilities
 	use("nvim-lua/plenary.nvim")
 
+  -- Trouble
+  use({
+    "folke/trouble.nvim",
+    tag = "v2.10.0",
+    requires = "nvim-tree/nvim-web-devicons",
+    config = function()
+      require("trouble").setup({
+        position = "bottom",
+        height = 10,
+        icons = true,
+        mode = "document_diagnostics",
+        fold_open = "",
+        fold_closed = "",
+        action_keys = {
+          close = "q",
+          cancel = "<esc>",
+          refresh = "r",
+          jump = {"<cr>", "<tab>"},
+        },
+        auto_open = false,
+        auto_close = true,
+        signs = {
+          error = " ",
+          warning = " ",
+          hint = " ",
+          information = " "
+        },
+      })
+    end,
+  })
+
 	-- Treesitter
 	use({
 		"nvim-treesitter/nvim-treesitter",
@@ -201,9 +232,30 @@ return require("packer").startup(function(use)
 			"nvim-lua/plenary.nvim",
 			"nvim-tree/nvim-web-devicons",
 			"MunifTanjim/nui.nvim",
+      {
+        's1n7ax/nvim-window-picker',
+        version = '2.*',
+        config = function()
+            require 'window-picker'.setup({
+                filter_rules = {
+                    include_current_win = false,
+                    autoselect_one = true,
+                    bo = {
+                        filetype = { 'neo-tree', "neo-tree-popup", "notify" },
+                        buftype = { 'terminal', "quickfix" },
+                    },
+                },
+            })
+        end,
+      }
 		},
 		config = function()
-			require("configs.neo-tree")
+      vim.fn.sign_define("DiagnosticSignError", {text = " ", texthl = "DiagnosticSignError"})
+      vim.fn.sign_define("DiagnosticSignWarn", {text = " ", texthl = "DiagnosticSignWarn"})
+      vim.fn.sign_define("DiagnosticSignInfo", {text = " ", texthl = "DiagnosticSignInfo"})
+      vim.fn.sign_define("DiagnosticSignHint", {text = "󰌵", texthl = "DiagnosticSignHint"})
+			
+      require("configs.neo-tree")
 		end,
 	})
 

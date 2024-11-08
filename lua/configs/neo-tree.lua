@@ -5,18 +5,52 @@ end
 
 nt.setup({
 	close_if_last_window = true,
+  window = {
+    width = 50,
+  },
 	filesystem = {
 		filtered_items = {
-			visible = true, -- Mostra todos os itens, mesmo os filtrados
-			hide_dotfiles = false, -- Não oculte arquivos e diretórios ocultos (que começam com .)
-			hide_gitignored = false, -- Não oculte arquivos ignorados pelo Git
-			hide_by_name = {}, -- Não oculte nenhum arquivo ou diretório pelo nome
-			hide_by_pattern = {}, -- Não oculte nenhum arquivo ou diretório por padrão (wildcards)
-			always_show = { -- Lista de arquivos ou diretórios que você sempre deseja mostrar
+			visible = true,
+			hide_dotfiles = false,
+			hide_gitignored = false,
+			hide_by_name = {},
+			hide_by_patter = {},
+			always_show = {
 				".gitignore",
+			},
+		},
+	},
+	default_component_configs = {
+		icon = {
+			folder_closed = "",
+			folder_open = "",
+			folder_empty = "",
+			default = "",
+			highlight = "NeoTreeFileIcon"
+		},
+		git_status = {
+			symbols = {
+				added = "+",
+				deleted = "-",
+				modified = "",
+				renamed = "➜",
+				untracked = "",
+				ignored = "◌",
+				unstaged = "★",
+				staged = "★★",
+				conflict = "",
+			}
+		},
+		diagnostics = {
+			symbols = {
+				error = "",
+				warn = "",
+				info = "",
+				hint = "",
 			},
 		},
 	},
 	open_on_setup = false, -- Evita abrir automaticamente
 	open_on_tab = false, -- Evita abrir automaticamente em novas abas
 })
+

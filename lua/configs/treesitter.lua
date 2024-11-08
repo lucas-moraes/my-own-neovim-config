@@ -40,3 +40,5 @@ ts.setup({
 -- Configuração para foldmethod usando Treesitter
 vim.o.foldmethod = "expr"
 vim.o.foldexpr = "nvim_treesitter#foldexpr()"
+
+
