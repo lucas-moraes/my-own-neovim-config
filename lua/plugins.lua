@@ -92,7 +92,7 @@ return require("packer").startup(function(use)
 		"pantharshit00/vim-prisma",
 	})
 
-<<<<<<< Updated upstream
+
   -- DAP
   use({
   "mxsdev/nvim-dap-vscode-js",
@@ -124,12 +124,10 @@ return require("packer").startup(function(use)
 })
 
 
-  -- Icons
-	use("nvim-tree/nvim-web-devicons")
-=======
+
 	-- Icons
 	use({"nvim-tree/nvim-web-devicons"})
->>>>>>> Stashed changes
+
 
 	use({
 		"numToStr/Comment.nvim",
