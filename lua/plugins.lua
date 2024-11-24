@@ -92,6 +92,7 @@ return require("packer").startup(function(use)
 		"pantharshit00/vim-prisma",
 	})
 
+<<<<<<< Updated upstream
   -- DAP
   use({
   "mxsdev/nvim-dap-vscode-js",
@@ -125,6 +126,10 @@ return require("packer").startup(function(use)
 
   -- Icons
 	use("nvim-tree/nvim-web-devicons")
+=======
+	-- Icons
+	use({"nvim-tree/nvim-web-devicons"})
+>>>>>>> Stashed changes
 
 	use({
 		"numToStr/Comment.nvim",
@@ -328,12 +333,12 @@ return require("packer").startup(function(use)
 		end,
     ]]
 
-		config = function()
+	  config = function()
 			require("configs.lualine.dark")
 		end,
-    
 
-    --[[config = function() 
+
+   --[[ config = function() 
       require("configs.lualine.dark-orange")
     end,
     ]]
