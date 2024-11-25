@@ -8,30 +8,30 @@ formatter.setup({
 	logging = false,
 	filetype = {
 		javascript = {
-			-- biome
+			-- prettier
 			function()
 				return {
-					exe = "biome",
+					exe = "prettier",
 					args = { "--stdin-filepath", vim.api.nvim_buf_get_name(0) },
 					stdin = true,
 				}
 			end,
 		},
 		typescript = {
-			-- biome
+			-- prettier
 			function()
 				return {
-					exe = "biome",
+					exe = "prettier",
 					args = { "--stdin-filepath", vim.api.nvim_buf_get_name(0) },
 					stdin = true,
 				}
 			end,
 		},
 		json = {
-			-- biome
+			-- prettier
 			function()
 				return {
-					exe = "biome",
+					exe = "prettier",
 					args = { "--stdin-filepath", vim.api.nvim_buf_get_name(0) },
 					stdin = true,
 				}

@@ -46,7 +46,7 @@ return require("packer").startup(function(use)
 	})
 
 	-- Icons
-	use("nvim-tree/nvim-web-devicons")
+	use({"nvim-tree/nvim-web-devicons"})
 
 	use({
 		"numToStr/Comment.nvim",

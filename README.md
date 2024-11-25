@@ -8,11 +8,12 @@
 - LazyDocker: https://github.com/jesseduffield/LazyDocker
 - Packer.nvim: https://github.com/wbthomason/packer.nvim
 - Prettier: https://github.com/prettier/prettier
-- BiomeJS: https://github.com/biomejs/biome
+- FiraCore Nerd Font: https://www.nerdfonts.com/font-downloads
 
 ### Configurations dependencies:
 
-- Node.js: We need to install Node.js to use some plugins like biome, prettier, etc.
+- Node.js: We need to install Node.js to use some plugins like prettier, etc.
+- C compiler: ```bash sudo apt-get install build-essential```
 
 ### How to install:
 
