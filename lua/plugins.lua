@@ -1,19 +1,3 @@
-vim.api.nvim_create_autocmd("VimEnter", {
-  group = vim.api.nvim_create_augroup("PACKER", { clear = true }),
-  callback = function()
-    local fn = vim.fn
-    local install_path = fn.stdpath("data") .. "/site/pack/packer/start/packer.nvim"
-    local is_installed = fn.empty(fn.glob(install_path)) == 0
-
-    if not is_installed then
-      fn.system({ "git", "clone", "--depth", "1", "https://github.com/wbthomason/packer.nvim", install_path })
-      vim.cmd([[packadd packer.nvim]])
-      vim.cmd("PackerSync")
-    end
-
-  end,
-})
-
 vim.api.nvim_create_autocmd("BufWritePost", {
 	group = vim.api.nvim_create_augroup("PACKER", { clear = true }),
 	pattern = "plugins.lua",
@@ -351,16 +335,13 @@ return require("packer").startup(function(use)
 	})
 
   -- UI theme
-	use({
-		"~/.config/nvim/lua/themes",
-		config = function()
-			require("themes.dark-transparent").setup()
-			-- require("themes.dark-orange").setup()
-			-- require("themes.dark-purple").setup()
-			-- require("themes.light").setup()
-		end,
-	})
---------------------------------------------------------------------------------------------------------------
+		require("themes.dark-transparent").setup()
+		-- require("themes.dark-orange").setup()
+		-- require("themes.dark-purple").setup()
+		-- require("themes.light").setup()
+
+
+  --------------------------------------------------------------------------------------------------------------
 
 	-- Background Transparent
 	use({
