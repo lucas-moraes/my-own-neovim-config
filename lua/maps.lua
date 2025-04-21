@@ -128,6 +128,8 @@ wk.add({
   { "<leader>dv", "<CMD>lua require'nvim-dap-virtual-text'.toggle()<CR>", desc = "DAP Virtual Text Toggle" }
 })
 
+
+
 -- Atalho para fechar buffer
 wk.add({
 	{ "<leader>cc", ":lua close_current_buffer()<CR>", desc = "Close current buffer" },

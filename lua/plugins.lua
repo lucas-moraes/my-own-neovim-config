@@ -12,6 +12,16 @@ return require("packer").startup(function(use)
 	-- Common utilities
 	use("nvim-lua/plenary.nvim")
 
+
+  use("mfussenegger/nvim-dap")
+  use("rcarriga/nvim-dap-ui")
+  use("williamboman/mason.nvim")
+  use("nvim-neotest/nvim-nio") 
+  use("theHamsta/nvim-dap-virtual-text")
+  use("jay-babu/mason-nvim-dap.nvim")
+
+  require("configs.dap")
+
   -- Trouble
   use({
     "folke/trouble.nvim",
@@ -75,38 +85,6 @@ return require("packer").startup(function(use)
 	use({
 		"pantharshit00/vim-prisma",
 	})
-
-
-  -- DAP
-  use({
-  "mxsdev/nvim-dap-vscode-js",
-  requires = {
-    {"mfussenegger/nvim-dap"},
-    {"rcarriga/nvim-dap-ui"},
-    {"nvim-neotest/nvim-nio"},
-    {'theHamsta/nvim-dap-virtual-text'}
-  },
-  config = function()
-    require("dap-vscode-js").setup({
-      node_path = "node",
-      debugger_path = os.getenv("HOME") .. "/.config/nvim/vscode-js-debug",
-      adapters = { 'pwa-node', 'pwa-chrome', 'pwa-msedge', 'node-terminal', 'pwa-extensionHost' },
-    })
-
-    require("configs.dap")
-
-    require("configs.dap-ui")
-
-    require("nvim-dap-virtual-text").setup({
-      enabled = true,  -- Habilita a exibição de variáveis inline
-      enabled_commands = false,  -- Não cria comandos automaticamente
-      highlight_changed_variables = true,
-      highlight_new_as_changed = true,
-    })
-
-  end,
-})
-
 
 
 	-- Icons
