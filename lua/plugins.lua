@@ -1,20 +1,3 @@
-vim.api.nvim_create_autocmd("VimEnter", {
-  group = vim.api.nvim_create_augroup("PACKER", { clear = true }),
-  callback = function()
-    local fn = vim.fn
-    local install_path = fn.stdpath("data") .. "/site/pack/packer/start/packer.nvim"
-    local is_installed = fn.empty(fn.glob(install_path)) == 0
-
-    if not is_installed then
-      fn.system({ "git", "clone", "--depth", "1", "https://github.com/wbthomason/packer.nvim", install_path })
-      vim.cmd([[packadd packer.nvim]])
-      vim.cmd("PackerSync")
-    end
-
-  end,
-})
-
--- Automatically run: PackerCompile
 vim.api.nvim_create_autocmd("BufWritePost", {
 	group = vim.api.nvim_create_augroup("PACKER", { clear = true }),
 	pattern = "plugins.lua",
@@ -29,6 +12,47 @@ return require("packer").startup(function(use)
 	-- Common utilities
 	use("nvim-lua/plenary.nvim")
 
+
+  use("mfussenegger/nvim-dap")
+  use("rcarriga/nvim-dap-ui")
+  use("williamboman/mason.nvim")
+  use("nvim-neotest/nvim-nio") 
+  use("theHamsta/nvim-dap-virtual-text")
+  use("jay-babu/mason-nvim-dap.nvim")
+
+  require("configs.dap")
+
+  -- Trouble
+  use({
+    "folke/trouble.nvim",
+    tag = "v2.10.0",
+    requires = "nvim-tree/nvim-web-devicons",
+    config = function()
+      require("trouble").setup({
+        position = "bottom",
+        height = 10,
+        icons = true,
+        mode = "document_diagnostics",
+        fold_open = "",
+        fold_closed = "",
+        action_keys = {
+          close = "q",
+          cancel = "<esc>",
+          refresh = "r",
+          jump = {"<cr>", "<tab>"},
+        },
+        auto_open = false,
+        auto_close = true,
+        signs = {
+          error = " ",
+          warning = " ",
+          hint = " ",
+          information = " "
+        },
+      })
+    end,
+  })
+
 	-- Treesitter
 	use({
 		"nvim-treesitter/nvim-treesitter",
@@ -40,13 +64,32 @@ return require("packer").startup(function(use)
 		end,
 	})
 
+  -- indent-blankline
+  use({
+    "lukas-reineke/indent-blankline.nvim",
+    config = function()
+          require("ibl").setup({
+      indent = {
+        char = "│",
+      },
+      scope = {
+        enabled = true,
+        show_start = true,
+        show_end = true,
+      },
+    })
+    end,
+  })
+
 	-- Prisma File manager
 	use({
 		"pantharshit00/vim-prisma",
 	})
 
+
 	-- Icons
 	use({"nvim-tree/nvim-web-devicons"})
+
 
 	use({
 		"numToStr/Comment.nvim",
@@ -154,9 +197,30 @@ return require("packer").startup(function(use)
 			"nvim-lua/plenary.nvim",
 			"nvim-tree/nvim-web-devicons",
 			"MunifTanjim/nui.nvim",
+      {
+        's1n7ax/nvim-window-picker',
+        version = '2.*',
+        config = function()
+            require 'window-picker'.setup({
+                filter_rules = {
+                    include_current_win = false,
+                    autoselect_one = true,
+                    bo = {
+                        filetype = { 'neo-tree', "neo-tree-popup", "notify" },
+                        buftype = { 'terminal', "quickfix" },
+                    },
+                },
+            })
+        end,
+      }
 		},
 		config = function()
-			require("configs.neo-tree")
+      vim.fn.sign_define("DiagnosticSignError", {text = " ", texthl = "DiagnosticSignError"})
+      vim.fn.sign_define("DiagnosticSignWarn", {text = " ", texthl = "DiagnosticSignWarn"})
+      vim.fn.sign_define("DiagnosticSignInfo", {text = " ", texthl = "DiagnosticSignInfo"})
+      vim.fn.sign_define("DiagnosticSignHint", {text = "󰌵", texthl = "DiagnosticSignHint"})
+			
+      require("configs.neo-tree")
 		end,
 	})
 
@@ -229,12 +293,12 @@ return require("packer").startup(function(use)
 		end,
     ]]
 
-		config = function()
+	  config = function()
 			require("configs.lualine.dark")
 		end,
-    
 
-    --[[config = function() 
+
+   --[[ config = function() 
       require("configs.lualine.dark-orange")
     end,
     ]]
@@ -249,16 +313,13 @@ return require("packer").startup(function(use)
 	})
 
   -- UI theme
-	use({
-		"~/.config/nvim/lua/themes",
-		config = function()
-			require("themes.dark-transparent").setup()
-			-- require("themes.dark-orange").setup()
-			-- require("themes.dark-purple").setup()
-			-- require("themes.light").setup()
-		end,
-	})
---------------------------------------------------------------------------------------------------------------
+		require("themes.dark-transparent").setup()
+		-- require("themes.dark-orange").setup()
+		-- require("themes.dark-purple").setup()
+		-- require("themes.light").setup()
+
+
+  --------------------------------------------------------------------------------------------------------------
 
 	-- Background Transparent
 	use({
