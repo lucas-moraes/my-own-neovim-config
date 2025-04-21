@@ -313,7 +313,10 @@ return require("packer").startup(function(use)
 	})
 
   -- UI theme
-		require("themes.dark-transparent").setup()
+		-- require("themes.dark-transparent").setup()
+    -- require("themes.nordic").setup()
+     require("themes.dracul").setup()
+    -- require("themes.moonlightness").setup()
 		-- require("themes.dark-orange").setup()
 		-- require("themes.dark-purple").setup()
 		-- require("themes.light").setup()
