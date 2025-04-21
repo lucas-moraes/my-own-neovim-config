@@ -4,11 +4,11 @@
 
 ### Third party plugins:
 
-- LazyGit: https://github.com/jesseduffield/lazygit
-- LazyDocker: https://github.com/jesseduffield/LazyDocker
-- Packer.nvim: https://github.com/wbthomason/packer.nvim
-- Prettier: https://github.com/prettier/prettier
-- FiraCore Nerd Font: https://www.nerdfonts.com/font-downloads
+- Packer.nvim: https://github.com/wbthomason/packer.nvim (Required)
+- FiraCore Nerd Font: https://www.nerdfonts.com/font-downloads (Required)
+- LazyGit: https://github.com/jesseduffield/lazygit (Optional)
+- LazyDocker: https://github.com/jesseduffield/LazyDocker (Optional)
+- Prettier: https://github.com/prettier/prettier (Optional)
 
 ### Configurations dependencies:
 
@@ -22,12 +22,3 @@
 - Rename the folder to .config/neovim
 - Open neovim and key <space> + ps to install plugins
 - close and open neovim again
-
-### Principals commands:
-
-- `<space> + ps`: Install and sync plugins
-- `<space> + qa`: Close all buffers
-- `<space> + cc`: Close current buffer
-- `<space> + wa`: Save all files
-- `<space> + w`: Save current file
-- `<space> + q`: Quit neovim
