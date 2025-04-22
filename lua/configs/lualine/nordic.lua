@@ -16,10 +16,10 @@ function _G.close_current_buffer()
 end
 
 vim.cmd([[
-  highlight LualineBufferActive guifg=#34004c guibg=#b000ff
-  highlight LualineBufferInactive guifg=#a799ad guibg=#34004c
-  highlight WinbarLeftIndent guifg=#4e325b guibg=NONE
-  highlight WinbarNormal guifg=#b0aba6 guibg=NONE
+  highlight LualineBufferActive guifg=#2e3440 guibg=#81a1c1
+  highlight LualineBufferInactive guifg=#a3be8c guibg=#3b4252
+  highlight WinbarLeftIndent guifg=#4c566a guibg=NONE
+  highlight WinbarNormal guifg=#e5e9f0 guibg=NONE
 ]])
 
 local function buffer_list()
@@ -76,38 +76,38 @@ end
 lualine.setup({
 	options = {
 		icons_enabled = true,
-		theme = {
-			normal = {
-				a = { fg = "#b000ff", bg = "#58007f", gui = "bold" },
-				b = { fg = "#b000ff", bg = "#34004c" },
-				c = { fg = "#b000ff", bg = "#110019" },
-			},
-			insert = {
-				a = { fg = "#34004c", bg = "#00ff04", gui = "bold" },
-				b = { fg = "#b000ff", bg = "#34004c" },
-				c = { fg = "#b000ff", bg = "#110019" },
-			},
-			visual = {
-				a = { fg = "#34004c", bg = "#fdff00", gui = "bold" },
-				b = { fg = "#b000ff", bg = "#34004c" },
-				c = { fg = "#b000ff", bg = "#110019" },
-			},
-			replace = {
-				a = { fg = "#b000ff", bg = "#ff00c1", gui = "bold" },
-				b = { fg = "#b000ff", bg = "#34004c" },
-				c = { fg = "#b000ff", bg = "#110019" },
-			},
-			command = {
-				a = { fg = "#34004c", bg = "#00dfff", gui = "bold" },
-				b = { fg = "#b000ff", bg = "#34004c" },
-				c = { fg = "#b000ff", bg = "#110019" },
-			},
-			inactive = {
-				a = { fg = "#b000ff", bg = "#110019", gui = "bold" },
-				b = { fg = "#b000ff", bg = "#110019" },
-				c = { fg = "#b000ff", bg = "#110019" },
-			},
-		},
+theme = {
+  normal = {
+    a = { fg = "#2e3440", bg = "#81a1c1", gui = "bold" }, -- nord9
+    b = { fg = "#d8dee9", bg = "#4c566a" }, -- nord4/nord3
+    c = { fg = "#d8dee9", bg = "#3b4252" }, -- nord4/nord1
+  },
+  insert = {
+    a = { fg = "#2e3440", bg = "#a3be8c", gui = "bold" }, -- nord14
+    b = { fg = "#d8dee9", bg = "#4c566a" },
+    c = { fg = "#d8dee9", bg = "#3b4252" },
+  },
+  visual = {
+    a = { fg = "#2e3440", bg = "#d08770", gui = "bold" }, -- nord12
+    b = { fg = "#d8dee9", bg = "#4c566a" },
+    c = { fg = "#d8dee9", bg = "#3b4252" },
+  },
+  replace = {
+    a = { fg = "#2e3440", bg = "#bf616a", gui = "bold" }, -- nord11
+    b = { fg = "#d8dee9", bg = "#4c566a" },
+    c = { fg = "#d8dee9", bg = "#3b4252" },
+  },
+  command = {
+    a = { fg = "#2e3440", bg = "#88c0d0", gui = "bold" }, -- nord8
+    b = { fg = "#d8dee9", bg = "#4c566a" },
+    c = { fg = "#d8dee9", bg = "#3b4252" },
+  },
+  inactive = {
+    a = { fg = "#d8dee9", bg = "#2e3440", gui = "bold" },
+    b = { fg = "#d8dee9", bg = "#2e3440" },
+    c = { fg = "#d8dee9", bg = "#2e3440" },
+  },
+},
 		section_separators = { left = "", right = "" },
 		component_separators = { left = "", right = "" },
 		disabled_filetypes = {
