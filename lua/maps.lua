@@ -15,7 +15,7 @@ end
 map("n", "j", "h", { noremap = true, silent = true })
 -- down
 map("n", "k", "j", { noremap = true, silent = true })
--- right
+-- right 
 map("n", "l", "l", { noremap = true, silent = true })
 -- up
 map("n", "i", "k", { noremap = true, silent = true })
@@ -47,6 +47,23 @@ wk.add({
   {"<leader>t", group = "Theme select"},
   {"<leader>ts", "<cmd>ThemeSelect<CR>", desc = "Select theme"}
 })
+
+--UFO collapse
+local status, ufo = pcall(require, "ufo")
+if status then
+  wk.add({
+    {"<leader>z", group = "UFO Collapse"},
+    {"<leader>zj", ufo.openAllFolds, desc = "Abrir todos os folds"}, 
+    {"<leader>zc", ufo.closeAllFolds, desc = "Fechar todos os folds"}, 
+    {"<leader>zv", ufo.peekFolderLinesUnderCursor, desc = "Visualizar fold sob cursor"}, 
+    {"<leader>zr", "<cmd>zr<CR>", desc = "Aumenta nível do fold"}, 
+    {"<leader>zm", "<cmd>zm<CR>", desc = "Reduz nível do fold"}, 
+  })
+else
+  print("UFO not found")
+end
+
+
 
 -- gitsigns
 local status, gitsigns = pcall(require, "gitsigns")
