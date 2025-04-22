@@ -19,7 +19,6 @@ map("n", "k", "j", { noremap = true, silent = true })
 map("n", "l", "l", { noremap = true, silent = true })
 -- up
 map("n", "i", "k", { noremap = true, silent = true })
-
 -- edit
 map("n", "e", "i", { noremap = true, silent = true })
 

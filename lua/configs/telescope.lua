@@ -1,5 +1,5 @@
 local status, telescope = pcall(require, "telescope")
-local lga_actions = require("telescope._extensions.live_grep_args.actions")
+local lga_actions = require("telescope.extensions.live_grep_args.actions")
 
 if not status then
 	return
