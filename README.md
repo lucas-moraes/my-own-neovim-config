@@ -9,6 +9,7 @@
 - LazyGit: https://github.com/jesseduffield/lazygit (Optional)
 - LazyDocker: https://github.com/jesseduffield/LazyDocker (Optional)
 - Prettier: https://github.com/prettier/prettier (Optional)
+- Zellij: https://zellij.dev/ (Optional)
 
 ### Configurations dependencies:
 
