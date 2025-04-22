@@ -10,6 +10,7 @@
 - LazyDocker: https://github.com/jesseduffield/LazyDocker (Optional)
 - Prettier: https://github.com/prettier/prettier (Optional)
 - Zellij: https://zellij.dev/ (Optional)
+- Copilot: https://github.com/github/copilot.vim (Optional)
 
 ### Configurations dependencies:
 
