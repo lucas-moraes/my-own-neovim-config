@@ -42,6 +42,11 @@ else
 	print("Telescope not found")
 end
 
+-- Theme select
+wk.add({
+  {"<leader>t", group = "Theme select"},
+  {"<leader>ts", "<cmd>ThemeSelect<CR>", desc = "Select theme"}
+})
 
 -- gitsigns
 local status, gitsigns = pcall(require, "gitsigns")
