@@ -198,12 +198,10 @@ vim.g.multi_cursor_use_default_mapping = 0
 map("n", "<C-d>", "<Plug>(multiple-cursors-find)", {})
 
 -- Mover linha para baixo no modo normal
-vim.api.nvim_set_keymap("v", "<C-k-k>", ":m '>+1<CR>gv=gv", { noremap = true, silent = true })
-vim.api.nvim_set_keymap("n", "<C-k-k>", ":m .+1<CR>==", { noremap = true, silent = true })
-
--- Mover linha para cima no modo normal
-vim.api.nvim_set_keymap("n", "<C-i-i>", ":m .-2<CR>==", { noremap = true, silent = true })
-vim.api.nvim_set_keymap("v", "<C-i-i>", ":m '<-2<CR>gv=gv", { noremap = true, silent = true })
+map("n", "<A-j>", ":m .+1<CR>==", { noremap = true, silent = true })
+map("n", "<A-k>", ":m .-2<CR>==", { noremap = true, silent = true })
+map("v", "<A-j>", ":m '>+1<CR>gv=gv", { noremap = true, silent = true })
+map("v", "<A-k>", ":m '<-2<CR>gv=gv", { noremap = true, silent = true })
 
 -- Adicionar mapeamento de teclado para Ctrl+Alt+Down para copiar a linha abaixo
 map("n", "<C-A-k>", "yyp", { noremap = true, silent = true })
