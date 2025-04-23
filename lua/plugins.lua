@@ -53,6 +53,26 @@ return require("packer").startup(function(use)
     end,
   })
 
+-- UFO - Collapse blocks
+use({
+  "kevinhwang91/nvim-ufo",
+  requires = "kevinhwang91/promise-async",
+  config = function()
+    vim.o.foldcolumn = "1"
+    vim.o.foldlevel = 99
+    vim.o.foldlevelstart = 99
+    vim.o.foldenable = true
+
+    require("ufo").setup({
+      provider_selector = function()
+        return { "treesitter", "indent" }
+      end,
+    })
+  end,
+})
+
+
+
 	-- Treesitter
 	use({
 		"nvim-treesitter/nvim-treesitter",
@@ -287,41 +307,10 @@ return require("packer").startup(function(use)
   -- Tabs
   use({
 		"nvim-lualine/lualine.nvim",
-    event = "BufEnter",
-		--[[ config = function()
-			require("configs.lualine.light")
-		end,
-    ]]
-
-	  config = function()
-			require("configs.lualine.dark")
-		end,
-
-
-   --[[ config = function() 
-      require("configs.lualine.dark-orange")
-    end,
-    ]]
-
-    --[[config = function() 
-      require("configs.lualine.dark-purple")
-    end,
-    ]]
-
-
 		requires = { "nvim-web-devicons" },
 	})
 
-  -- UI theme
-		-- require("themes.dark-transparent").setup()
-    -- require("themes.nordic").setup()
-     require("themes.dracul").setup()
-    -- require("themes.moonlightness").setup()
-		-- require("themes.dark-orange").setup()
-		-- require("themes.dark-purple").setup()
-		-- require("themes.light").setup()
-
-
+  require("configs.theme-manager")
   --------------------------------------------------------------------------------------------------------------
 
 	-- Background Transparent
