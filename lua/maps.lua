@@ -198,10 +198,10 @@ vim.g.multi_cursor_use_default_mapping = 0
 map("n", "<C-d>", "<Plug>(multiple-cursors-find)", {})
 
 -- Mover linha para baixo no modo normal
-map("n", "<A-j>", ":m .+1<CR>==", { noremap = true, silent = true })
-map("n", "<A-k>", ":m .-2<CR>==", { noremap = true, silent = true })
-map("v", "<A-j>", ":m '>+1<CR>gv=gv", { noremap = true, silent = true })
-map("v", "<A-k>", ":m '<-2<CR>gv=gv", { noremap = true, silent = true })
+map("n", "<A-J>", ":m .+1<CR>==", { noremap = true, silent = true })
+map("n", "<A-K>", ":m .-2<CR>==", { noremap = true, silent = true })
+map("v", "<A-J>", ":m '>+1<CR>gv=gv", { noremap = true, silent = true })
+map("v", "<A-K>", ":m '<-2<CR>gv=gv", { noremap = true, silent = true })
 
 -- Adicionar mapeamento de teclado para Ctrl+Alt+Down para copiar a linha abaixo
 map("n", "<C-A-k>", "yyp", { noremap = true, silent = true })
