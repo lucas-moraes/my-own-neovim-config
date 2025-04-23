@@ -63,7 +63,17 @@ else
   print("UFO not found")
 end
 
-
+-- copitlot
+local status, copilot = pcall(require, "copilot")
+if status then
+  wk.add({
+    { "<leader>cp", "<CMD>Copilot panel<CR>", desc = "Copilot Panel" },
+    { "<leader>cc", "<CMD>Copilot complete<CR>", desc = "Copilot Complete" },
+    { "<leader>cf", "<CMD>Copilot file_diff<CR>", desc = "Copilot File Diff" },
+  })
+else
+  print("copilot not found")
+end
 
 -- gitsigns
 local status, gitsigns = pcall(require, "gitsigns")
