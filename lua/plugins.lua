@@ -71,7 +71,14 @@ use({
   end,
 })
 
-
+use({
+    "sphamba/smear-cursor.nvim",
+    config = function()
+        require("smear_cursor").setup({
+          legacy_computing_symbols_support = true,
+        })
+    end,
+  })
 
 	-- Treesitter
 	use({
