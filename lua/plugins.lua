@@ -21,6 +21,20 @@ return require("packer").startup(function(use)
 
   require("configs.dap")
 
+
+  -- ui amigável
+use({
+  "stevearc/dressing.nvim",
+  config = function()
+    require("dressing").setup({
+      select = {
+        backend = { "telescope" }, -- ou "telescope", se preferir
+      },
+    })
+  end,
+})
+
+
   -- Trouble
   use({
     "folke/trouble.nvim",
