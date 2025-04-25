@@ -64,16 +64,11 @@ else
 end
 
 -- copitlot
-local status, copilot = pcall(require, "copilot")
-if status then
   wk.add({
     { "<leader>cp", "<CMD>Copilot panel<CR>", desc = "Copilot Panel" },
     { "<leader>cc", "<CMD>Copilot complete<CR>", desc = "Copilot Complete" },
     { "<leader>cf", "<CMD>Copilot file_diff<CR>", desc = "Copilot File Diff" },
   })
-else
-  print("copilot not found")
-end
 
 -- gitsigns
 local status, gitsigns = pcall(require, "gitsigns")
@@ -203,15 +198,10 @@ vim.g.multi_cursor_use_default_mapping = 0
 map("n", "<C-d>", "<Plug>(multiple-cursors-find)", {})
 
 -- Mover linha para baixo no modo normal
-vim.api.nvim_set_keymap("v", "<C-k-k>", ":m '>+1<CR>gv=gv", { noremap = true, silent = true })
-vim.api.nvim_set_keymap("n", "<C-k-k>", ":m .+1<CR>==", { noremap = true, silent = true })
-
--- Mover linha para cima no modo normal
-vim.api.nvim_set_keymap("n", "<C-i-i>", ":m .-2<CR>==", { noremap = true, silent = true })
-vim.api.nvim_set_keymap("v", "<C-i-i>", ":m '<-2<CR>gv=gv", { noremap = true, silent = true })
-
---toggle fold
-map("n", "<A-t>", "za", { noremap = true, silent = true })
+map("n", "<A-J>", ":m .+1<CR>==", { noremap = true, silent = true })
+map("n", "<A-K>", ":m .-2<CR>==", { noremap = true, silent = true })
+map("v", "<A-J>", ":m '>+1<CR>gv=gv", { noremap = true, silent = true })
+map("v", "<A-K>", ":m '<-2<CR>gv=gv", { noremap = true, silent = true })
 
 -- Adicionar mapeamento de teclado para Ctrl+Alt+Down para copiar a linha abaixo
 map("n", "<C-A-k>", "yyp", { noremap = true, silent = true })

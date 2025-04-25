@@ -15,12 +15,25 @@ return require("packer").startup(function(use)
 
   use("mfussenegger/nvim-dap")
   use("rcarriga/nvim-dap-ui")
-  use("williamboman/mason.nvim")
   use("nvim-neotest/nvim-nio") 
   use("theHamsta/nvim-dap-virtual-text")
   use("jay-babu/mason-nvim-dap.nvim")
 
   require("configs.dap")
+
+
+  -- ui amigável
+use({
+  "stevearc/dressing.nvim",
+  config = function()
+    require("dressing").setup({
+      select = {
+        backend = { "telescope" }, -- ou "telescope", se preferir
+      },
+    })
+  end,
+})
+
 
   -- Trouble
   use({
@@ -71,7 +84,14 @@ use({
   end,
 })
 
-
+use({
+    "sphamba/smear-cursor.nvim",
+    config = function()
+        require("smear_cursor").setup({
+          legacy_computing_symbols_support = true,
+        })
+    end,
+  })
 
 	-- Treesitter
 	use({
