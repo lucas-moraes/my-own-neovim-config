@@ -15,7 +15,6 @@ return require("packer").startup(function(use)
 
   use("mfussenegger/nvim-dap")
   use("rcarriga/nvim-dap-ui")
-  use("williamboman/mason.nvim")
   use("nvim-neotest/nvim-nio") 
   use("theHamsta/nvim-dap-virtual-text")
   use("jay-babu/mason-nvim-dap.nvim")
