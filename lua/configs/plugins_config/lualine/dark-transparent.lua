@@ -69,7 +69,6 @@ local function buffer_list()
 	return table.concat(buffer_names, "%*" .. " " .. "%*")
 end
 
-
 local function left_separator()
 	local separator = " ▶ "
 	return separator
@@ -81,8 +80,8 @@ local function right_separator()
 end
 
 local function relative_file_path()
-  local file_path = vim.fn.expand("%:~:.")
-  return file_path
+	local file_path = vim.fn.expand("%:~:.")
+	return file_path
 end
 
 lualine.setup({
@@ -123,38 +122,38 @@ lualine.setup({
 		section_separators = { left = "", right = "" },
 		component_separators = { left = "", right = "" },
 		disabled_filetypes = {
-			statusline = { 
-        "neo-tree", 
-        "neo-tree filesystem [1]", 
-        "toggleterm",
-        "dap-repl",
-        "dapui_scopes",
-        "dapui_stacks",
-        "dapui_breakpoints",
-        "dapui_watches",
-        "dapui_console",
-        "dapui_hover",
-      },
-			winbar = { 
-        "neo-tree", 
-        "packer", 
-        "neo-tree filesystem [1]", 
-        "toggleterm",
-        "dap-repl",
-        "dapui_scopes",
-        "dapui_stacks",
-        "dapui_breakpoints",
-        "dapui_watches",
-        "dapui_console",
-        "dapui_hover",
-      },
+			statusline = {
+				"neo-tree",
+				"neo-tree filesystem [1]",
+				"toggleterm",
+				"dap-repl",
+				"dapui_scopes",
+				"dapui_stacks",
+				"dapui_breakpoints",
+				"dapui_watches",
+				"dapui_console",
+				"dapui_hover",
+			},
+			winbar = {
+				"neo-tree",
+				"packer",
+				"neo-tree filesystem [1]",
+				"toggleterm",
+				"dap-repl",
+				"dapui_scopes",
+				"dapui_stacks",
+				"dapui_breakpoints",
+				"dapui_watches",
+				"dapui_console",
+				"dapui_hover",
+			},
 		},
-		ignore_focus = { 
-      "neo-tree", 
-      "packer", 
-      "neo-tree filesystem [1]", 
-      "toggleterm",
-    },
+		ignore_focus = {
+			"neo-tree",
+			"packer",
+			"neo-tree filesystem [1]",
+			"toggleterm",
+		},
 		always_divide_middle = true,
 		globalstatus = false,
 		refresh = {
@@ -168,7 +167,23 @@ lualine.setup({
 		lualine_b = { "branch", "diff", "diagnostics" },
 		lualine_c = { relative_file_path },
 		lualine_x = {},
-		lualine_y = { "filetype"},
+		lualine_y = {
+			{
+				function()
+					local ok, copilot_enabled = pcall(vim.fn["copilot#Enabled"])
+					if ok and copilot_enabled == 1 then
+						return " " -- ícone do GitHub (Font Nerds ou NerdFont)
+					else
+						return ""
+					end
+				end,
+				color = { fg = "#6CC644" }, -- verde, igual Copilot
+				cond = function()
+					local ok, copilot_enabled = pcall(vim.fn["copilot#Enabled"])
+					return ok and copilot_enabled == 1
+				end,
+			},
+		},
 		lualine_z = { "location" },
 	},
 	inactive_sections = {
