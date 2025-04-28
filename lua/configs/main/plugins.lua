@@ -17,7 +17,7 @@ return require("packer").startup(function(use)
 	use("theHamsta/nvim-dap-virtual-text")
 	use("jay-babu/mason-nvim-dap.nvim")
 
-	require("configs.dap")
+	require("configs.plugins_config.dap")
 
 	-- ui amigável
 	use({
@@ -96,7 +96,7 @@ return require("packer").startup(function(use)
 			require("nvim-treesitter.install").update({ with_sync = true })
 		end,
 		config = function()
-			require("configs.treesitter")
+			require("configs.plugins_config.treesitter")
 		end,
 	})
 
@@ -135,7 +135,7 @@ return require("packer").startup(function(use)
 	use({
 		"mhartington/formatter.nvim",
 		config = function()
-			require("configs.formatter")
+			require("configs.plugins_config.formatter")
 		end,
 	})
 
@@ -154,7 +154,7 @@ return require("packer").startup(function(use)
 		"nvim-telescope/telescope-live-grep-args.nvim",
 		requires = { "nvim-telescope/telescope.nvim" },
 		config = function()
-			require("configs.live-grep-args")
+			require("configs.plugins_config.live-grep-args")
 		end,
 	})
 
@@ -167,7 +167,7 @@ return require("packer").startup(function(use)
 	use({
 		"neovim/nvim-lspconfig",
 		config = function()
-			require("configs.lsp")
+			require("configs.plugins_config.lsp")
 		end,
 	})
 
@@ -193,7 +193,7 @@ return require("packer").startup(function(use)
 		-- follow latest release.
 		tag = "v2.*",
 		config = function()
-			require("configs.luasnip")
+			require("configs.plugins_config.luasnip")
 		end,
 	})
 
@@ -202,7 +202,7 @@ return require("packer").startup(function(use)
 		"hrsh7th/nvim-cmp",
 		event = "InsertEnter",
 		config = function()
-			require("configs.cmp")
+			require("configs.plugins_config.cmp")
 		end,
 	})
 
@@ -216,7 +216,7 @@ return require("packer").startup(function(use)
 	use({
 		"williamboman/mason.nvim",
 		config = function()
-			require("configs.mason")
+			require("configs.plugins_config.mason")
 		end,
 	})
 
@@ -253,7 +253,7 @@ return require("packer").startup(function(use)
 			vim.fn.sign_define("DiagnosticSignInfo", { text = " ", texthl = "DiagnosticSignInfo" })
 			vim.fn.sign_define("DiagnosticSignHint", { text = "󰌵", texthl = "DiagnosticSignHint" })
 
-			require("configs.neo-tree")
+			require("configs.plugins_config.neo-tree")
 		end,
 	})
 
@@ -270,7 +270,7 @@ return require("packer").startup(function(use)
 		"akinsho/toggleterm.nvim",
 		tag = "*",
 		config = function()
-			require("configs.toggleterm")
+			require("configs.plugins_config.toggleterm")
 		end,
 	})
 
@@ -278,7 +278,7 @@ return require("packer").startup(function(use)
 	use({
 		"lewis6991/gitsigns.nvim",
 		config = function()
-			require("configs.gitsigns")
+			require("configs.plugins_config.gitsigns")
 		end,
 	})
 
@@ -322,7 +322,7 @@ return require("packer").startup(function(use)
 		requires = { "nvim-web-devicons" },
 	})
 
-	require("configs.theme-manager")
+	require("configs.plugins_config.theme-manager")
 	--------------------------------------------------------------------------------------------------------------
 
 	-- Background Transparent

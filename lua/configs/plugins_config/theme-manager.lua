@@ -63,11 +63,11 @@ function M.apply_theme(theme_name, lualine_name)
   lualine_name = lualine_name or load_last_lualine()
 
   local success_theme = pcall(function()
-    require("themes." .. theme_name).setup()
+    require("configs.themes." .. theme_name).setup()
   end)
 
   local success_lualine = pcall(function()
-    require("configs.lualine." .. lualine_name)
+    require("configs.plugins_config.lualine." .. lualine_name)
   end)
 
   if success_theme and success_lualine then
@@ -91,7 +91,7 @@ end
 -- Comando :ThemeSelect
 vim.api.nvim_create_user_command("ThemeSelect", M.select_theme, {})
 
--- Aplica automaticamente o último tema salvo (ou fallback dracul)
+-- Aplica automaticamente o últ:mo tema salvo (ou fallback dracul)
 M.apply_theme()
 
 return M
