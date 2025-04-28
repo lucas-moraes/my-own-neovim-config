@@ -63,8 +63,8 @@ local function right_separator()
 end
 
 local function relative_file_path()
-  local file_path = vim.fn.expand("%:~:.")
-  return file_path
+	local file_path = vim.fn.expand("%:~:.")
+	return file_path
 end
 
 lualine.setup({
@@ -105,17 +105,17 @@ lualine.setup({
 		section_separators = { left = "", right = "" },
 		component_separators = { left = "", right = "" },
 		disabled_filetypes = {
-			statusline = { 
-        "neo-tree", 
-        "neo-tree filesystem [1]", 
-        "toggleterm",
-      },
-			winbar = { 
-        "neo-tree", 
-        "packer", 
-        "neo-tree filesystem [1]", 
-        "toggleterm",
-      },
+			statusline = {
+				"neo-tree",
+				"neo-tree filesystem [1]",
+				"toggleterm",
+			},
+			winbar = {
+				"neo-tree",
+				"packer",
+				"neo-tree filesystem [1]",
+				"toggleterm",
+			},
 		},
 		ignore_focus = { "neo-tree", "packer", "neo-tree filesystem [1]", "toggleterm" },
 		always_divide_middle = true,
@@ -131,7 +131,23 @@ lualine.setup({
 		lualine_b = { "branch", "diff", "diagnostics" },
 		lualine_c = { relative_file_path },
 		lualine_x = {},
-		lualine_y = { "progress" },
+		lualine_y = {
+			{
+				function()
+					local ok, copilot_enabled = pcall(vim.fn["copilot#Enabled"])
+					if ok and copilot_enabled == 1 then
+						return " " -- ícone do GitHub (Font Nerds ou NerdFont)
+					else
+						return ""
+					end
+				end,
+				color = { fg = "#6CC644" }, -- verde, igual Copilot
+				cond = function()
+					local ok, copilot_enabled = pcall(vim.fn["copilot#Enabled"])
+					return ok and copilot_enabled == 1
+				end,
+			},
+		},
 		lualine_z = { "location" },
 	},
 	inactive_sections = {

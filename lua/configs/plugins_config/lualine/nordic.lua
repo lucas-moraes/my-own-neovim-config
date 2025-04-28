@@ -63,51 +63,50 @@ local function right_separator()
 end
 
 local function copilot_icon()
-  local icon = "ﬦ"
-  return icon
+	local icon = "ﬦ"
+	return icon
 end
 
-
 local function relative_file_path()
-  local file_path = vim.fn.expand("%:~:.")
-  return file_path
+	local file_path = vim.fn.expand("%:~:.")
+	return file_path
 end
 
 lualine.setup({
 	options = {
 		icons_enabled = true,
-theme = {
-  normal = {
-    a = { fg = "#2e3440", bg = "#81a1c1", gui = "bold" }, -- nord9
-    b = { fg = "#d8dee9", bg = "#4c566a" }, -- nord4/nord3
-    c = { fg = "#d8dee9", bg = "#3b4252" }, -- nord4/nord1
-  },
-  insert = {
-    a = { fg = "#2e3440", bg = "#a3be8c", gui = "bold" }, -- nord14
-    b = { fg = "#d8dee9", bg = "#4c566a" },
-    c = { fg = "#d8dee9", bg = "#3b4252" },
-  },
-  visual = {
-    a = { fg = "#2e3440", bg = "#d08770", gui = "bold" }, -- nord12
-    b = { fg = "#d8dee9", bg = "#4c566a" },
-    c = { fg = "#d8dee9", bg = "#3b4252" },
-  },
-  replace = {
-    a = { fg = "#2e3440", bg = "#bf616a", gui = "bold" }, -- nord11
-    b = { fg = "#d8dee9", bg = "#4c566a" },
-    c = { fg = "#d8dee9", bg = "#3b4252" },
-  },
-  command = {
-    a = { fg = "#2e3440", bg = "#88c0d0", gui = "bold" }, -- nord8
-    b = { fg = "#d8dee9", bg = "#4c566a" },
-    c = { fg = "#d8dee9", bg = "#3b4252" },
-  },
-  inactive = {
-    a = { fg = "#d8dee9", bg = "#2e3440", gui = "bold" },
-    b = { fg = "#d8dee9", bg = "#2e3440" },
-    c = { fg = "#d8dee9", bg = "#2e3440" },
-  },
-},
+		theme = {
+			normal = {
+				a = { fg = "#2e3440", bg = "#81a1c1", gui = "bold" }, -- nord9
+				b = { fg = "#d8dee9", bg = "#4c566a" }, -- nord4/nord3
+				c = { fg = "#d8dee9", bg = "#3b4252" }, -- nord4/nord1
+			},
+			insert = {
+				a = { fg = "#2e3440", bg = "#a3be8c", gui = "bold" }, -- nord14
+				b = { fg = "#d8dee9", bg = "#4c566a" },
+				c = { fg = "#d8dee9", bg = "#3b4252" },
+			},
+			visual = {
+				a = { fg = "#2e3440", bg = "#d08770", gui = "bold" }, -- nord12
+				b = { fg = "#d8dee9", bg = "#4c566a" },
+				c = { fg = "#d8dee9", bg = "#3b4252" },
+			},
+			replace = {
+				a = { fg = "#2e3440", bg = "#bf616a", gui = "bold" }, -- nord11
+				b = { fg = "#d8dee9", bg = "#4c566a" },
+				c = { fg = "#d8dee9", bg = "#3b4252" },
+			},
+			command = {
+				a = { fg = "#2e3440", bg = "#88c0d0", gui = "bold" }, -- nord8
+				b = { fg = "#d8dee9", bg = "#4c566a" },
+				c = { fg = "#d8dee9", bg = "#3b4252" },
+			},
+			inactive = {
+				a = { fg = "#d8dee9", bg = "#2e3440", gui = "bold" },
+				b = { fg = "#d8dee9", bg = "#2e3440" },
+				c = { fg = "#d8dee9", bg = "#2e3440" },
+			},
+		},
 		section_separators = { left = "", right = "" },
 		component_separators = { left = "", right = "" },
 		disabled_filetypes = {
@@ -128,7 +127,23 @@ theme = {
 		lualine_b = { "branch", "diff", "diagnostics" },
 		lualine_c = { relative_file_path },
 		lualine_x = {},
-		lualine_y = { "progress" },
+		lualine_y = {
+			{
+				function()
+					local ok, copilot_enabled = pcall(vim.fn["copilot#Enabled"])
+					if ok and copilot_enabled == 1 then
+						return " " -- ícone do GitHub (Font Nerds ou NerdFont)
+					else
+						return ""
+					end
+				end,
+				color = { fg = "#6CC644" }, -- verde, igual Copilot
+				cond = function()
+					local ok, copilot_enabled = pcall(vim.fn["copilot#Enabled"])
+					return ok and copilot_enabled == 1
+				end,
+			},
+		},
 		lualine_z = { "location" },
 	},
 	inactive_sections = {
