@@ -5,93 +5,89 @@ vim.api.nvim_create_autocmd("BufWritePost", {
 })
 
 return require("packer").startup(function(use)
-
 	-- Packer
 	use("wbthomason/packer.nvim")
 
 	-- Common utilities
 	use("nvim-lua/plenary.nvim")
 
+	use("mfussenegger/nvim-dap")
+	use("rcarriga/nvim-dap-ui")
+	use("nvim-neotest/nvim-nio")
+	use("theHamsta/nvim-dap-virtual-text")
+	use("jay-babu/mason-nvim-dap.nvim")
 
-  use("mfussenegger/nvim-dap")
-  use("rcarriga/nvim-dap-ui")
-  use("nvim-neotest/nvim-nio") 
-  use("theHamsta/nvim-dap-virtual-text")
-  use("jay-babu/mason-nvim-dap.nvim")
+	require("configs.plugins_config.dap")
 
-  require("configs.dap")
+	-- ui amigável
+	use({
+		"stevearc/dressing.nvim",
+		config = function()
+			require("dressing").setup({
+				select = {
+					backend = { "telescope" }, -- ou "telescope", se preferir
+				},
+			})
+		end,
+	})
 
+	-- Trouble
+	use({
+		"folke/trouble.nvim",
+		tag = "v2.10.0",
+		requires = "nvim-tree/nvim-web-devicons",
+		config = function()
+			require("trouble").setup({
+				position = "bottom",
+				height = 10,
+				icons = true,
+				mode = "document_diagnostics",
+				fold_open = "",
+				fold_closed = "",
+				action_keys = {
+					close = "q",
+					cancel = "<esc>",
+					refresh = "r",
+					jump = { "<cr>", "<tab>" },
+				},
+				auto_open = false,
+				auto_close = true,
+				signs = {
+					error = " ",
+					warning = " ",
+					hint = " ",
+					information = " ",
+				},
+			})
+		end,
+	})
 
-  -- ui amigável
-use({
-  "stevearc/dressing.nvim",
-  config = function()
-    require("dressing").setup({
-      select = {
-        backend = { "telescope" }, -- ou "telescope", se preferir
-      },
-    })
-  end,
-})
+	-- UFO - Collapse blocks
+	use({
+		"kevinhwang91/nvim-ufo",
+		requires = "kevinhwang91/promise-async",
+		config = function()
+			vim.o.foldcolumn = "1"
+			vim.o.foldlevel = 99
+			vim.o.foldlevelstart = 99
+			vim.o.foldenable = true
 
+			require("ufo").setup({
+				provider_selector = function()
+					return { "treesitter", "indent" }
+				end,
+			})
+		end,
+	})
 
-  -- Trouble
-  use({
-    "folke/trouble.nvim",
-    tag = "v2.10.0",
-    requires = "nvim-tree/nvim-web-devicons",
-    config = function()
-      require("trouble").setup({
-        position = "bottom",
-        height = 10,
-        icons = true,
-        mode = "document_diagnostics",
-        fold_open = "",
-        fold_closed = "",
-        action_keys = {
-          close = "q",
-          cancel = "<esc>",
-          refresh = "r",
-          jump = {"<cr>", "<tab>"},
-        },
-        auto_open = false,
-        auto_close = true,
-        signs = {
-          error = " ",
-          warning = " ",
-          hint = " ",
-          information = " "
-        },
-      })
-    end,
-  })
-
--- UFO - Collapse blocks
-use({
-  "kevinhwang91/nvim-ufo",
-  requires = "kevinhwang91/promise-async",
-  config = function()
-    vim.o.foldcolumn = "1"
-    vim.o.foldlevel = 99
-    vim.o.foldlevelstart = 99
-    vim.o.foldenable = true
-
-    require("ufo").setup({
-      provider_selector = function()
-        return { "treesitter", "indent" }
-      end,
-    })
-  end,
-})
-
-use({
-    "sphamba/smear-cursor.nvim",
-    config = function()
-        require("smear_cursor").setup({
-          legacy_computing_symbols_support = true,
-        })
-    end,
-  })
+	use({
+		"sphamba/smear-cursor.nvim",
+		config = function()
+			require("smear_cursor").setup({
+				legacy_computing_symbols_support = true,
+			})
+		end,
+	})
 
 	-- Treesitter
 	use({
@@ -100,36 +96,34 @@ use({
 			require("nvim-treesitter.install").update({ with_sync = true })
 		end,
 		config = function()
-			require("configs.treesitter")
+			require("configs.plugins_config.treesitter")
 		end,
 	})
 
-  -- indent-blankline
-  use({
-    "lukas-reineke/indent-blankline.nvim",
-    config = function()
-          require("ibl").setup({
-      indent = {
-        char = "│",
-      },
-      scope = {
-        enabled = true,
-        show_start = true,
-        show_end = true,
-      },
-    })
-    end,
-  })
+	-- indent-blankline
+	use({
+		"lukas-reineke/indent-blankline.nvim",
+		config = function()
+			require("ibl").setup({
+				indent = {
+					char = "│",
+				},
+				scope = {
+					enabled = true,
+					show_start = true,
+					show_end = true,
+				},
+			})
+		end,
+	})
 
 	-- Prisma File manager
 	use({
 		"pantharshit00/vim-prisma",
 	})
 
-
 	-- Icons
-	use({"nvim-tree/nvim-web-devicons"})
-
+	use({ "nvim-tree/nvim-web-devicons" })
 
 	use({
 		"numToStr/Comment.nvim",
@@ -141,14 +135,13 @@ use({
 	use({
 		"mhartington/formatter.nvim",
 		config = function()
-			require("configs.formatter")
+			require("configs.plugins_config.formatter")
 		end,
 	})
 
 	-- multiline select
 	use("mg979/vim-visual-multi")
 	use("terryma/vim-multiple-cursors")
-
 
 	-- Telescope
 	use({
@@ -161,7 +154,7 @@ use({
 		"nvim-telescope/telescope-live-grep-args.nvim",
 		requires = { "nvim-telescope/telescope.nvim" },
 		config = function()
-			require("configs.live-grep-args")
+			require("configs.plugins_config.live-grep-args")
 		end,
 	})
 
@@ -174,7 +167,7 @@ use({
 	use({
 		"neovim/nvim-lspconfig",
 		config = function()
-			require("configs.lsp")
+			require("configs.plugins_config.lsp")
 		end,
 	})
 
@@ -200,7 +193,7 @@ use({
 		-- follow latest release.
 		tag = "v2.*",
 		config = function()
-			require("configs.luasnip")
+			require("configs.plugins_config.luasnip")
 		end,
 	})
 
@@ -209,7 +202,7 @@ use({
 		"hrsh7th/nvim-cmp",
 		event = "InsertEnter",
 		config = function()
-			require("configs.cmp")
+			require("configs.plugins_config.cmp")
 		end,
 	})
 
@@ -223,7 +216,7 @@ use({
 	use({
 		"williamboman/mason.nvim",
 		config = function()
-			require("configs.mason")
+			require("configs.plugins_config.mason")
 		end,
 	})
 
@@ -237,30 +230,30 @@ use({
 			"nvim-lua/plenary.nvim",
 			"nvim-tree/nvim-web-devicons",
 			"MunifTanjim/nui.nvim",
-      {
-        's1n7ax/nvim-window-picker',
-        version = '2.*',
-        config = function()
-            require 'window-picker'.setup({
-                filter_rules = {
-                    include_current_win = false,
-                    autoselect_one = true,
-                    bo = {
-                        filetype = { 'neo-tree', "neo-tree-popup", "notify" },
-                        buftype = { 'terminal', "quickfix" },
-                    },
-                },
-            })
-        end,
-      }
+			{
+				"s1n7ax/nvim-window-picker",
+				version = "2.*",
+				config = function()
+					require("window-picker").setup({
+						filter_rules = {
+							include_current_win = false,
+							autoselect_one = true,
+							bo = {
+								filetype = { "neo-tree", "neo-tree-popup", "notify" },
+								buftype = { "terminal", "quickfix" },
+							},
+						},
+					})
+				end,
+			},
 		},
 		config = function()
-      vim.fn.sign_define("DiagnosticSignError", {text = " ", texthl = "DiagnosticSignError"})
-      vim.fn.sign_define("DiagnosticSignWarn", {text = " ", texthl = "DiagnosticSignWarn"})
-      vim.fn.sign_define("DiagnosticSignInfo", {text = " ", texthl = "DiagnosticSignInfo"})
-      vim.fn.sign_define("DiagnosticSignHint", {text = "󰌵", texthl = "DiagnosticSignHint"})
-			
-      require("configs.neo-tree")
+			vim.fn.sign_define("DiagnosticSignError", { text = " ", texthl = "DiagnosticSignError" })
+			vim.fn.sign_define("DiagnosticSignWarn", { text = " ", texthl = "DiagnosticSignWarn" })
+			vim.fn.sign_define("DiagnosticSignInfo", { text = " ", texthl = "DiagnosticSignInfo" })
+			vim.fn.sign_define("DiagnosticSignHint", { text = "󰌵", texthl = "DiagnosticSignHint" })
+
+			require("configs.plugins_config.neo-tree")
 		end,
 	})
 
@@ -277,7 +270,7 @@ use({
 		"akinsho/toggleterm.nvim",
 		tag = "*",
 		config = function()
-			require("configs.toggleterm")
+			require("configs.plugins_config.toggleterm")
 		end,
 	})
 
@@ -285,7 +278,7 @@ use({
 	use({
 		"lewis6991/gitsigns.nvim",
 		config = function()
-			require("configs.gitsigns")
+			require("configs.plugins_config.gitsigns")
 		end,
 	})
 
@@ -322,16 +315,15 @@ use({
 		},
 	})
 
-
---------Theme Adjust------------------------------------------------------------------------------------------
-  -- Tabs
-  use({
+	--------Theme Adjust------------------------------------------------------------------------------------------
+	-- Tabs
+	use({
 		"nvim-lualine/lualine.nvim",
 		requires = { "nvim-web-devicons" },
 	})
 
-  require("configs.theme-manager")
-  --------------------------------------------------------------------------------------------------------------
+	require("configs.plugins_config.theme-manager")
+	--------------------------------------------------------------------------------------------------------------
 
 	-- Background Transparent
 	use({
@@ -365,7 +357,5 @@ use({
 			})
 		end,
 	})
-
-
 
 end)

@@ -59,7 +59,9 @@ require('packer').startup(function(use)
   end
 end)
 
+vim.opt.termguicolors = true
+
 -- Seus outros requires
-require("settings")
-require("plugins")
-require("maps")
+require("configs.main.settings")
+require("configs.main.plugins")
+require("configs.main.maps")
