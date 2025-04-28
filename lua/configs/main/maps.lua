@@ -15,7 +15,7 @@ end
 map("n", "j", "h", { noremap = true, silent = true })
 -- down
 map("n", "k", "j", { noremap = true, silent = true })
--- right 
+-- right
 map("n", "l", "l", { noremap = true, silent = true })
 -- up
 map("n", "i", "k", { noremap = true, silent = true })
@@ -44,46 +44,45 @@ end
 
 -- Theme select
 wk.add({
-  {"<leader>t", group = "Theme select"},
-  {"<leader>ts", "<cmd>ThemeSelect<CR>", desc = "Select theme"}
+	{ "<leader>t", group = "Theme select" },
+	{ "<leader>ts", "<cmd>ThemeSelect<CR>", desc = "Select theme" },
 })
 
 --UFO collapse
 local status, ufo = pcall(require, "ufo")
 if status then
-  wk.add({
-    {"<leader>z", group = "UFO Collapse"},
-    {"<leader>zj", ufo.openAllFolds, desc = "Abrir todos os folds"}, 
-    {"<leader>zc", ufo.closeAllFolds, desc = "Fechar todos os folds"}, 
-    {"<leader>zv", ufo.peekFolderLinesUnderCursor, desc = "Visualizar fold sob cursor"}, 
-    {"<leader>zr", "<cmd>zr<CR>", desc = "Aumenta nível do fold"}, 
-    {"<leader>zm", "<cmd>zm<CR>", desc = "Reduz nível do fold"}, 
-  })
+	wk.add({
+		{ "<leader>z", group = "UFO Collapse" },
+		{ "<leader>zj", ufo.openAllFolds, desc = "Abrir todos os folds" },
+		{ "<leader>zc", ufo.closeAllFolds, desc = "Fechar todos os folds" },
+		{ "<leader>zv", ufo.peekFolderLinesUnderCursor, desc = "Visualizar fold sob cursor" },
+		{ "<leader>zr", "<cmd>zr<CR>", desc = "Aumenta nível do fold" },
+		{ "<leader>zm", "<cmd>zm<CR>", desc = "Reduz nível do fold" },
+	})
 else
-  print("UFO not found")
+	print("UFO not found")
 end
 
 -- copitlot
-  wk.add({
-    { "<leader>cp", "<CMD>Copilot panel<CR>", desc = "Copilot Panel" },
-    { "<leader>cc", "<CMD>Copilot complete<CR>", desc = "Copilot Complete" },
-    { "<leader>cf", "<CMD>Copilot file_diff<CR>", desc = "Copilot File Diff" },
-  })
+wk.add({
+	{ "<leader>cp", "<CMD>Copilot panel<CR>", desc = "Copilot Panel" },
+	{ "<leader>cc", "<CMD>Copilot complete<CR>", desc = "Copilot Complete" },
+	{ "<leader>cf", "<CMD>Copilot file_diff<CR>", desc = "Copilot File Diff" },
+})
 
 -- gitsigns
 local status, gitsigns = pcall(require, "gitsigns")
 if status then
+	function _G.git_signs_blame()
+		gitsigns.blame_line({ full = true })
+	end
 
-  function _G.git_signs_blame()
-    gitsigns.blame_line{full=true}
-  end
-
-  wk.add({
-    { "<leader>gb", git_signs_blame, desc = "git commit blame" },
-    { "<leader>gl", gitsigns.toggle_current_line_blame, desc = "git line blame" },
-  })
+	wk.add({
+		{ "<leader>gb", git_signs_blame, desc = "git commit blame" },
+		{ "<leader>gl", gitsigns.toggle_current_line_blame, desc = "git line blame" },
+	})
 else
-  print("gitsigns not found")
+	print("gitsigns not found")
 end
 
 -- Save
@@ -140,21 +139,19 @@ wk.add({
 
 -- dap
 wk.add({
-  { "<leader>dc", "<CMD>lua require'dap'.continue()<CR>", desc = "DAP Continue" },
-  { "<leader>db", "<CMD>lua require'dap'.toggle_breakpoint()<CR>", desc = "DAP Toggle Breakpoint" },
-  { "<leader>dn", "<CMD>lua require'dap'.step_over()<CR>", desc = "DAP Step Over" },
-  { "<leader>di", "<CMD>lua require'dap'.step_into()<CR>", desc = "DAP Step Into" },
-  { "<leader>do", "<CMD>lua require'dap'.step_out()<CR>", desc = "DAP Step Out" },
-  { "<leader>dd", "<CMD>lua require'dap'.disconnect()<CR>", desc = "DAP Disconnect" },
-  { "<leader>dr", "<CMD>lua require'dap'.repl.toggle()<CR>", desc = "DAP REPL Toggle" },
-  { "<leader>dl", "<CMD>lua require'dap'.run_last()<CR>", desc = "DAP Run Last" },
-  { "<leader>du", "<CMD>lua require'dapui'.toggle()<CR>", desc = "DAP UI Toggle" },
-  { "<leader>dbd", "<CMD>lua require'dap'.clear_breakpoints()<CR>", desc = "DAP Clear Breakpoints" },
-  { "<leader>de", "<CMD>lua require'dapui'.eval()<CR>", desc = "DAP Evaluate" },
-  { "<leader>dv", "<CMD>lua require'nvim-dap-virtual-text'.toggle()<CR>", desc = "DAP Virtual Text Toggle" }
+	{ "<leader>dc", "<CMD>lua require'dap'.continue()<CR>", desc = "DAP Continue" },
+	{ "<leader>db", "<CMD>lua require'dap'.toggle_breakpoint()<CR>", desc = "DAP Toggle Breakpoint" },
+	{ "<leader>dn", "<CMD>lua require'dap'.step_over()<CR>", desc = "DAP Step Over" },
+	{ "<leader>di", "<CMD>lua require'dap'.step_into()<CR>", desc = "DAP Step Into" },
+	{ "<leader>do", "<CMD>lua require'dap'.step_out()<CR>", desc = "DAP Step Out" },
+	{ "<leader>dd", "<CMD>lua require'dap'.disconnect()<CR>", desc = "DAP Disconnect" },
+	{ "<leader>dr", "<CMD>lua require'dap'.repl.toggle()<CR>", desc = "DAP REPL Toggle" },
+	{ "<leader>dl", "<CMD>lua require'dap'.run_last()<CR>", desc = "DAP Run Last" },
+	{ "<leader>du", "<CMD>lua require'dapui'.toggle()<CR>", desc = "DAP UI Toggle" },
+	{ "<leader>dbd", "<CMD>lua require'dap'.clear_breakpoints()<CR>", desc = "DAP Clear Breakpoints" },
+	{ "<leader>de", "<CMD>lua require'dapui'.eval()<CR>", desc = "DAP Evaluate" },
+	{ "<leader>dv", "<CMD>lua require'nvim-dap-virtual-text'.toggle()<CR>", desc = "DAP Virtual Text Toggle" },
 })
-
-
 
 -- Atalho para fechar buffer
 wk.add({
@@ -164,11 +161,6 @@ wk.add({
 -- Atalho para formatar o código
 wk.add({
 	{ "<leader>cf", ":Format<CR>", desc = "Format code" },
-})
-
--- Atalho para o Troble
-wk.add({
-  { "<leader>se", "<CMD>TroubleToggle<CR>", desc = "Troubble - Show Errors" },
 })
 
 -- Buffer
@@ -210,3 +202,13 @@ map("v", "<C-A-k>", "y`>pgv", { noremap = true, silent = true })
 -- Adicionar mapeamento de teclado para Ctrl+Alt+Up para copiar a linha acima
 map("n", "<C-A-i>", "yyP", { noremap = true, silent = true })
 map("v", "<C-A-i>", "y`<Pgv", { noremap = true, silent = true })
+
+wk.add({
+	"<leader>n",
+	":QuickNotes<CR>",
+	desc = "Open notes",
+})
+
+wk.add({ "<leader>se", vim.diagnostic.open_float, desc = "Mostrar diagnóstico flutuante" })
+
+

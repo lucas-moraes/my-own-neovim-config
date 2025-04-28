@@ -7,58 +7,65 @@ end
 local s = ls.snippet
 local t = ls.text_node
 
+ls.config.set_config({
+	history = true,
+	updateevents = "TextChanged,TextChangedI",
+})
+
+require("luasnip.loaders.from_vscode").lazy_load()
+
 -- React default function
 ls.add_snippets("javascriptreact", {
-	s("rdf", {
+	s(">rdf", {
 		t({ "export default function ReactDefaultFunction() {", "  return (<div></div>);", "}" }),
 	}),
 })
 
 -- React default function
 ls.add_snippets("typescriptreact", {
-	s("rdf", {
+	s(">rdf", {
 		t({ "export default function ReactDefaultFunction() {", "  return (<div>, </div>);", "}" }),
 	}),
 })
 
 -- React arrow function
 ls.add_snippets("javascriptreact", {
-	s("raf", {
+	s(">raf", {
 		t({ "export default const ReactArrowFunction = () => {", "  return (<div></div>);", "}" }),
 	}),
 })
 
 -- React arrow function
 ls.add_snippets("typescriptreact", {
-	s("raf", {
+	s(">raf", {
 		t({ "export default const ReactArrowFunction = () => {", "  return (<div>, </div>);", "}" }),
 	}),
 })
 
 -- React function
 ls.add_snippets("javascriptreact", {
-	s("f", {
+	s(">f", {
 		t({ "export function ReactFunction() {", " console.log('hi');", "}" }),
 	}),
 })
 
 -- React function
 ls.add_snippets("typescriptreact", {
-	s("f", {
+	s(">f", {
 		t({ "export function ReactFunction() :void {", "  console.log('hi');", "}" }),
 	}),
 })
 
 -- console log
 ls.add_snippets("javascriptreact", {
-	s("cl", {
+	s(">cl", {
 		t({ "console.log(`=>`, 'hi')" }),
 	}),
 })
 
 -- console log
 ls.add_snippets("typescriptreact", {
-	s("cl", {
+	s(">cl", {
 		t({ "console.log(`=>`, 'hi')" }),
 	}),
 })

@@ -9,6 +9,16 @@ nt.setup({
     width = 50,
   },
 	filesystem = {
+    renderers = {
+      file = {
+        { "icon" },
+        { "name", use_git_status_colors = true },
+      },
+      directory ={
+        { "icon" },
+        { "name", use_git_status_colors = true },
+      },
+    },
     follow_current_file = {
       enabled = true,
       leave_dirs_open = false,
@@ -25,6 +35,8 @@ nt.setup({
 		},
 	},
 	default_component_configs = {
+    size = {enabled = false},
+    last_modified = {enabled = false},
 		icon = {
 			folder_closed = "",
 			folder_open = "",

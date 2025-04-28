@@ -20,18 +20,19 @@ vim.cmd([[
   highlight LualineBufferInactive guifg=#bd93f9 guibg=#282a36
   highlight WinbarLeftIndent guifg=#44475a guibg=NONE
   highlight WinbarNormal guifg=#f8f8f2 guibg=NONE
+  highlight WinbarComponent guifg=#f8f8f2 guibg=NONE
 ]])
 
 local function buffer_list()
 	local buffers = vim.api.nvim_list_bufs()
 	local buffer_names = {}
 	local current_buf = vim.api.nvim_get_current_buf()
-	local unsaved_icon = "  ◉" -- Ícone de exclamação do Nerd Fonts
+	local unsaved_icon = "  ◉"
 
 	for _, buf in ipairs(buffers) do
 		if vim.api.nvim_buf_is_loaded(buf) then
 			local buf_name = vim.fn.fnamemodify(vim.api.nvim_buf_get_name(buf), ":t")
-			if buf_name ~= "" and not buf_name:match("neo%-tree filesystem") and not buf_name:match("toggleterm") then
+			if buf_name ~= "" and not buf_name:match("neo%-tree filesystem") and not buf_name:match("toggleterm") and not buf_name:match("quicknotes") then
 				if vim.bo[buf].modified then
 					buf_name = buf_name .. unsaved_icon
 				end

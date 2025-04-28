@@ -10,6 +10,7 @@ M.themes = {
   "nordic",
   "light",
   "dark-transparent",
+  "brazilis",
 }
 
 local theme_file = vim.fn.stdpath("cache") .. "/last_theme.txt"

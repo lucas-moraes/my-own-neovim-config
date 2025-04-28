@@ -16,10 +16,10 @@ function _G.close_current_buffer()
 end
 
 vim.cmd([[
-  highlight LualineBufferActive guifg=#34004c guibg=#b000ff
-  highlight LualineBufferInactive guifg=#a799ad guibg=#34004c
-  highlight WinbarLeftIndent guifg=#4e325b guibg=NONE
-  highlight WinbarNormal guifg=#b0aba6 guibg=NONE
+  highlight LualineBufferActive guifg=#002776 guibg=#4482ff
+  highlight LualineBufferInactive guifg=#4482ff guibg=#002776
+  highlight WinbarLeftIndent guifg=#44475a guibg=NONE
+  highlight WinbarNormal guifg=#f8f8f2 guibg=NONE
 ]])
 
 local function buffer_list()
@@ -77,34 +77,34 @@ lualine.setup({
 		icons_enabled = true,
 		theme = {
 			normal = {
-				a = { fg = "#b000ff", bg = "#58007f", gui = "bold" },
-				b = { fg = "#b000ff", bg = "#34004c" },
-				c = { fg = "#b000ff", bg = "#110019" },
+				a = { fg = "#ffffff", bg = "#0038a9", gui = "bold" },
+				b = { fg = "#FFFFFF", bg = "#002776" },
+				c = { fg = "#FFFFFF", bg = "#001643" },
 			},
 			insert = {
-				a = { fg = "#34004c", bg = "#00ff04", gui = "bold" },
-				b = { fg = "#b000ff", bg = "#34004c" },
-				c = { fg = "#b000ff", bg = "#110019" },
+				a = { fg = "#0a0a0a", bg = "#009739", gui = "bold" },
+				b = { fg = "#FFFFFF", bg = "#002776" },
+				c = { fg = "#FFFFFF", bg = "#001643" },
 			},
 			visual = {
-				a = { fg = "#34004c", bg = "#fdff00", gui = "bold" },
-				b = { fg = "#b000ff", bg = "#34004c" },
-				c = { fg = "#b000ff", bg = "#110019" },
+				a = { fg = "#0a0a0a", bg = "#FFCC29", gui = "bold" },
+				b = { fg = "#FFFFFF", bg = "#002776" },
+				c = { fg = "#FFFFFF", bg = "#001643" },
 			},
 			replace = {
-				a = { fg = "#b000ff", bg = "#ff00c1", gui = "bold" },
-				b = { fg = "#b000ff", bg = "#34004c" },
-				c = { fg = "#b000ff", bg = "#110019" },
+				a = { fg = "#0a0a0a", bg = "#FF5555", gui = "bold" },
+				b = { fg = "#FFFFFF", bg = "#002776" },
+				c = { fg = "#FFFFFF", bg = "#001643" },
 			},
 			command = {
-				a = { fg = "#34004c", bg = "#00dfff", gui = "bold" },
-				b = { fg = "#b000ff", bg = "#34004c" },
-				c = { fg = "#b000ff", bg = "#110019" },
+				a = { fg = "#0a0a0a", bg = "#FFFFFF", gui = "bold" },
+				b = { fg = "#FFFFFF", bg = "#002776" },
+				c = { fg = "#FFFFFF", bg = "#001643" },
 			},
 			inactive = {
-				a = { fg = "#b000ff", bg = "#110019", gui = "bold" },
-				b = { fg = "#b000ff", bg = "#110019" },
-				c = { fg = "#b000ff", bg = "#110019" },
+				a = { fg = "#4a4a4a", bg = "#001643", gui = "bold" },
+				b = { fg = "#4a4a4a", bg = "#001643" },
+				c = { fg = "#4a4a4a", bg = "#001643" },
 			},
 		},
 		section_separators = { left = "", right = "" },
@@ -113,7 +113,7 @@ lualine.setup({
 			statusline = { "neo-tree", "neo-tree filesystem [1]", "toggleterm" },
 			winbar = { "neo-tree", "packer", "neo-tree filesystem [1]", "toggleterm" },
 		},
-		ignore_focus = { "neo-tree", "packer", "neo-tree filesystem [1]", "toggleterm" },
+		ignore_focus = { "neo-tree", "packear", "neo-tree filesystem [1]", "toggleterm" },
 		always_divide_middle = true,
 		globalstatus = false,
 		refresh = {
