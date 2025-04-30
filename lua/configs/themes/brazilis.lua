@@ -76,8 +76,8 @@ function M.setup()
   vim.api.nvim_set_hl(0, "Property", { fg = colors.white })
   vim.api.nvim_set_hl(0, "Tag", { fg = colors.green })
   vim.api.nvim_set_hl(0, "Identifier", { fg = colors.green })
-  vim.api.nvim_set_hl(0, "Delimiter", { fg = colors.comment })
-  vim.api.nvim_set_hl(0, "PunctuationBracket", { fg = colors.comment })
+  vim.api.nvim_set_hl(0, "Delimiter", { fg = colors.blue })
+  vim.api.nvim_set_hl(0, "PunctuationBracket", { fg = colors.yellow })
   vim.api.nvim_set_hl(0, "Special", { fg = colors.blue })
 end
 
