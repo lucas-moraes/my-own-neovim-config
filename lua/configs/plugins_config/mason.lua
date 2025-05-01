@@ -13,6 +13,5 @@ masonlsp.setup({
 		"cssls",
 		"html",
 		"jsonls",
-		"ts_ls",
 	},
 })

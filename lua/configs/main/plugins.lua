@@ -19,6 +19,9 @@ return require("packer").startup(function(use)
 
 	require("configs.plugins_config.dap")
 
+	-- Rust tools
+	use("simrat39/rust-tools.nvim")
+
 	-- ui amigável
 	use({
 		"stevearc/dressing.nvim",
@@ -115,11 +118,6 @@ return require("packer").startup(function(use)
 				},
 			})
 		end,
-	})
-
-	-- Prisma File manager
-	use({
-		"pantharshit00/vim-prisma",
 	})
 
 	-- Icons
@@ -357,5 +355,4 @@ return require("packer").startup(function(use)
 			})
 		end,
 	})
-
 end)
