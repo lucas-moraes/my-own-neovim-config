@@ -214,5 +214,3 @@ map("v", "<C-A-i>", "y`<Pgv", { noremap = true, silent = true })
 wk.add({
   { "<leader>n", ":QuickNotes<CR>", desc = "Open notes" },
 })
-
-

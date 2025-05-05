@@ -31,7 +31,7 @@ local function buffer_list()
 	for _, buf in ipairs(buffers) do
 		if vim.api.nvim_buf_is_loaded(buf) then
 			local buf_name = vim.fn.fnamemodify(vim.api.nvim_buf_get_name(buf), ":t")
-			if buf_name ~= "" and not buf_name:match("neo%-tree filesystem") and not buf_name:match("toggleterm") then
+			if buf_name ~= "" and not buf_name:match("neo%-tree filesystem") and not buf_name:match("toggleterm") and not buf_name:match("quicknotes") then
 				if vim.bo[buf].modified then
 					buf_name = buf_name .. unsaved_icon
 				end
