@@ -203,12 +203,7 @@ map("v", "<C-A-k>", "y`>pgv", { noremap = true, silent = true })
 map("n", "<C-A-i>", "yyP", { noremap = true, silent = true })
 map("v", "<C-A-i>", "y`<Pgv", { noremap = true, silent = true })
 
+
 wk.add({
-	"<leader>n",
-	":QuickNotes<CR>",
-	desc = "Open notes",
+  { "<leader>n", ":QuickNotes<CR>", desc = "Open notes" },
 })
-
-wk.add({ "<leader>se", vim.diagnostic.open_float, desc = "Mostrar diagnóstico flutuante" })
-
-
