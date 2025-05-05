@@ -19,6 +19,17 @@ return require("packer").startup(function(use)
 
 	require("configs.plugins_config.dap")
 
+
+  --***** quicknotes *********
+  use({"~/.config/nvim/lua/quicknotes",
+    config = function()
+      require("quicknotes").setup()
+    end,
+  })
+  --***** quicknotes *********
+
+
+
 	-- ui amigável
 	use({
 		"stevearc/dressing.nvim",

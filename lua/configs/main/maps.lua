@@ -210,3 +210,9 @@ map("v", "<C-A-k>", "y`>pgv", { noremap = true, silent = true })
 -- Adicionar mapeamento de teclado para Ctrl+Alt+Up para copiar a linha acima
 map("n", "<C-A-i>", "yyP", { noremap = true, silent = true })
 map("v", "<C-A-i>", "y`<Pgv", { noremap = true, silent = true })
+
+wk.add({
+  { "<leader>n", ":QuickNotes<CR>", desc = "Open notes" },
+})
+
+
