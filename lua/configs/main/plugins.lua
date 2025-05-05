@@ -8,6 +8,18 @@ return require("packer").startup(function(use)
 	-- Packer
 	use("wbthomason/packer.nvim")
 
+  -- *****QuickNotes*****
+  use({
+    "~/.config/nvim/lua/quicknotes",
+    config = function()
+      require("quicknotes").setup()
+    end,
+  })
+  -- *****QuickNotes*****
+
+
+
+
 	-- Common utilities
 	use("nvim-lua/plenary.nvim")
 
