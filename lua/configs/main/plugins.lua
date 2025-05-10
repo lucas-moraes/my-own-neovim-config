@@ -19,16 +19,14 @@ return require("packer").startup(function(use)
 
 	require("configs.plugins_config.dap")
 
-
-  --***** quicknotes *********
-  use({"~/.config/nvim/lua/quicknotes",
-    config = function()
-      require("quicknotes").setup()
-    end,
-  })
-  --***** quicknotes *********
-
-
+	--***** quicknotes *********
+	use({
+		"~/.config/nvim/lua/quicknotes",
+		config = function()
+			require("quicknotes").setup()
+		end,
+	})
+	--***** quicknotes *********
 
 	-- ui amigável
 	use({
@@ -201,7 +199,9 @@ return require("packer").startup(function(use)
 
 	use({
 		"L3MON4D3/LuaSnip",
-		-- follow latest release.
+		requires = {
+			"rafamadriz/friendly-snippets",
+		},
 		tag = "v2.*",
 		config = function()
 			require("configs.plugins_config.luasnip")
@@ -211,13 +211,18 @@ return require("packer").startup(function(use)
 	-- cmp: Autocomplete
 	use({
 		"hrsh7th/nvim-cmp",
-		event = "InsertEnter",
+		requires = {
+			"hrsh7th/cmp-nvim-lsp", -- fonte LSP
+			"hrsh7th/cmp-buffer", -- fonte buffer
+			"hrsh7th/cmp-path", -- fonte paths
+			"saadparwaiz1/cmp_luasnip", -- fonte snippets do LuaSnip
+			"L3MON4D3/LuaSnip", -- o próprio LuaSnip
+			"rafamadriz/friendly-snippets", -- snippets prontos (opcional)
+		},
 		config = function()
 			require("configs.plugins_config.cmp")
 		end,
 	})
-
-	use("hrsh7th/cmp-nvim-lsp")
 
 	use({ "hrsh7th/cmp-path", after = "nvim-cmp" })
 

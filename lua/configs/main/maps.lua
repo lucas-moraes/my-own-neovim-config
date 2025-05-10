@@ -210,3 +210,5 @@ wk.add({
 })
 
 wk.add({ "<leader>se", vim.diagnostic.open_float, desc = "Mostrar diagnóstico flutuante" })
+
+
