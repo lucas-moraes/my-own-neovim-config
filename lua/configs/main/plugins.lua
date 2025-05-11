@@ -3,7 +3,7 @@ vim.api.nvim_create_autocmd("BufWritePost", {
 	pattern = "plugins.lua",
 	command = "source <afile> | PackerCompile",
 })
-
+--ssada
 return require("packer").startup(function(use)
 	-- Packer
 	use("wbthomason/packer.nvim")
@@ -11,13 +11,17 @@ return require("packer").startup(function(use)
 	-- Common utilities
 	use("nvim-lua/plenary.nvim")
 
-	use("mfussenegger/nvim-dap")
+	use({
+		"mfussenegger/nvim-dap",
+		event = "BufReadPre",
+		config = function()
+			require("configs.plugins_config.dap")
+		end,
+	})
 	use("rcarriga/nvim-dap-ui")
 	use("nvim-neotest/nvim-nio")
 	use("theHamsta/nvim-dap-virtual-text")
 	use("jay-babu/mason-nvim-dap.nvim")
-
-	require("configs.plugins_config.dap")
 
 	--***** quicknotes *********
 	use({
@@ -27,6 +31,16 @@ return require("packer").startup(function(use)
 		end,
 	})
 	--***** quicknotes *********
+
+	--Copilot
+	use({
+		"zbirenbaum/copilot.lua",
+		cmd = "Copilot",
+		event = "InsertEnter",
+		config = function()
+			require("configs.plugins_config.copilot")
+		end,
+	})
 
 	-- ui amigável
 	use({

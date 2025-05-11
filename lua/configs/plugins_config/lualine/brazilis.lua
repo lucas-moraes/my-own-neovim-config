@@ -16,7 +16,7 @@ function _G.close_current_buffer()
 end
 
 vim.cmd([[
-  highlight LualineBufferActive guifg=#ffffff guibg=#4482ff
+  highlight LualineBufferActive guifg=#002776 guibg=#4482ff
   highlight LualineBufferInactive guifg=#4482ff guibg=#002776
   highlight WinbarLeftIndent guifg=#44475a guibg=NONE
   highlight WinbarNormal guifg=#f8f8f2 guibg=NONE

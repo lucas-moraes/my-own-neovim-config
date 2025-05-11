@@ -20,6 +20,7 @@ vim.cmd([[
   highlight LualineBufferInactive guifg=#bd93f9 guibg=#282a36
   highlight WinbarLeftIndent guifg=#44475a guibg=NONE
   highlight WinbarNormal guifg=#f8f8f2 guibg=NONE
+  highlight WinbarComponent guifg=#f8f8f2 guibg=NONE
 ]])
 
 local function buffer_list()
