@@ -10,9 +10,9 @@ function M.setup()
   local colors = {
     bg       = "#001643",
     fg       = "#FFFFFF",
-    comment  = "#002f90",
-    green    = "#90e500",
-    yellow   = "#FFED00",
+    comment  = "#19439b",
+    green    = "#00e161",
+    yellow   = "#FFcb00",
     blue     = "#4482ff",
     white    = "#FFFFFF",
     error    = "#FF5555",
@@ -26,8 +26,8 @@ function M.setup()
   -- Texto invisível
   vim.o.list = true
   vim.o.listchars = "space:·,eol:↴,tab:│ ,trail:·,extends:>,precedes:<"
-  vim.api.nvim_set_hl(0, "Whitespace", { fg = colors.comment })
-  vim.api.nvim_set_hl(0, "NonText", { fg = colors.comment })
+  vim.api.nvim_set_hl(0, "Whitespace", { fg = "#0f285d" })
+  vim.api.nvim_set_hl(0, "NonText", { fg = "#0f285d" })
 
   -- Interface
   vim.api.nvim_set_hl(0, "CursorLine", { bg = "#00133c" })
@@ -43,11 +43,11 @@ function M.setup()
   vim.api.nvim_set_hl(0, "WinSeparator", { fg = colors.comment })
 
 	-- NeoTree
-	vim.api.nvim_set_hl(0, "NeoTreeRootName", { fg = "#a093d8", bold = true })
+	vim.api.nvim_set_hl(0, "NeoTreeRootName", { fg = colors.blue, bold = true })
 	vim.api.nvim_set_hl(0, "NeoTreeDirectoryIcon", { fg = "#FF9500" })
-	vim.api.nvim_set_hl(0, "NeoTreeDirectoryName", { fg = "#a093d8" })
-	vim.api.nvim_set_hl(0, "NeoTreeFileName", { fg = "#a093d8" })
-	vim.api.nvim_set_hl(0, "NeoTreeFileIcon", { fg = "#cfc9eb" })
+	vim.api.nvim_set_hl(0, "NeoTreeDirectoryName", { fg = colors.blue })
+	vim.api.nvim_set_hl(0, "NeoTreeFileName", { fg = colors.blue })
+	vim.api.nvim_set_hl(0, "NeoTreeFileIcon", { fg = "#8eb4ff" })
 	vim.api.nvim_set_hl(0, "NeoTreeGitAdded", { fg = "#3cad50" })
 	vim.api.nvim_set_hl(0, "NeoTreeGitModified", { fg = "#3cad50" })
 	vim.api.nvim_set_hl(0, "NeoTreeGitUntracked", { fg = "#3cad50" })
