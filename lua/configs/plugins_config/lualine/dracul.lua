@@ -29,18 +29,35 @@ local function buffer_list()
 	local current_buf = vim.api.nvim_get_current_buf()
 	local unsaved_icon = "  ◉"
 
+	local ignored_types = {
+		["neo-tree"] = true,
+		["neo-tree filesystem [1]"] = true,
+		["toggleterm"] = true,
+		["dap-repl"] = true,
+		["dapui_scopes"] = true,
+		["dapui_stacks"] = true,
+		["dapui_breakpoints"] = true,
+		["dapui_watches"] = true,
+		["dapui_console"] = true,
+		["dapui_hover"] = true,
+    ["quicknotes"] = true,
+	}
+
 	for _, buf in ipairs(buffers) do
 		if vim.api.nvim_buf_is_loaded(buf) then
-			local buf_name = vim.fn.fnamemodify(vim.api.nvim_buf_get_name(buf), ":t")
-			if buf_name ~= "" and not buf_name:match("neo%-tree filesystem") and not buf_name:match("toggleterm") and not buf_name:match("quicknotes") then
-				if vim.bo[buf].modified then
-					buf_name = buf_name .. unsaved_icon
-				end
-				buf_name = " " .. buf_name .. " "
-				if buf == current_buf then
-					table.insert(buffer_names, "%#LualineBufferActive#" .. buf_name)
-				else
-					table.insert(buffer_names, "%#LualineBufferInactive#" .. buf_name)
+			local ft = vim.bo[buf].filetype
+			if not ignored_types[ft] then
+				local buf_name = vim.fn.fnamemodify(vim.api.nvim_buf_get_name(buf), ":t")
+				if buf_name ~= "" then
+					if vim.bo[buf].modified then
+						buf_name = buf_name .. unsaved_icon
+					end
+					buf_name = " " .. buf_name .. " "
+					if buf == current_buf then
+						table.insert(buffer_names, "%#LualineBufferActive#" .. buf_name)
+					else
+						table.insert(buffer_names, "%#LualineBufferInactive#" .. buf_name)
+					end
 				end
 			end
 		end
@@ -61,11 +78,6 @@ end
 local function right_separator()
 	local separator = " ◀ "
 	return separator
-end
-
-local function copilot_icon()
-	local icon = "ﬦ"
-	return icon
 end
 
 local function relative_file_path()
