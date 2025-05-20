@@ -7,7 +7,7 @@ end
 
 telescope.setup({
 	defaults = {
-    cwb = vim.fn.getcwd(),
+		cwd = vim.fn.getcwd(),
 		vimgrep_arguments = {
 			"rg",
 			"--color=never",
@@ -17,8 +17,6 @@ telescope.setup({
 			"--column",
 			"--smart-case",
 		},
-		prompt_prefix = "> ",
-		selection_caret = "> ",
 		entry_prefix = "  ",
 		initial_mode = "insert",
 		selection_strategy = "reset",
@@ -34,27 +32,28 @@ telescope.setup({
 		},
 		file_sorter = require("telescope.sorters").get_fuzzy_file,
 		file_ignore_patterns = {
-      "node_modules",
-      "%.git",
-      ".next",
-      ".yarn",
-      ".vercel",
-      ".github",
-      ".idea",
-      ".vscode",
-      ".DS_Store",
-      "dist/",
-      "build/",
-      "coverage/",
-      "package-lock.json",
-      "package.json",
-      "yarn.lock",
-    },
+			"node_modules",
+			"%.git",
+			".next",
+			".yarn",
+			".vercel",
+			".github",
+			".idea",
+			".vscode",
+			".DS_Store",
+			"dist/",
+			"build/",
+			"coverage/",
+			"package-lock.json",
+			"package.json",
+			"yarn.lock",
+		},
 		generic_sorter = require("telescope.sorters").get_generic_fuzzy_sorter,
 		path_display = { "truncate" },
-		winblend = 0,
-		border = {},
-		borderchars = { "│", "─", "╭", "╮", "╯", "╰", "│", "─" },
+		winblend = 10,
+		borderchars = { "─", "│", "─", "│", "╭", "╮", "╯", "╰" },
+		prompt_prefix = " ",
+		selection_caret = " ",
 		color_devicons = true,
 		use_less = true,
 		set_env = { ["COLORTERM"] = "truecolor" }, -- default = nil,
@@ -65,9 +64,9 @@ telescope.setup({
 		buffer_previewer_maker = require("telescope.previewers").buffer_previewer_maker,
 	},
 	pickers = {
-		find_files = {
-			theme = "dropdown",
-		},
+		find_files = { theme = "dropdown" },
+		live_grep = { theme = "dropdown" },
+		buffers = { theme = "dropdown" },
 	},
 	extensions = {
 		live_grep_args = {
@@ -84,3 +83,4 @@ telescope.setup({
 
 require("telescope").load_extension("fzf")
 require("telescope").load_extension("live_grep_args")
+require("telescope").load_extension("ui-select")
