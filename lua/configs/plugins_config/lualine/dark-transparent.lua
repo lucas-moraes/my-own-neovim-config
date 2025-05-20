@@ -6,7 +6,6 @@ end
 function _G.close_current_buffer()
 	local current_buf = vim.api.nvim_get_current_buf()
 	local alt_buf = vim.fn.bufnr("#")
-	-- Se o buffer alternativo não estiver disponível ou for o mesmo que o atual, crie um novo buffer
 	if alt_buf == -1 or alt_buf == current_buf then
 		vim.cmd("enew")
 	else
