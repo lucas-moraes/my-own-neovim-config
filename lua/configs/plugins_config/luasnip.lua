@@ -12,7 +12,6 @@ ls.config.set_config({
 	updateevents = "TextChanged,TextChangedI",
 })
 
-require("luasnip.loaders.from_vscode").lazy_load()
 
 -- React default function
 ls.add_snippets("javascriptreact", {

@@ -13,9 +13,15 @@ return require("packer").startup(function(use)
 
 	use({
 		"mfussenegger/nvim-dap",
-		event = "BufReadPre",
 		config = function()
 			require("configs.plugins_config.dap")
+		end,
+	})
+	use({
+		"mfussenegger/nvim-dap-python",
+		config = function()
+			local dap_python = require("dap-python")
+			dap_python.setup(os.getenv("HOME") .. "/.virtualenvs/nvim-python/bin/python")
 		end,
 	})
 	use("rcarriga/nvim-dap-ui")
@@ -138,11 +144,6 @@ return require("packer").startup(function(use)
 				},
 			})
 		end,
-	})
-
-	-- Prisma File manager
-	use({
-		"pantharshit00/vim-prisma",
 	})
 
 	-- Icons
@@ -387,5 +388,4 @@ return require("packer").startup(function(use)
 			})
 		end,
 	})
-
 end)
