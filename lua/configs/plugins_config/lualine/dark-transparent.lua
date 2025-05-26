@@ -6,7 +6,7 @@ end
 function _G.close_current_buffer()
 	local current_buf = vim.api.nvim_get_current_buf()
 	local alt_buf = vim.fn.bufnr("#")
-	if alt_buf == -1 or alt_buf == current_buf then
+	if alt_buf == -1 or not vim.api.nvim_buf_is_valid(alt_buf) or alt_buf == current_buf then
 		vim.cmd("enew")
 	else
 		vim.cmd("buffer " .. alt_buf)
@@ -39,7 +39,7 @@ local function buffer_list()
 		["dapui_watches"] = true,
 		["dapui_console"] = true,
 		["dapui_hover"] = true,
-    ["quicknotes"] = true,
+		["quicknotes"] = true,
 	}
 
 	for _, buf in ipairs(buffers) do
@@ -83,6 +83,22 @@ local function relative_file_path()
 	local file_path = vim.fn.expand("%:~:.")
 	return file_path
 end
+
+vim.api.nvim_create_autocmd("BufDelete", {
+	callback = function()
+		vim.schedule(function()
+			require("lualine").refresh({ winbar = true })
+		end)
+	end,
+})
+
+vim.api.nvim_create_autocmd("BufEnter", {
+	callback = function()
+		vim.schedule(function()
+			require("lualine").refresh({ winbar = true })
+		end)
+	end,
+})
 
 lualine.setup({
 	options = {
