@@ -6,7 +6,7 @@ end
 function _G.close_current_buffer()
 	local current_buf = vim.api.nvim_get_current_buf()
 	local alt_buf = vim.fn.bufnr("#")
-	if alt_buf == -1 or alt_buf == current_buf then
+	if alt_buf == -1 or not vim.api.nvim_buf_is_valid(alt_buf) or alt_buf == current_buf then
 		vim.cmd("enew")
 	else
 		vim.cmd("buffer " .. alt_buf)
@@ -26,20 +26,37 @@ local function buffer_list()
 	local buffers = vim.api.nvim_list_bufs()
 	local buffer_names = {}
 	local current_buf = vim.api.nvim_get_current_buf()
-	local unsaved_icon = "  ◉" -- Ícone de exclamação do Nerd Fonts
+	local unsaved_icon = "  ◉"
+
+	local ignored_types = {
+		["neo-tree"] = true,
+		["neo-tree filesystem [1]"] = true,
+		["toggleterm"] = true,
+		["dap-repl"] = true,
+		["dapui_scopes"] = true,
+		["dapui_stacks"] = true,
+		["dapui_breakpoints"] = true,
+		["dapui_watches"] = true,
+		["dapui_console"] = true,
+		["dapui_hover"] = true,
+		["quicknotes"] = true,
+	}
 
 	for _, buf in ipairs(buffers) do
 		if vim.api.nvim_buf_is_loaded(buf) then
-			local buf_name = vim.fn.fnamemodify(vim.api.nvim_buf_get_name(buf), ":t")
-			if buf_name ~= "" and not buf_name:match("neo%-tree filesystem") and not buf_name:match("toggleterm") and not buf_name:match("quicknotes") then
-				if vim.bo[buf].modified then
-					buf_name = buf_name .. unsaved_icon
-				end
-				buf_name = " " .. buf_name .. " "
-				if buf == current_buf then
-					table.insert(buffer_names, "%#LualineBufferActive#" .. buf_name)
-				else
-					table.insert(buffer_names, "%#LualineBufferInactive#" .. buf_name)
+			local ft = vim.bo[buf].filetype
+			if not ignored_types[ft] then
+				local buf_name = vim.fn.fnamemodify(vim.api.nvim_buf_get_name(buf), ":t")
+				if buf_name ~= "" then
+					if vim.bo[buf].modified then
+						buf_name = buf_name .. unsaved_icon
+					end
+					buf_name = " " .. buf_name .. " "
+					if buf == current_buf then
+						table.insert(buffer_names, "%#LualineBufferActive#" .. buf_name)
+					else
+						table.insert(buffer_names, "%#LualineBufferInactive#" .. buf_name)
+					end
 				end
 			end
 		end
@@ -66,6 +83,22 @@ local function relative_file_path()
 	local file_path = vim.fn.expand("%:~:.")
 	return file_path
 end
+
+vim.api.nvim_create_autocmd("BufDelete", {
+	callback = function()
+		vim.schedule(function()
+			require("lualine").refresh({ winbar = true })
+		end)
+	end,
+})
+
+vim.api.nvim_create_autocmd("BufEnter", {
+	callback = function()
+		vim.schedule(function()
+			require("lualine").refresh({ winbar = true })
+		end)
+	end,
+})
 
 lualine.setup({
 	options = {
