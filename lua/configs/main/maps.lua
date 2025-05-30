@@ -139,18 +139,17 @@ wk.add({
 
 -- dap
 wk.add({
-	{ "<leader>dc", "<CMD>lua require'dap'.continue()<CR>", desc = "DAP Continue" },
-	{ "<leader>db", "<CMD>lua require'dap'.toggle_breakpoint()<CR>", desc = "DAP Toggle Breakpoint" },
-	{ "<leader>dn", "<CMD>lua require'dap'.step_over()<CR>", desc = "DAP Step Over" },
-	{ "<leader>di", "<CMD>lua require'dap'.step_into()<CR>", desc = "DAP Step Into" },
-	{ "<leader>do", "<CMD>lua require'dap'.step_out()<CR>", desc = "DAP Step Out" },
-	{ "<leader>dd", "<CMD>lua require'dap'.disconnect()<CR>", desc = "DAP Disconnect" },
-	{ "<leader>dr", "<CMD>lua require'dap'.repl.toggle()<CR>", desc = "DAP REPL Toggle" },
-	{ "<leader>dl", "<CMD>lua require'dap'.run_last()<CR>", desc = "DAP Run Last" },
-	{ "<leader>du", "<CMD>lua require'dapui'.toggle()<CR>", desc = "DAP UI Toggle" },
-	{ "<leader>dbd", "<CMD>lua require'dap'.clear_breakpoints()<CR>", desc = "DAP Clear Breakpoints" },
-	{ "<leader>de", "<CMD>lua require'dapui'.eval()<CR>", desc = "DAP Evaluate" },
-	{ "<leader>dv", "<CMD>lua require'nvim-dap-virtual-text'.toggle()<CR>", desc = "DAP Virtual Text Toggle" },
+	{ "<leader>dc", "<CMD>lua require('dap').continue()<CR>", desc = "DAP Continue" },
+	{ "<leader>do", "<CMD>lua require('dap').step_over()<CR>", desc = "DAP Step Over" },
+	{ "<leader>di", "<CMD>lua require('dap').step_into()<CR>", desc = "DAP Step Into" },
+	{ "<leader>dO", "<CMD>lua require('dap').step_out()<CR>", desc = "DAP Step Out" },
+	{ "<leader>dr", "<CMD>lua require('dap').disconnect()<CR>", desc = "DAP Disconnect" },
+	{ "<leader>dR", "<CMD>lua require('dap').repl.toggle()<CR>", desc = "DAP REPL Toggle" },
+	{ "<leader>dl", "<CMD>lua require('dap').run_last()<CR>", desc = "DAP Run Last" },
+	{ "<leader>db", "<CMD>lua require('dap').toggle_breakpoint()<CR>", desc = "DAP Toggle Breakpoint" },
+	{ "<leader>dC", "<CMD>lua require('dap').clear_breakpoints()<CR>", desc = "DAP Clear Breakpoints" },
+	{ "<leader>dv", "<CMD>lua require('nvim-dap-virtual-text').toggle()<CR>", desc = "DAP Virtual Text Toggle" },
+	{ "<leader>du", "<CMD>lua require('dapui').toggle()<CR>", desc = "DAP UI Toggle" },
 })
 
 -- Atalho para fechar buffer
@@ -210,5 +209,3 @@ wk.add({
 })
 
 wk.add({ "<leader>se", vim.diagnostic.open_float, desc = "Mostrar diagnóstico flutuante" })
-
-
