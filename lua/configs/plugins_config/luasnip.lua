@@ -28,6 +28,37 @@ for _, ft in ipairs({ "javascriptreact", "typescriptreact" }) do
 	})
 end
 
+for _, ft in ipairs({ "javascriptreact", "typescriptreact" }) do
+  ls.add_snippets(ft, {
+    s(">sc", {
+      t({
+        "export const StyledComponent = styled.div`",
+        "  display: flex;",
+        "`;",
+        "",
+      }),
+    }),
+  })
+end
+
+for _, ft in ipairs({ "javascriptreact", "typescriptreact" }) do
+  ls.add_snippets(ft, {
+    s(">sc_init", {
+      t({
+        "import styled from 'styled-components';",
+        "",
+        "export const StyledComponent = styled.div`",
+        "  display: flex;",
+        "`;",
+        "",
+      }),
+    }),
+  })
+end
+
+
+
+
 -- Mapeamento para expandir ou pular para o próximo placeholder no modo de inserção
 vim.api.nvim_set_keymap(
 	"i",
