@@ -252,6 +252,8 @@ return require("packer").startup(function(use)
 
 	use("williamboman/mason-lspconfig.nvim")
 
+  use({"WhoIsSethDaniel/mason-tool-installer.nvim"})
+  
 	-- File manager
 	use({
 		"nvim-neo-tree/neo-tree.nvim",
