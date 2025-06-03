@@ -16,21 +16,21 @@ ls.config.set_config({
 
 for _, ft in ipairs({ "javascript", "typescript", "javascriptreact", "typescriptreact" }) do
 	ls.add_snippets(ft, {
-		s(">cl", { t({ "console.log(`=>`, 'hi')" }) }),
+		s("$-cl", { t({ "console.log(`=>`, 'hi')" }) }),
 	})
 end
 
 for _, ft in ipairs({ "javascriptreact", "typescriptreact" }) do
 	ls.add_snippets(ft, {
-		s(">raf", {
+		s("$-raf", {
 			t({ "export function ReactFunction() {", " console.log('hi');", "}" }),
 		}),
 	})
 end
 
-for _, ft in ipairs({ "javascriptreact", "typescriptreact" }) do
+for _, ft in ipairs({ "javascriptreact", "typescriptreact", "javascript", "typescript",}) do
   ls.add_snippets(ft, {
-    s(">sc", {
+    s("$-sc", {
       t({
         "export const StyledComponent = styled.div`",
         "  display: flex;",
@@ -41,9 +41,9 @@ for _, ft in ipairs({ "javascriptreact", "typescriptreact" }) do
   })
 end
 
-for _, ft in ipairs({ "javascriptreact", "typescriptreact" }) do
+for _, ft in ipairs({ "javascriptreact", "typescriptreact", "javascript", "typescript", }) do
   ls.add_snippets(ft, {
-    s(">sc_init", {
+    s("$-sc_init", {
       t({
         "import styled from 'styled-components';",
         "",

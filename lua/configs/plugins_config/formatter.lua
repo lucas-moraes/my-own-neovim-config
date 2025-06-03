@@ -12,7 +12,7 @@ local prettier_config = function()
 			"--tab-width", "2",  -- Ajusta o tamanho da indentação
 			"--use-tabs", "false",  -- Usa espaços ao invés de tabs
 			"--html-whitespace-sensitivity", "ignore",  -- Ignora espaços em branco no HTML
-			"--print-width", "80"
+			"--print-width", "120"
     },
     stdin = true
   }
