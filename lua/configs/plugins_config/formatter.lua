@@ -6,13 +6,14 @@ end
 
 local prettier_config = function() 
   return{
-    exe = "prettier",
+    exe = "npx",
     args = {
-      "--stdin-filepath", vim.api.nvim_buf_get_name(0),
-			"--tab-width", "2",  -- Ajusta o tamanho da indentação
-			"--use-tabs", "false",  -- Usa espaços ao invés de tabs
-			"--html-whitespace-sensitivity", "ignore",  -- Ignora espaços em branco no HTML
-			"--print-width", "120"
+      "prettier",
+      string.format("--stdin-filepath=%s", vim.api.nvim_buf_get_name(0)),
+			"--tab-width", "2", 
+			"--use-tabs", "false",
+			"--html-whitespace-sensitivity", "ignore",
+      "--print-width", "120"
     },
     stdin = true
   }
