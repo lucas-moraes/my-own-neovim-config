@@ -173,10 +173,10 @@ map("n", "<C-k>", "<C-w>k")
 map("n", "<C-j>", "<C-w>j")
 
 -- Resize Windows
-map("n", "<C-Left>", "<C-w><")
-map("n", "<C-Right>", "<C-w>>")
-map("n", "<C-Up>", "<C-w>+")
-map("n", "<C-Down>", "<C-w>-")
+map("n", "<C-S-Left>", "<C-w><")
+map("n", "<C-S-Right>", "<C-w>>")
+map("n", "<C-S-Up>", "<C-w>+")
+map("n", "<C-S-Down>", "<C-w>-")
 
 -- Configuração do vim-multiple
 vim.g.VM_maps = {
@@ -186,13 +186,13 @@ vim.g.VM_maps = {
 
 -- Configuração do vim-multiple-cursors
 vim.g.multi_cursor_use_default_mapping = 0
-map("n", "<C-d>", "<Plug>(multiple-cursors-find)", {})
+map("n", "<C-D>", "<Plug>(multiple-cursors-find)", {})
 
 -- Mover linha para baixo no modo normal
-map("n", "<A-J>", ":m .+1<CR>==", { noremap = true, silent = true })
-map("n", "<A-K>", ":m .-2<CR>==", { noremap = true, silent = true })
-map("v", "<A-J>", ":m '>+1<CR>gv=gv", { noremap = true, silent = true })
-map("v", "<A-K>", ":m '<-2<CR>gv=gv", { noremap = true, silent = true })
+map("n", "<A-K>", ":m .+1<CR>==", { noremap = true, silent = true })
+map("n", "<A-J>", ":m .-2<CR>==", { noremap = true, silent = true })
+map("v", "<A-K>", ":m '>+1<CR>gv=gv", { noremap = true, silent = true })
+map("v", "<A-J>", ":m '<-2<CR>gv=gv", { noremap = true, silent = true })
 
 -- Adicionar mapeamento de teclado para Ctrl+Alt+Down para copiar a linha abaixo
 map("n", "<C-A-k>", "yyp", { noremap = true, silent = true })
