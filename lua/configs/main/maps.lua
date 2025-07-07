@@ -164,7 +164,7 @@ wk.add({
 
 -- Buffer
 map("n", "<BS>", "<CMD>bnext<CR>")
-map("n", "<TAB>", "<CMD>bprevious<CR>")
+map("n", "<TAB>", "<CMD>bprevious<CR>")  
 
 -- Window Navigation
 map("n", "<C-h>", "<C-w>h")
@@ -173,10 +173,10 @@ map("n", "<C-k>", "<C-w>k")
 map("n", "<C-j>", "<C-w>j")
 
 -- Resize Windows
-map("n", "<C-S-Left>", "<C-w><")
-map("n", "<C-S-Right>", "<C-w>>")
-map("n", "<C-S-Up>", "<C-w>+")
-map("n", "<C-S-Down>", "<C-w>-")
+map("n", "<leader>H", "<C-w><")
+map("n", "<leader>L", "<C-w>>")
+map("n", "<leader>J", "<C-w>+")
+map("n", "<leader>K", "<C-w>-")
 
 -- Configuração do vim-multiple
 vim.g.VM_maps = {
