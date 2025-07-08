@@ -1,15 +1,27 @@
-require("mason").setup()
-require("mason-nvim-dap").setup({
-	ensure_installed = { "pwa-node" },
-	automatic_setup = true,
-})
-require("nvim-dap-virtual-text").setup()
-require("dapui").setup()
-
+local mason = require("mason")
+local mason_dap = require("mason-nvim-dap")
 local dap = require("dap")
 local dapui = require("dapui")
 
--- UI automática
+mason.setup()
+mason_dap.setup({
+	ensure_installed = { "js-debug-adapter" },
+	automatic_setup = true,
+	handlers = {},
+})
+dap.adapters["pwa-node"] = {
+	type = "server",
+	host = "127.0.0.1",
+	port = "${port}",
+	executable = {
+		command = vim.fn.stdpath("data") .. "/mason/packages/js-debug-adapter/js-debug-adapter",
+		args = { "${port}" },
+	},
+}
+
+require("nvim-dap-virtual-text").setup()
+dapui.setup()
+
 dap.listeners.after.event_initialized["dapui_config"] = function()
 	dapui.open()
 end
@@ -20,67 +32,28 @@ dap.listeners.before.event_exited["dapui_config"] = function()
 	dapui.close()
 end
 
--- Configuração do adaptador pwa-node (js-debug-adapter)
-dap.adapters["pwa-node"] = {
-	type = "server",
-	host = "localhost",
-	port = "${port}",
-	executable = {
-		command = "js-debug-adapter", -- Deve ser instalado via Mason ou manualmente
-		args = { "${port}" },
-	},
-}
-
--- Configuração para depuração de TypeScript com ts-node
+dap.configurations = dap.configurations or {}
 dap.configurations.typescript = {
 	{
-		name = "Debug com ts-node via node --inspect-brk",
-		type = "pwa-node", -- Usa o adaptador moderno pwa-node
-		request = "launch",
-		runtimeExecutable = "ts-node", -- Executa diretamente o ts-node
-		runtimeArgs = { "--inspect" }, -- Habilita o modo de depuração
-		program = "${file}", -- Arquivo a ser depurado
-		cwd = vim.fn.getcwd(), -- Diretório de trabalho atual
-		console = "integratedTerminal", -- Usa o terminal integrado do Neovim
-		sourceMaps = true, -- Habilita source maps para TypeScript
-		protocol = "inspector", -- Protocolo moderno do Node.js
-		skipFiles = { "<node_internals>/**", 'node_modules/**' }, -- Ignora arquivos internos do Node.js
+		name = "Attach to NestJS",
+		type = "pwa-node",
+		request = "attach",
+		processId = require("dap.utils").pick_process,
+		cwd = vim.fn.getcwd(),
+		sourceMaps = true,
+		protocol = "inspector",
 	},
 }
-
 dap.configurations.javascript = dap.configurations.typescript
 
-vim.fn.sign_define("DapBreakpoint", {
-	text = "🔴",
-	texthl = "DiagnosticSignError",
-	linehl = "",
-	numhl = "",
-})
+dap.adapters["node"] = dap.adapters["pwa-node"]
 
-vim.fn.sign_define("DapBreakpointCondition", {
-	text = "🟡",
-	texthl = "DiagnosticSignWarn",
-	linehl = "",
-	numhl = "",
-})
-
-vim.fn.sign_define("DapLogPoint", {
-	text = "📝",
-	texthl = "DiagnosticSignInfo",
-	linehl = "",
-	numhl = "",
-})
-
-vim.fn.sign_define("DapStopped", {
-	text = "➡️",
-	texthl = "DiagnosticSignInfo",
-	linehl = "Visual",
-	numhl = "",
-})
-
-vim.fn.sign_define("DapBreakpointRejected", {
-	text = "⛔",
-	texthl = "DiagnosticSignHint",
-	linehl = "",
-	numhl = "",
-})
+for name, sign in pairs({
+	DapBreakpoint = "🔴",
+	DapBreakpointCondition = "🟡",
+	DapLogPoint = "📝",
+	DapStopped = "➡️",
+	DapBreakpointRejected = "⛔",
+}) do
+	vim.fn.sign_define(name, { text = sign, texthl = name, linehl = "", numhl = "" })
+end
