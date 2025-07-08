@@ -13,15 +13,16 @@ return require("packer").startup(function(use)
 
 	use({
 		"mfussenegger/nvim-dap",
-		event = "BufReadPre",
+		requires = {
+			"jay-babu/mason-nvim-dap.nvim",
+			"rcarriga/nvim-dap-ui",
+			"theHamsta/nvim-dap-virtual-text",
+			"nvim-neotest/nvim-nio",
+		},
 		config = function()
 			require("configs.plugins_config.dap")
 		end,
 	})
-	use("rcarriga/nvim-dap-ui")
-	use("nvim-neotest/nvim-nio")
-	use("theHamsta/nvim-dap-virtual-text")
-	use("jay-babu/mason-nvim-dap.nvim")
 
 	--***** quicknotes *********
 	use({
@@ -252,8 +253,8 @@ return require("packer").startup(function(use)
 
 	use("williamboman/mason-lspconfig.nvim")
 
-  use({"WhoIsSethDaniel/mason-tool-installer.nvim"})
-  
+	use({ "WhoIsSethDaniel/mason-tool-installer.nvim" })
+
 	-- File manager
 	use({
 		"nvim-neo-tree/neo-tree.nvim",
