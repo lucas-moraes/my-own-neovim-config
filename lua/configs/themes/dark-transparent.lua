@@ -39,7 +39,7 @@ function theme.setup()
 	vim.api.nvim_set_hl(0, "NonText", { fg = dracula.gray })
 
 	-- Interface
-	vim.api.nvim_set_hl(0, "CursorLine", { bg = dracula.black })
+	vim.api.nvim_set_hl(0, "CursorLine", { bg = dracula.gray })
 	vim.api.nvim_set_hl(0, "CursorColumn", { bg = dracula.black })
 	vim.api.nvim_set_hl(0, "ColorColumn", { bg = dracula.black })
 	vim.api.nvim_set_hl(0, "LineNr", { fg = dracula.comment })
@@ -65,7 +65,7 @@ function theme.setup()
 	vim.api.nvim_set_hl(0, "NeoTreeExpander", { fg = dracula.cyan })
 	vim.api.nvim_set_hl(0, "NeoTreeNormal", { fg = dracula.white, bg = "none" })
 	vim.api.nvim_set_hl(0, "NeoTreeEndOfBuffer", { fg = "NONE" })
-	vim.api.nvim_set_hl(0, "NeoTreeCursorLine", { bg = dracula.black })
+	vim.api.nvim_set_hl(0, "NeoTreeCursorLine", { bg = dracula.gray })
 	vim.api.nvim_set_hl(0, "NeoTreeTitleBar", { fg = dracula.pink })
 
 	-- Gitsigns
