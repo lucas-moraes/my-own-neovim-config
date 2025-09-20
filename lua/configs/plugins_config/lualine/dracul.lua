@@ -6,12 +6,33 @@ end
 function _G.close_current_buffer()
 	local current_buf = vim.api.nvim_get_current_buf()
 	local alt_buf = vim.fn.bufnr("#")
-	if alt_buf == -1 or not vim.api.nvim_buf_is_valid(alt_buf) or alt_buf == current_buf then
+	if alt_buf == -1 or alt_buf == current_buf then
 		vim.cmd("enew")
 	else
 		vim.cmd("buffer " .. alt_buf)
 	end
 	vim.api.nvim_buf_delete(current_buf, { force = true })
+	lualine.refresh()
+end
+
+function _G.close_all_buffers()
+	local current_buf = vim.api.nvim_get_current_buf()
+	local buffers = vim.api.nvim_list_bufs()
+
+	for _, buf in ipairs(buffers) do
+		if vim.api.nvim_buf_is_loaded(buf) and buf ~= current_buf then
+			vim.api.nvim_buf_delete(buf, { force = true })
+		end
+	end
+
+	local alt_buf = vim.fn.bufnr("#")
+	if alt_buf ~= -1 and vim.api.nvim_buf_is_valid(alt_buf) and alt_buf ~= current_buf then
+		vim.cmd("buffer " .. alt_buf)
+	end
+
+	if vim.api.nvim_buf_is_loaded(current_buf) then
+		vim.api.nvim_buf_delete(current_buf, { force = true })
+	end
 end
 
 vim.cmd([[

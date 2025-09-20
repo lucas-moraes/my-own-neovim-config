@@ -4,11 +4,6 @@ local function map(mode, lhs, rhs)
 	vim.keymap.set(mode, lhs, rhs, { silent = true })
 end
 
-local function close_current_buffer()
-	local current_buf = vim.api.nvim_get_current_buf()
-	vim.api.nvim_buf_delete(current_buf, { force = true })
-end
-
 -- Remapear teclas de navegação
 
 -- left
@@ -66,7 +61,6 @@ end
 -- copitlot
 wk.add({
 	{ "<leader>cp", "<CMD>Copilot panel<CR>", desc = "Copilot Panel" },
-	{ "<leader>cc", "<CMD>Copilot complete<CR>", desc = "Copilot Complete" },
 	{ "<leader>cf", "<CMD>Copilot file_diff<CR>", desc = "Copilot File Diff" },
 })
 
@@ -155,6 +149,7 @@ wk.add({
 -- Atalho para fechar buffer
 wk.add({
 	{ "<leader>cc", ":lua close_current_buffer()<CR>", desc = "Close current buffer" },
+	{ "<leader>ca", ":lua close_all_buffers()<CR>", desc = "Close all buffers" },
 })
 
 -- Atalho para formatar o código
@@ -164,7 +159,7 @@ wk.add({
 
 -- Buffer
 map("n", "<BS>", "<CMD>bnext<CR>")
-map("n", "<TAB>", "<CMD>bprevious<CR>")  
+map("n", "<TAB>", "<CMD>bprevious<CR>")
 
 -- Window Navigation
 map("n", "<C-h>", "<C-w>h")
