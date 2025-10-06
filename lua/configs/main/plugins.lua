@@ -24,15 +24,6 @@ return require("packer").startup(function(use)
 		end,
 	})
 
-	--***** quicknotes *********
-	use({
-		"~/.config/nvim/lua/quicknotes",
-		config = function()
-			require("quicknotes").setup()
-		end,
-	})
-	--***** quicknotes *********
-
 	--Copilot
 	use({
 		"zbirenbaum/copilot.lua",
