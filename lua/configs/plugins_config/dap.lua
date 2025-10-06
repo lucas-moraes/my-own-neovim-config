@@ -32,14 +32,20 @@ dap.listeners.before.event_exited["dapui_config"] = function()
 	dapui.close()
 end
 
+local function get_main_file()
+  local ts_file = "${workspaceFolder}/src/index.ts"
+  local js_file = "${workspaceFolder}/src/index.js"
+  return vim.fn.filereadable(ts_file) == 1 and ts_file or js_file
+end
+
 dap.configurations = dap.configurations or {}
 dap.configurations.typescript = {
 	{
-		name = "Attach to NestJS",
+		name = "Launch API NodeJS",
 		type = "pwa-node",
-		request = "attach",
-		processId = require("dap.utils").pick_process,
-		cwd = vim.fn.getcwd(),
+		request = "launch",
+    program = get_main_file(),
+    cwd = "${wokspacefolder}",
 		sourceMaps = true,
 		protocol = "inspector",
 	},
