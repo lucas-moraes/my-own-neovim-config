@@ -247,13 +247,13 @@ return require("packer").startup(function(use)
 
 	-- Mason: Portable package manager
 	use({
-		"williamboman/mason.nvim",
+		"mason-org/mason.nvim",
 		config = function()
 			require("configs.plugins_config.mason")
 		end,
 	})
 
-	use("williamboman/mason-lspconfig.nvim")
+	use({"williamboman/mason-lspconfig.nvim"})
 
 	use({ "WhoIsSethDaniel/mason-tool-installer.nvim" })
 
