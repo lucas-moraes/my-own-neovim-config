@@ -247,13 +247,21 @@ return require("packer").startup(function(use)
 
 	-- Mason: Portable package manager
 	use({
-		"mason-org/mason.nvim",
+		"williamboman/mason.nvim",
 		config = function()
-			require("configs.plugins_config.mason")
+			require("mason").setup()
 		end,
 	})
 
-	use({"williamboman/mason-lspconfig.nvim"})
+	use({
+		"williamboman/mason-lspconfig.nvim",
+		after = "mason.nvim",
+		config = function()
+			require("mason-lspconfig").setup({
+				ensure_installed = { "ts_ls", "cssls", "html", "lua_ls", "tailwindcss" },
+			})
+		end,
+	})
 
 	use({ "WhoIsSethDaniel/mason-tool-installer.nvim" })
 
