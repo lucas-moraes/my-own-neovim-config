@@ -204,3 +204,5 @@ wk.add({
 })
 
 wk.add({ "<leader>se", vim.diagnostic.open_float, desc = "Mostrar diagnóstico flutuante" })
+
+wk.add({"<leader>p", vim.lsp.buf.hover, desc = "Mostrar documentação flutuante"})
