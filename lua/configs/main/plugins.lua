@@ -29,8 +29,8 @@ return require("packer").startup(function(use)
 		dependencies = { "mfussenegger/nvim-dap" },
 		config = function()
 			require("dap-vscode-js").setup({
-				debugger_path = vim.fn.stdpath("data") .. "/mason/packages/js-debug-adapter",
-				adapters = { "pwa-node" },
+				debugger_path = vim.fn.stdpath("config") .. "/debugger/vscode-js-debug",
+				adapters = { "pwa-node", "pwa-chrome", "pwa-msedge", "node-terminal", "pwa-extensionHost" },
 			})
 		end,
 	})

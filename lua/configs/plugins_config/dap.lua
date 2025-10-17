@@ -1,23 +1,5 @@
-local mason = require("mason")
-local mason_dap = require("mason-nvim-dap")
 local dap = require("dap")
 local dapui = require("dapui")
-
-mason.setup()
-mason_dap.setup({
-	ensure_installed = { "js-debug-adapter" },
-	automatic_setup = true,
-	handlers = {},
-})
-dap.adapters["pwa-node"] = {
-	type = "server",
-	host = "127.0.0.1",
-	port = "${port}",
-	executable = {
-		command = vim.fn.stdpath("data") .. "/mason/packages/js-debug-adapter/js-debug-adapter",
-		args = { "${port}" },
-	},
-}
 
 require("nvim-dap-virtual-text").setup()
 dapui.setup()
@@ -32,27 +14,46 @@ dap.listeners.before.event_exited["dapui_config"] = function()
 	dapui.close()
 end
 
-local function get_main_file()
-  local ts_file = "${workspaceFolder}/src/index.ts"
-  local js_file = "${workspaceFolder}/src/index.js"
-  return vim.fn.filereadable(ts_file) == 1 and ts_file or js_file
+local function detect_ts_node()
+	local local_path = vim.fn.getcwd() .. "/node_modules/.bin/ts-node"
+	if vim.fn.executable(local_path) == 1 then
+		return local_path
+	elseif vim.fn.executable("ts-node") == 1 then
+		return "ts-node"
+	else
+		return nil
+	end
 end
 
-dap.configurations = dap.configurations or {}
-dap.configurations.typescript = {
-	{
-		name = "Launch API NodeJS",
-		type = "pwa-node",
-		request = "launch",
-    program = get_main_file(),
-    cwd = "${wokspacefolder}",
-		sourceMaps = true,
-		protocol = "inspector",
-	},
-}
-dap.configurations.javascript = dap.configurations.typescript
-
-dap.adapters["node"] = dap.adapters["pwa-node"]
+for _, language in ipairs({ "typescript", "javascript" }) do
+	dap.configurations[language] = {
+		{
+			name = "Launch current file (Node)",
+			type = "pwa-node",
+			request = "launch",
+			program = "${file}",
+			cwd = vim.fn.getcwd(), 
+			runtimeExecutable = "node",
+			sourceMaps = true,
+			protocol = "inspector",
+			console = "integratedTerminal",
+			skipFiles = { "<node_internals>/**" },
+		},
+		{
+			name = "Launch current file (ts-node)",
+			type = "pwa-node",
+			request = "launch",
+			program = "${file}",
+			cwd = vim.fn.getcwd(),
+			runtimeExecutable = detect_ts_node(),
+			runtimeArgs = { "--transpile-only" },
+			sourceMaps = true,
+			protocol = "inspector",
+			console = "integratedTerminal",
+			skipFiles = { "<node_internals>/**" },
+		},
+	}
+end
 
 for name, sign in pairs({
 	DapBreakpoint = "🔴",
