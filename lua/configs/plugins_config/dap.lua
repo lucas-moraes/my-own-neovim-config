@@ -1,3 +1,5 @@
+vim.env.PATH = os.getenv("PATH")
+
 local dap = require("dap")
 local dapui = require("dapui")
 
@@ -7,50 +9,57 @@ dapui.setup()
 dap.listeners.after.event_initialized["dapui_config"] = function()
 	dapui.open()
 end
+
 dap.listeners.before.event_terminated["dapui_config"] = function()
 	dapui.close()
 end
+
 dap.listeners.before.event_exited["dapui_config"] = function()
 	dapui.close()
 end
 
-local function detect_ts_node()
-	local local_path = vim.fn.getcwd() .. "/node_modules/.bin/ts-node"
-	if vim.fn.executable(local_path) == 1 then
-		return local_path
-	elseif vim.fn.executable("ts-node") == 1 then
-		return "ts-node"
-	else
-		return nil
-	end
-end
+local debugger_path = vim.fn.expand("~/.config/nvim/debugger/vscode-js-debug")
 
-for _, language in ipairs({ "typescript", "javascript" }) do
+require("dap-vscode-js").setup({
+	debugger_path = debugger_path,
+	adapters = { "pwa-node" },
+})
+
+dap.adapters["pwa-node"] = {
+  type = "server",
+  host = "127.0.0.1",
+  port = "${port}",
+  executable = {
+    command = "node",
+    args = { debugger_path .. "/out/src/dapDebugServer.js", "${port}" },
+  },
+}
+
+for _, language in ipairs({ "typescript", "javascript", "typescriptreact", "javascriptreact" }) do
 	dap.configurations[language] = {
 		{
-			name = "Launch current file (Node)",
+			name = "🧩 Attach TSX (porta 9229)",
 			type = "pwa-node",
-			request = "launch",
-			program = "${file}",
-			cwd = vim.fn.getcwd(), 
-			runtimeExecutable = "node",
+			request = "attach",
+			port = 9229,
+			address = "127.0.0.1",
+			cwd = "${workspaceFolder}",
 			sourceMaps = true,
-			protocol = "inspector",
-			console = "integratedTerminal",
+			resolveSourceMapLocations = {
+				"${workspaceFolder}/**",
+				"!**/node_modules/**",
+        "!**/.git/**",
+			},
+			pauseForSourceMap = true,
+			sourceMapPathOverrides = {
+				["webpack:///./~/*"] = "${workspaceFolder}/node_modules/*",
+				["webpack:///./*"] = "${workspaceFolder}/*",
+				["webpack:///*"] = "*",
+				["*/src/*"] = "${workspaceFolder}/src/*",
+				["../*"] = "${workspaceFolder}/*",
+			},
 			skipFiles = { "<node_internals>/**" },
-		},
-		{
-			name = "Launch current file (ts-node)",
-			type = "pwa-node",
-			request = "launch",
-			program = "${file}",
-			cwd = vim.fn.getcwd(),
-			runtimeExecutable = detect_ts_node(),
-			runtimeArgs = { "--transpile-only" },
-			sourceMaps = true,
-			protocol = "inspector",
-			console = "integratedTerminal",
-			skipFiles = { "<node_internals>/**" },
+			attachExistingChildren = true,
 		},
 	}
 end
@@ -58,9 +67,10 @@ end
 for name, sign in pairs({
 	DapBreakpoint = "🔴",
 	DapBreakpointCondition = "🟡",
-	DapLogPoint = "📝",
-	DapStopped = "➡️",
 	DapBreakpointRejected = "⛔",
+	DapLogPoint = "🪵",
+	DapStopped = "➡️",
+	DapBreakpointDisabled = "⚪",
 }) do
-	vim.fn.sign_define(name, { text = sign, texthl = name, linehl = "", numhl = "" })
+	vim.fn.sign_define(name, { text = sign, texthl = name })
 end
