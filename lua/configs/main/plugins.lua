@@ -12,8 +12,15 @@ return require("packer").startup(function(use)
 	use("nvim-lua/plenary.nvim")
 
 	use({
+		"mxsdev/nvim-dap-vscode-js",
+		requires = { "mfussenegger/nvim-dap" },
+	})
+
+	-- 2️⃣ Depois carrega o DAP com sua configuração
+	use({
 		"mfussenegger/nvim-dap",
 		requires = {
+			"mxsdev/nvim-dap-vscode-js",
 			"jay-babu/mason-nvim-dap.nvim",
 			"rcarriga/nvim-dap-ui",
 			"theHamsta/nvim-dap-virtual-text",
@@ -21,17 +28,6 @@ return require("packer").startup(function(use)
 		},
 		config = function()
 			require("configs.plugins_config.dap")
-		end,
-	})
-
-	use({
-		"mxsdev/nvim-dap-vscode-js",
-		dependencies = { "mfussenegger/nvim-dap" },
-		config = function()
-			require("dap-vscode-js").setup({
-				debugger_path = vim.fn.stdpath("config") .. "/debugger/vscode-js-debug",
-				adapters = { "pwa-node", "pwa-chrome", "pwa-msedge", "node-terminal", "pwa-extensionHost" },
-			})
 		end,
 	})
 
