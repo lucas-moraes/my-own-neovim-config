@@ -25,13 +25,7 @@ if status then
 		{ "<leader>ff", telescope.find_files, desc = "Telescope Find Files" },
 		{ "<leader>fg", telescope.live_grep, desc = "Telescope Live Grep" },
 		{ "<leader>fb", telescope.current_buffer_fuzzy_find, desc = "Telescope current buffer" },
-		{ "<leader>fp", telescope.project, desc = "Telescope Project" },
-		{ "<leader>fw", telescope.file_browser, desc = "Telescope File Browser" },
-		{ "<leader>fk", telescope.keymaps, desc = "Telescope Keymaps" },
-		{ "<leader>fh", telescope.help_tags, desc = "Telescope Help Tags" },
-		{ "<leader>fs", telescope.search_history, desc = "Telescope Search History" },
-		{ "<leader>fc", telescope.commands, desc = "Telescope Commands" },
-		{ "<leader>fr", "<cmd>lua search_and_replace()<CR>", desc = "Telescope find and replace" },
+		{ "<leader>fr", "<cmd>lua search_and_replace()<CR>", desc = "Telescope find and replace" }, --revisar
 	})
 else
 	print("Telescope not found")
@@ -50,19 +44,10 @@ if status then
 		{ "<leader>z", group = "UFO Collapse" },
 		{ "<leader>zj", ufo.openAllFolds, desc = "Abrir todos os folds" },
 		{ "<leader>zc", ufo.closeAllFolds, desc = "Fechar todos os folds" },
-		{ "<leader>zv", ufo.peekFolderLinesUnderCursor, desc = "Visualizar fold sob cursor" },
-		{ "<leader>zr", "<cmd>zr<CR>", desc = "Aumenta nível do fold" },
-		{ "<leader>zm", "<cmd>zm<CR>", desc = "Reduz nível do fold" },
 	})
 else
 	print("UFO not found")
 end
-
--- copitlot
-wk.add({
-	{ "<leader>cp", "<CMD>Copilot panel<CR>", desc = "Copilot Panel" },
-	{ "<leader>cf", "<CMD>Copilot file_diff<CR>", desc = "Copilot File Diff" },
-})
 
 -- gitsigns
 local status, gitsigns = pcall(require, "gitsigns")
@@ -133,6 +118,7 @@ wk.add({
 
 -- dap
 wk.add({
+	{ "<leader>d", group = "DAP" },
 	{ "<leader>dc", "<CMD>lua require('dap').continue()<CR>", desc = "DAP Continue" },
 	{ "<leader>do", "<CMD>lua require('dap').step_over()<CR>", desc = "DAP Step Over" },
 	{ "<leader>di", "<CMD>lua require('dap').step_into()<CR>", desc = "DAP Step Into" },
@@ -168,8 +154,8 @@ map("n", "<C-k>", "<C-w>k")
 map("n", "<C-j>", "<C-w>j")
 
 -- Resize Windows
-map("n", "<leader>H", "<C-w><")
-map("n", "<leader>L", "<C-w>>")
+map("n", "<leader>L", "<C-w><")
+map("n", "<leader>H", "<C-w>>")
 map("n", "<leader>J", "<C-w>+")
 map("n", "<leader>K", "<C-w>-")
 
@@ -197,12 +183,6 @@ map("v", "<C-A-k>", "y`>pgv", { noremap = true, silent = true })
 map("n", "<C-A-i>", "yyP", { noremap = true, silent = true })
 map("v", "<C-A-i>", "y`<Pgv", { noremap = true, silent = true })
 
-wk.add({
-	"<leader>n",
-	":QuickNotes<CR>",
-	desc = "Open notes",
-})
-
 wk.add({ "<leader>se", vim.diagnostic.open_float, desc = "Mostrar diagnóstico flutuante" })
 
-wk.add({"<leader>p", vim.lsp.buf.hover, desc = "Mostrar documentação flutuante"})
+wk.add({ "<leader>p", vim.lsp.buf.definition, desc = "Mostrar documentação flutuante" })
