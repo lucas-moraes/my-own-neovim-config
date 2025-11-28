@@ -45,11 +45,7 @@ return require("packer").startup(function(use)
 	use({
 		"stevearc/dressing.nvim",
 		config = function()
-			require("dressing").setup({
-				select = {
-					backend = { "telescope" }, -- ou "telescope", se preferir
-				},
-			})
+			require("dressing").setup({})
 		end,
 	})
 
