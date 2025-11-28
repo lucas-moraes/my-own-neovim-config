@@ -45,11 +45,7 @@ return require("packer").startup(function(use)
 	use({
 		"stevearc/dressing.nvim",
 		config = function()
-			require("dressing").setup({
-				select = {
-					backend = { "telescope" }, -- ou "telescope", se preferir
-				},
-			})
+			require("dressing").setup({})
 		end,
 	})
 
@@ -183,14 +179,6 @@ return require("packer").startup(function(use)
 	use({
 		"nvim-telescope/telescope-fzf-native.nvim",
 		run = "cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build",
-	})
-
-	-- LSP
-	use({
-		"neovim/nvim-lspconfig",
-		config = function()
-			require("configs.plugins_config.lsp")
-		end,
 	})
 
 	use({ "onsails/lspkind-nvim" })
@@ -354,6 +342,10 @@ return require("packer").startup(function(use)
 		},
 	})
 
+	use({
+		"neovim/nvim-lspconfig",
+	})
+
 	--------Theme Adjust------------------------------------------------------------------------------------------
 	-- Tabs
 	use({
@@ -396,5 +388,4 @@ return require("packer").startup(function(use)
 			})
 		end,
 	})
-
 end)

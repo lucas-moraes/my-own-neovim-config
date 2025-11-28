@@ -65,4 +65,3 @@ vim.opt.termguicolors = true
 require("configs.main.settings")
 require("configs.main.plugins")
 require("configs.main.maps")
-require("configs.plugins_config.lsp")
