@@ -23,31 +23,21 @@ end
 formatter.setup({
 	logging = false,
 	filetype = {
-		javascript = { prettier_config },
-    typescript = { prettier_config },
-    javascriptreact = { prettier_config },
-    typescriptreact = { prettier_config },
-    html = { prettier_config },
-    css = { prettier_config },
-    scss = { prettier_config },
-    less = { prettier_config },
+   python = {
+        pylsp = {
+            command = "pylsp",
+            args = { "--stdio", "--format" },
+            stdin = true
+        }
+    },
     json = { prettier_config },
-    prisma = { prettier_config },
     markdown = { prettier_config },
     lua = {
-      function()
-        return {
-          exe = "stylua",
-          args = {
-            "--search-parent-directories",
-            "--stdin-filepath",
-            vim.api.nvim_buf_get_name(0),
-            "--",
-            "-",
-          },
-          stdin = true,
-        }
-      end,
+      stylua = {
+        command = "stylua",
+        args = { "--search-parent-directories", "--stdin-filepath", vim.api.nvim_buf_get_name(0), "--" },
+        stdin = true,
+      },
     },
 	},
 })
@@ -56,7 +46,7 @@ vim.api.nvim_exec(
 	[[
   augroup FormatAutogroup
     autocmd!
-    autocmd BufWritePost *.css,*.prisma,*.js,*.ts,*.json,*.html,*.scss,*.less,*.md FormatWrite
+    autocmd BufWritePost *.json,*.html,*.md,*.py,*.lua FormatWrite
   augroup END
 ]],
 	true

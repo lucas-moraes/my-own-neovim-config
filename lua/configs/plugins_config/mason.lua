@@ -6,6 +6,14 @@ if not status_mason then
 	return
 end
 
+if not status_mason_lsp then
+	return
+end
+
+if not status_mason_tool then
+	return
+end
+
 mason.setup()
 
 masonlsp.setup({
@@ -14,11 +22,9 @@ masonlsp.setup({
 
 masontool.setup({
   ensure_installed = {
-    "css-lsp",
-    "html-lsp",
-    "js-debug-adapter",
+    "lua-language-server",
+    "python-lsp-server",
     "json-lsp",
-    "typescript-language-server",
     "stylua"
   },
   auto_update = true,

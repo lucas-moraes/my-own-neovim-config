@@ -181,14 +181,6 @@ return require("packer").startup(function(use)
 		run = "cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build",
 	})
 
-	-- LSP
-	use({
-		"neovim/nvim-lspconfig",
-		config = function()
-			require("configs.plugins_config.lsp")
-		end,
-	})
-
 	use({ "onsails/lspkind-nvim" })
 
 	use({
@@ -250,7 +242,7 @@ return require("packer").startup(function(use)
 		after = "mason.nvim",
 		config = function()
 			require("mason-lspconfig").setup({
-				ensure_installed = { "ts_ls", "cssls", "html", "lua_ls", "tailwindcss" },
+				ensure_installed = { "lua_ls" },
 			})
 		end,
 	})
@@ -349,6 +341,12 @@ return require("packer").startup(function(use)
 			"nvim-lua/plenary.nvim",
 		},
 	})
+
+	use({
+		"neovim/nvim-lspconfig",
+	})
+
+
 
 	--------Theme Adjust------------------------------------------------------------------------------------------
 	-- Tabs

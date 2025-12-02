@@ -17,16 +17,8 @@ ts.setup({
 	},
 	ensure_installed = {
 		"markdown",
-		"tsx",
-		"typescript",
-		"javascript",
-		"toml",
 		"json",
-		"yaml",
-		"css",
-		"html",
 		"lua",
-		"php",
 	},
 	rainbow = {
 		enable = true,
