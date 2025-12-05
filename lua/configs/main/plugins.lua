@@ -242,7 +242,7 @@ return require("packer").startup(function(use)
 		after = "mason.nvim",
 		config = function()
 			require("mason-lspconfig").setup({
-				ensure_installed = { "lua_ls" },
+				ensure_installed = { "lua_ls, pylsp" },
 			})
 		end,
 	})
