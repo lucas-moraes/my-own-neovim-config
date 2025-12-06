@@ -25,7 +25,9 @@ masontool.setup({
     "lua-language-server",
     "python-lsp-server",
     "json-lsp",
-    "stylua"
+    "stylua",
+    "black",
+    "isort",
   },
   auto_update = true,
   run_on_start = true,
