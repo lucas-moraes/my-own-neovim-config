@@ -23,7 +23,7 @@ end
 for _, ft in ipairs({ "javascriptreact", "typescriptreact" }) do
 	ls.add_snippets(ft, {
 		s("$-raf", {
-			t({ "export function ReactFunction() {", " console.log('hi');", "}" }),
+			t({ "export const ReactFunction = () => {", " console.log('hi');", "}" }),
 		}),
 	})
 end
