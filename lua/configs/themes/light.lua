@@ -1,101 +1,99 @@
 local theme = {}
 
 function theme.setup()
-	vim.o.termguicolors = true
+  vim.o.termguicolors = true
 
-	vim.cmd("highlight clear")
-	vim.cmd("syntax reset")
-	vim.o.background = "light"
+  vim.cmd("highlight clear")
+  vim.cmd("syntax reset")
+  -- Define o fundo como "light"
+  vim.o.background = "light"
 
-	vim.api.nvim_set_hl(0, "Normal", { fg = "#6e6e6e", bg = "#FDFAED" })
-	vim.api.nvim_set_hl(0, "NormalNC", { bg = "#FDFAED" })
-	vim.api.nvim_set_hl(0, "EndOfBuffer", { bg = "#FDFAED" })
+  -- Paleta baseada no Dracula, adaptada para o modo claro
+  local dracula_light = {
+    -- Cores invertidas
+    bg       = "#f8f8f2", -- Branco claro (o antigo fg)
+    fg       = "#282a36", -- Preto escuro (o antigo bg)
+    
+    -- Cores de destaque ajustadas para fundo claro
+    comment  = "#8a94b4", -- Um cinza/azul mais escuro para o comentário
+    red      = "#ff5555",
+    orange   = "#c27c34", -- Laranja escurecido para melhor contraste
+    yellow   = "#b59b00", -- Amarelo mais escuro para melhor contraste
+    green    = "#2d984d", -- Verde mais escuro para melhor contraste
+    cyan     = "#008197", -- Ciano mais escuro para melhor contraste
+    blue     = "#4d5b7a", -- Azul mais escuro
+    magenta  = "#7d47c2", -- Magenta mais escuro
+    pink     = "#c53b7c", -- Rosa mais escuro (quase bordô)
+    black    = "#d0d0d0", -- Cinza claro para elementos de interface
+    white    = "#282a36", -- O antigo fundo (agora o fg principal)
+    gray     = "#e8e8e8", -- Um cinza muito claro para fundos secundários
+    light_gray = "#f0f0f0", -- Um cinza muito claro para linha do cursor
+  }
 
-	-- Indent
-	vim.o.list = true
+  -- Fundo principal
+  vim.api.nvim_set_hl(0, "Normal", { bg = dracula_light.bg, fg = dracula_light.fg })
+  vim.api.nvim_set_hl(0, "NormalNC", { bg = dracula_light.bg })
+  vim.api.nvim_set_hl(0, "EndOfBuffer", { fg = dracula_light.bg, bg = dracula_light.bg })
 
-	vim.o.listchars = "space:·,eol:↴,tab:│ ,trail:·,extends:>,precedes:<,conceal:┊,nbsp:+"
+  -- Espaços e invisíveis
+  vim.o.list = true
+  vim.o.listchars = "space:·,eol:↴,tab:│ ,trail:·,extends:>,precedes:<,conceal:┊,nbsp:+"
+  vim.api.nvim_set_hl(0, "Whitespace", { fg = dracula_light.black }) -- Usando 'black' (cinza claro)
+  vim.api.nvim_set_hl(0, "NonText", { fg = dracula_light.black })
 
-	vim.api.nvim_set_hl(0, "Whitespace", { fg = "#d3d3d3" }) -- cor para os caracteres de espaços e tabulações
-	vim.api.nvim_set_hl(0, "NonText", { fg = "#d3d3d3" }) -- cor para caracteres eol, trail, extends, precedes
+  -- Interface
+  vim.api.nvim_set_hl(0, "CursorLine", { bg = dracula_light.light_gray }) -- Cinza muito claro
+  vim.api.nvim_set_hl(0, "CursorColumn", { bg = dracula_light.light_gray })
+  vim.api.nvim_set_hl(0, "ColorColumn", { bg = dracula_light.light_gray })
+  vim.api.nvim_set_hl(0, "LineNr", { fg = dracula_light.comment })
+  vim.api.nvim_set_hl(0, "CursorLineNr", { fg = dracula_light.orange }) -- Mantendo um destaque
+  vim.api.nvim_set_hl(0, "StatusLine", { fg = dracula_light.fg, bg = dracula_light.gray, bold = true })
+  vim.api.nvim_set_hl(0, "StatusLineNC", { fg = dracula_light.comment, bg = dracula_light.light_gray })
+  vim.api.nvim_set_hl(0, "TabLine", { fg = dracula_light.fg, bg = dracula_light.gray })
+  vim.api.nvim_set_hl(0, "TabLineFill", { bg = dracula_light.gray })
+  vim.api.nvim_set_hl(0, "TabLineSel", { fg = dracula_light.bg, bg = dracula_light.pink, bold = true })
+  vim.api.nvim_set_hl(0, "WinSeparator", { fg = dracula_light.black })
 
-	-- NeoTree
-	vim.api.nvim_set_hl(0, "NeoTreeRootName", { fg = "#6e6e6e", bold = true })
-	vim.api.nvim_set_hl(0, "NeoTreeDirectoryIcon", { fg = "#FF9500" })
-	vim.api.nvim_set_hl(0, "NeoTreeDirectoryName", { fg = "#6e6e6e" })
-	vim.api.nvim_set_hl(0, "NeoTreeFileName", { fg = "#6e6e6e" })
-	vim.api.nvim_set_hl(0, "NeoTreeFileIcon", { fg = "#6e6e6e" })
-	vim.api.nvim_set_hl(0, "NeoTreeGitAdded", { fg = "#007498" })
-	vim.api.nvim_set_hl(0, "NeoTreeGitDeleted", { fg = "#ff3b30" })
-	vim.api.nvim_set_hl(0, "NeoTreeGitModified", { fg = "#007498" })
-	vim.api.nvim_set_hl(0, "NeoTreeGitUntracked", { fg = "#007498" })
-	vim.api.nvim_set_hl(0, "NeoTreeIndentMarker", { fg = "#E3DFCA" })
-	vim.api.nvim_set_hl(0, "NeoTreeExpander", { fg = "#E3DFCA" })
-	vim.api.nvim_set_hl(0, "NeoTreeNormal", { fg = "#6866da", bg = "#FDFAED" })
-	vim.api.nvim_set_hl(0, "NeoTreeEndOfBuffer", { fg = "#E3DFCA" })
-	vim.api.nvim_set_hl(0, "NeoTreeCursorLine", { bg = "#E3DFCA" })
-	vim.api.nvim_set_hl(0, "NeoTreeTitleBar", { fg = "#6866da", bg = "#E3DFCA" })
+  -- NeoTree
+  vim.api.nvim_set_hl(0, "NeoTreeRootName", { fg = dracula_light.magenta, bold = true })
+  vim.api.nvim_set_hl(0, "NeoTreeDirectoryIcon", { fg = dracula_light.cyan })
+  vim.api.nvim_set_hl(0, "NeoTreeDirectoryName", { fg = dracula_light.fg })
+  vim.api.nvim_set_hl(0, "NeoTreeFileName", { fg = dracula_light.fg })
+  vim.api.nvim_set_hl(0, "NeoTreeFileIcon", { fg = dracula_light.fg })
+  vim.api.nvim_set_hl(0, "NeoTreeGitAdded", { fg = dracula_light.green })
+  vim.api.nvim_set_hl(0, "NeoTreeGitModified", { fg = dracula_light.orange })
+  vim.api.nvim_set_hl(0, "NeoTreeGitUntracked", { fg = dracula_light.red })
+  vim.api.nvim_set_hl(0, "NeoTreeGitDeleted", { fg = dracula_light.red })
+  vim.api.nvim_set_hl(0, "NeoTreeIndentMarker", { fg = dracula_light.black })
+  vim.api.nvim_set_hl(0, "NeoTreeExpander", { fg = dracula_light.cyan })
+  vim.api.nvim_set_hl(0, "NeoTreeNormal", { fg = dracula_light.fg, bg = "none" })
+  vim.api.nvim_set_hl(0, "NeoTreeEndOfBuffer", { fg = "NONE" })
+  vim.api.nvim_set_hl(0, "NeoTreeCursorLine", { bg = dracula_light.light_gray })
+  vim.api.nvim_set_hl(0, "NeoTreeTitleBar", { fg = dracula_light.pink })
 
-	-- User Interface
-	vim.api.nvim_set_hl(0, "CursorLine", { bg = "#E3DFCA" }) -- Linha do cursor
-	vim.api.nvim_set_hl(0, "CursorColumn", { bg = "#ff3b30" }) -- Coluna do cursor
-	vim.api.nvim_set_hl(0, "ColorColumn", { bg = "#E3DFCA" }) -- Coluna de cores
-	vim.api.nvim_set_hl(0, "LineNr", { fg = "#007498" }) -- Números de linha
-	vim.api.nvim_set_hl(0, "CursorLineNr", { fg = "#ff3b30" }) -- Número da linha do cursor
-	vim.api.nvim_set_hl(0, "StatusLine", { fg = "#6866da", bg = "#FF9500" }) -- Linha de status
-	vim.api.nvim_set_hl(0, "StatusLineNC", { fg = "#6e6e6e", bg = "#ff3b30" }) -- Linha de status não ativa
-	vim.api.nvim_set_hl(0, "VertSplit", { fg = "#FF9500" }) -- Divisões verticais
-	vim.api.nvim_set_hl(0, "TabLine", { fg = "#007498", bg = "#ff3b30" }) -- Linha de abas
-	vim.api.nvim_set_hl(0, "TabLineFill", { fg = "#ff3b30", bg = "#FDFAED" }) -- Preenchimento da linha de abas
-	vim.api.nvim_set_hl(0, "TabLineSel", { fg = "#6866da", bg = "#FF9500" }) -- Aba selecionada
+  -- Gitsigns
+  vim.api.nvim_set_hl(0, "GitSignsCurrentLineBlame", { fg = dracula_light.comment, italic = true })
 
-	-- Comentários
-	vim.api.nvim_set_hl(0, "Comment", { fg = "#6e6e6e", italic = true })
-
-	-- Strings
-	vim.api.nvim_set_hl(0, "String", { fg = "#1c00cf" })
-	vim.api.nvim_set_hl(0, "Character", { fg = "#1c00cf" })
-
-	-- Números e Booleans
-	vim.api.nvim_set_hl(0, "Number", { fg = "#1c00cf" })
-	vim.api.nvim_set_hl(0, "Boolean", { fg = "#1c00cf" })
-	vim.api.nvim_set_hl(0, "Float", { fg = "#1c00cf" })
-
-	-- Variáveis e Identificadores
-	vim.api.nvim_set_hl(0, "Identifier", { fg = "#c41a16" })
-	vim.api.nvim_set_hl(0, "Function", { fg = "#c41a16" })
-
-	-- Palavras-chave
-	vim.api.nvim_set_hl(0, "Keyword", { fg = "#a626a4", bold = true })
-	vim.api.nvim_set_hl(0, "Conditional", { fg = "#a626a4", bold = true })
-	vim.api.nvim_set_hl(0, "Repeat", { fg = "#a626a4", bold = true })
-	vim.api.nvim_set_hl(0, "Operator", { fg = "#a626a4" })
-	vim.api.nvim_set_hl(0, "Exception", { fg = "#a626a4", bold = true })
-
-	-- Tipos e Classes
-	vim.api.nvim_set_hl(0, "Type", { fg = "#007498" })
-	vim.api.nvim_set_hl(0, "StorageClass", { fg = "#007498" })
-	vim.api.nvim_set_hl(0, "Structure", { fg = "#50a14f" })
-	vim.api.nvim_set_hl(0, "Typedef", { fg = "#50a14f" })
-
-	-- Preproc
-	vim.api.nvim_set_hl(0, "PreProc", { fg = "#a626a4" })
-	vim.api.nvim_set_hl(0, "Include", { fg = "#a626a4" })
-	vim.api.nvim_set_hl(0, "Define", { fg = "#a626a4" })
-	vim.api.nvim_set_hl(0, "Macro", { fg = "#a626a4" })
-	vim.api.nvim_set_hl(0, "PreCondit", { fg = "#a626a4" })
-
-	-- Constantes
-	vim.api.nvim_set_hl(0, "Constant", { fg = "#4078f2" })
-	vim.api.nvim_set_hl(0, "TSConstant", { fg = "#4078f2" })
-	vim.api.nvim_set_hl(0, "TSConstBuiltin", { fg = "#4078f2" })
-	vim.api.nvim_set_hl(0, "TSConstMacro", { fg = "#4078f2" })
-
-	-- React e TypeScript específico
-	vim.api.nvim_set_hl(0, "TSXTag", { fg = "#a626a4" })
-	vim.api.nvim_set_hl(0, "TSXAttribute", { fg = "#50a14f" })
-	vim.api.nvim_set_hl(0, "TSXComponent", { fg = "#c41a16" })
-	vim.api.nvim_set_hl(0, "TSXText", { fg = "#000000" })
+  -- Código
+  vim.api.nvim_set_hl(0, "Keyword", { fg = dracula_light.pink })
+  vim.api.nvim_set_hl(0, "Function", { fg = dracula_light.green })
+  vim.api.nvim_set_hl(0, "Parameter", { fg = dracula_light.fg })
+  vim.api.nvim_set_hl(0, "String", { fg = dracula_light.yellow })
+  vim.api.nvim_set_hl(0, "Type", { fg = dracula_light.cyan })
+  vim.api.nvim_set_hl(0, "Number", { fg = dracula_light.orange })
+  vim.api.nvim_set_hl(0, "Boolean", { fg = dracula_light.orange })
+  vim.api.nvim_set_hl(0, "Operator", { fg = dracula_light.magenta })
+  vim.api.nvim_set_hl(0, "Comment", { fg = dracula_light.comment, italic = true })
+  vim.api.nvim_set_hl(0, "Constant", { fg = dracula_light.cyan })
+  vim.api.nvim_set_hl(0, "PreProc", { fg = dracula_light.pink })
+  vim.api.nvim_set_hl(0, "Error", { fg = dracula_light.bg, bg = dracula_light.red, bold = true })
+  vim.api.nvim_set_hl(0, "Property", { fg = dracula_light.fg })
+  vim.api.nvim_set_hl(0, "Atributes", { fg = dracula_light.fg })
+  vim.api.nvim_set_hl(0, "Tag", { fg = dracula_light.magenta })
+  vim.api.nvim_set_hl(0, "Identifier", { fg = dracula_light.magenta })
+  vim.api.nvim_set_hl(0, "Delimiter", { fg = dracula_light.blue })
+  vim.api.nvim_set_hl(0, "PunctuationBracket", { fg = dracula_light.blue })
+  vim.api.nvim_set_hl(0, "Special", { fg = dracula_light.cyan })
 end
 
 return theme
