@@ -37,7 +37,7 @@ end
 
 vim.cmd([[
   highlight LualineBufferActive guifg=#ffffff guibg=#5f00af
-  highlight LualineBufferInactive guifg=#999999 guibg=#3a3a3a
+  highlight LualineBufferInactive guifg=#606060 guibg=#afafaf
   highlight WinbarLeftIndent guifg=#3a3a3a guibg=NONE
   highlight WinbarNormal guifg=#999999 guibg=NONE
 ]])
