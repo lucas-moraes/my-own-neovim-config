@@ -11,7 +11,7 @@ function theme.setup()
 	-- Paleta baseada no Dracula, adaptada para o modo claro
 	local dracula_light = {
 		-- Cores invertidas
-		bg = "#f8f9fd", -- Branco claro (o antigo fg)
+		bg = "#fbf9f1", -- Branco claro (o antigo fg)
 		fg = "#282a36", -- Preto escuro (o antigo bg)
 
 		-- Cores de destaque ajustadas para fundo claro
