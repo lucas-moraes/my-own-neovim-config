@@ -183,6 +183,13 @@ map("v", "<C-A-k>", "y`>pgv", { noremap = true, silent = true })
 map("n", "<C-A-i>", "yyP", { noremap = true, silent = true })
 map("v", "<C-A-i>", "y`<Pgv", { noremap = true, silent = true })
 
+-- Adicionar indentações no modo visual e permanecer no modo visual
+map("v", "<F3>", '>gv', { noremap = true, silent = true })
+
+-- Remover indentações no modo visual e permanecer no modo visual
+map("v", "<F4>", '<gv', { noremap = true, silent = true })
+
 wk.add({ "<leader>se", vim.diagnostic.open_float, desc = "Mostrar diagnóstico flutuante" })
 
 wk.add({ "<leader>p", vim.lsp.buf.definition, desc = "Mostrar documentação flutuante" })
+
