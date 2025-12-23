@@ -52,12 +52,9 @@ formatter.setup({
 	},
 })
 
-vim.api.nvim_exec(
-	[[
-  augroup FormatAutogroup
-    autocmd!
-    autocmd BufWritePost *.css,*.prisma,*.js,*.ts,*.json,*.html,*.scss,*.less,*.md FormatWrite
-  augroup END
-]],
-	true
-)
+vim.api.nvim_create_augroup("FormatAutogroup", { clear = true })
+vim.api.nvim_create_autocmd("BufWritePost", {
+  pattern = { "*.css", "*.prisma", "*.js", "*.ts", "*.json", "*.html", "*.scss", "*.less", "*.md", "*.lua" },
+  command = "FormatWrite",
+  group = "FormatAutogroup",
+})
