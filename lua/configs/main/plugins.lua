@@ -1,14 +1,14 @@
+---@diagnostic disable: undefined-global
+
 vim.api.nvim_create_autocmd("BufWritePost", {
 	group = vim.api.nvim_create_augroup("PACKER", { clear = true }),
 	pattern = "plugins.lua",
 	command = "source <afile> | PackerCompile",
 })
---ssada
+
 return require("packer").startup(function(use)
-	-- Packer
 	use("wbthomason/packer.nvim")
 
-	-- Common utilities
 	use("nvim-lua/plenary.nvim")
 
 	use({
@@ -16,7 +16,6 @@ return require("packer").startup(function(use)
 		requires = { "mfussenegger/nvim-dap" },
 	})
 
-	-- 2️⃣ Depois carrega o DAP com sua configuração
 	use({
 		"mfussenegger/nvim-dap",
 		requires = {
@@ -31,7 +30,6 @@ return require("packer").startup(function(use)
 		end,
 	})
 
-	--Copilot
 	use({
 		"zbirenbaum/copilot.lua",
 		cmd = "Copilot",
@@ -41,7 +39,6 @@ return require("packer").startup(function(use)
 		end,
 	})
 
-	-- ui amigável
 	use({
 		"stevearc/dressing.nvim",
 		config = function()
@@ -49,7 +46,6 @@ return require("packer").startup(function(use)
 		end,
 	})
 
-	-- Trouble
 	use({
 		"folke/trouble.nvim",
 		tag = "v2.10.0",
@@ -80,7 +76,6 @@ return require("packer").startup(function(use)
 		end,
 	})
 
-	-- UFO - Collapse blocks
 	use({
 		"kevinhwang91/nvim-ufo",
 		requires = "kevinhwang91/promise-async",
@@ -107,7 +102,6 @@ return require("packer").startup(function(use)
 		end,
 	})
 
-	-- Treesitter
 	use({
 		"nvim-treesitter/nvim-treesitter",
 		run = function()
@@ -118,7 +112,6 @@ return require("packer").startup(function(use)
 		end,
 	})
 
-	-- indent-blankline
 	use({
 		"lukas-reineke/indent-blankline.nvim",
 		config = function()
@@ -135,12 +128,10 @@ return require("packer").startup(function(use)
 		end,
 	})
 
-	-- Prisma File manager
 	use({
 		"pantharshit00/vim-prisma",
 	})
 
-	-- Icons
 	use({ "nvim-tree/nvim-web-devicons" })
 
 	use({
@@ -157,11 +148,9 @@ return require("packer").startup(function(use)
 		end,
 	})
 
-	-- multiline select
 	use("mg979/vim-visual-multi")
 	use("terryma/vim-multiple-cursors")
 
-	-- Telescope
 	use({
 		"nvim-telescope/telescope.nvim",
 		tag = "0.1.6",
@@ -209,16 +198,15 @@ return require("packer").startup(function(use)
 		end,
 	})
 
-	-- cmp: Autocomplete
 	use({
 		"hrsh7th/nvim-cmp",
 		requires = {
-			"hrsh7th/cmp-nvim-lsp", -- fonte LSP
-			"hrsh7th/cmp-buffer", -- fonte buffer
-			"hrsh7th/cmp-path", -- fonte paths
-			"saadparwaiz1/cmp_luasnip", -- fonte snippets do LuaSnip
-			"L3MON4D3/LuaSnip", -- o próprio LuaSnip
-			"rafamadriz/friendly-snippets", -- snippets prontos (opcional)
+			"hrsh7th/cmp-nvim-lsp",
+			"hrsh7th/cmp-buffer",
+			"hrsh7th/cmp-path",
+			"saadparwaiz1/cmp_luasnip",
+			"L3MON4D3/LuaSnip",
+			"rafamadriz/friendly-snippets",
 		},
 		config = function()
 			require("configs.plugins_config.cmp")
@@ -229,7 +217,6 @@ return require("packer").startup(function(use)
 
 	use({ "hrsh7th/cmp-buffer", after = "nvim-cmp" })
 
-	-- Mason: Portable package manager
 	use({
 		"williamboman/mason.nvim",
 		config = function()
@@ -249,7 +236,6 @@ return require("packer").startup(function(use)
 
 	use({ "WhoIsSethDaniel/mason-tool-installer.nvim" })
 
-	-- File manager
 	use({
 		"nvim-neo-tree/neo-tree.nvim",
 		branch = "v3.x",
@@ -284,7 +270,6 @@ return require("packer").startup(function(use)
 		end,
 	})
 
-	-- Show colors
 	use({
 		"norcalli/nvim-colorizer.lua",
 		config = function()
@@ -292,7 +277,6 @@ return require("packer").startup(function(use)
 		end,
 	})
 
-	-- Terminal
 	use({
 		"akinsho/toggleterm.nvim",
 		tag = "*",
@@ -301,7 +285,6 @@ return require("packer").startup(function(use)
 		end,
 	})
 
-	-- Git
 	use({
 		"lewis6991/gitsigns.nvim",
 		config = function()
@@ -309,7 +292,6 @@ return require("packer").startup(function(use)
 		end,
 	})
 
-	-- Markdown Preview
 	use({
 		"iamcco/markdown-preview.nvim",
 		run = function()
@@ -334,7 +316,6 @@ return require("packer").startup(function(use)
 		end,
 	})
 
-	-- nvim v0.7.2
 	use({
 		"kdheepak/lazygit.nvim",
 		requires = {
@@ -346,22 +327,47 @@ return require("packer").startup(function(use)
 		"neovim/nvim-lspconfig",
 	})
 
-	--------Theme Adjust------------------------------------------------------------------------------------------
-	-- Tabs
+	use({
+		"CopilotC-Nvim/CopilotChat.nvim",
+		branch = "main",
+		requires = {
+			{ "nvim-lua/plenary.nvim", branch = "master" },
+			{ "github/copilot.vim", branch = "main" },
+		},
+		run = "make tiktoken",
+		config = function()
+			require("CopilotChat").setup({
+				chat = {
+					welcome_message = "Hello! How can I assist you today?",
+					loading_text = "Loading...",
+					question_sign = " ",
+					answer_sign = " ",
+				},
+				popup = {
+					border = {
+						style = "rounded",
+						text = {
+							top = " Copilot Chat ",
+							top_align = "center",
+						},
+					},
+				},
+			})
+		end,
+	})
+
 	use({
 		"nvim-lualine/lualine.nvim",
 		requires = { "nvim-web-devicons" },
 	})
 
 	require("configs.plugins_config.theme-manager")
-	--------------------------------------------------------------------------------------------------------------
 
-	-- Background Transparent
 	use({
 		"xiyaowong/nvim-transparent",
 		config = function()
 			require("transparent").setup({
-				groups = { -- table: default groups
+				groups = {
 					"Normal",
 					"NormalNC",
 					"Special",
@@ -383,8 +389,8 @@ return require("packer").startup(function(use)
 					"CursorLineNr",
 					"EndOfBuffer",
 				},
-				extra_groups = {}, -- table: additional groups that should be cleared
-				exclude_groups = {}, -- table: groups you don't want to clear
+				extra_groups = {},
+				exclude_groups = {},
 			})
 		end,
 	})
