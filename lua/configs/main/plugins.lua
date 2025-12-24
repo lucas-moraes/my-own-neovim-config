@@ -116,6 +116,7 @@ return require("packer").startup(function(use)
 		"lukas-reineke/indent-blankline.nvim",
 		config = function()
 			require("ibl").setup({
+				debounce = 100, -- ms
 				indent = {
 					char = "│",
 				},
@@ -123,6 +124,26 @@ return require("packer").startup(function(use)
 					enabled = true,
 					show_start = true,
 					show_end = true,
+					highlight = "IblScope",
+					priority = 1024,
+				},
+				exclude = {
+					filetypes = {
+						"help",
+						"terminal",
+						"dashboard",
+						"lazy",
+						"mason",
+						"notify",
+					},
+					buftypes = {
+						"terminal",
+						"nofile",
+					},
+				},
+				viewport_buffer = {
+					min = 30,
+					max = 500,
 				},
 			})
 		end,

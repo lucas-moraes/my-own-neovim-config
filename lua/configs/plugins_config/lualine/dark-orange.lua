@@ -59,7 +59,7 @@ local function buffer_list()
 		["dapui_watches"] = true,
 		["dapui_console"] = true,
 		["dapui_hover"] = true,
-		["quicknotes"] = true,
+		["copilot-chat"] = true,
 	}
 
 	for _, buf in ipairs(buffers) do
