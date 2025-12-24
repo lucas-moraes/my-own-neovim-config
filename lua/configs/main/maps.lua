@@ -1,4 +1,5 @@
 ---@diagnostic disable: undefined-global
+
 local wk = require("which-key")
 
 local function map(mode, lhs, rhs)
@@ -34,8 +35,8 @@ map("v", "<F4>", "<gv")
 
 -- Atalho para fechar buffer
 wk.add({
-	{ "<leader>cc", ":lua close_current_buffer()<CR>", desc = "Close current buffer" },
-	{ "<leader>ca", ":lua close_all_buffers()<CR>", desc = "Close all buffers" },
+	{ "<leader>xx", ":lua close_current_buffer()<CR>", desc = "Close current buffer" },
+	{ "<leader>xa", ":lua close_all_buffers()<CR>", desc = "Close all buffers" },
 })
 
 -- Atalho para formatar o código
@@ -47,26 +48,10 @@ wk.add({
 wk.add({
 	mode = { "n", "v" },
 	{ "<leader>c", group = "Copilot Chat" },
-	{
-		"<leader>cc",
-		function()
-			require("CopilotChat").open()
-		end,
-		desc = "Toggle Copilot Chat",
-	},
-	{ "<leader>cq", "<cmd>CopilotChatQuestion<CR>", desc = "Ask Copilot Chat a question" },
-	{ "<leader>ce", ":CopilotChatExplain<CR>", desc = "Explain selection with Copilot Chat" },
-	{ "<leader>cr", "<cmd>CopilotChatReset<CR>", desc = "Reset Copilot Chat conversation" },
-	{
-		"<leader>cmq",
-		function()
-			local input = vim.fn.input("Prompt: ")
-			if input ~= "" then
-				require("CopilotChat").ask(input, { selection = require("CopilotChat.select").buffer })
-			end
-		end,
-		desc = "Quick prompt com buffer inteiro",
-	},
+	{ "<leader>cc", "<cmd>CopilotChatToggle<CR>", desc = "Toggle Copilot Chat" },
+	{ "<leader>cs", "<cmd>CopilotChatStop<CR>", desc = "Stop Copilot Chat" },
+	{ "<leader>cx", "<cmd>CopilotChatReset<CR>", desc = "Reset Copilot Chat conversation" },
+	{ "<leader>cm", "<cmd>CopilotChatModels<CR>", desc = "View/Select models" },
 })
 
 -- dap
