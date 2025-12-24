@@ -1,6 +1,8 @@
-## My own neovim configuration
+## Neovim configuration
 
 ### This configuration is focused to TypeScript, JavaScript.
+
+<video src="https://github.com/user-attachments/assets/12f8240f-6a16-47d7-8cad-026f10cdb465"></video>
 
 ### Third party plugins:
 
