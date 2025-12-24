@@ -1,26 +1,23 @@
+---@diagnostic disable: undefined-global
 
 local theme = {}
 
 function theme.setup()
 	vim.o.termguicolors = true
-
 	vim.cmd("highlight clear")
 	vim.cmd("syntax reset")
 	vim.o.background = "dark"
 
-	-- Define highlights
 	vim.api.nvim_set_hl(0, "Normal", { bg = "#1e1b29" })
 	vim.api.nvim_set_hl(0, "NormalNC", { bg = "#1e1b29" })
 	vim.api.nvim_set_hl(0, "EndOfBuffer", { bg = "#1e1b29" })
 
-	-- Indent
 	vim.o.list = true
 	vim.o.listchars = "space:·,eol:↴,tab:│ ,trail:·,extends:>,precedes:<,conceal:┊,nbsp:+"
 
 	vim.api.nvim_set_hl(0, "Whitespace", { fg = "#3a2d4a" })
 	vim.api.nvim_set_hl(0, "NonText", { fg = "#3a2d4a" })
 
-	-- Interface e UI
 	vim.api.nvim_set_hl(0, "CursorLine", { bg = "#2a2340" })
 	vim.api.nvim_set_hl(0, "CursorColumn", { bg = "#3a2d4a" })
 	vim.api.nvim_set_hl(0, "ColorColumn", { bg = "#3a2d4a" })
@@ -33,7 +30,6 @@ function theme.setup()
 	vim.api.nvim_set_hl(0, "TabLineSel", { fg = "#d1c0f0", bg = "#3a2d4a" })
 	vim.api.nvim_set_hl(0, "WinSeparator", { fg = "#bf80ff", bg = "none" })
 
-	-- NeoTree
 	vim.api.nvim_set_hl(0, "NeoTreeRootName", { fg = "#cfa9f7", bold = true })
 	vim.api.nvim_set_hl(0, "NeoTreeDirectoryIcon", { fg = "#bf80ff" })
 	vim.api.nvim_set_hl(0, "NeoTreeDirectoryName", { fg = "#cfa9f7" })
@@ -52,7 +48,6 @@ function theme.setup()
 
 	vim.api.nvim_set_hl(0, "GitSignsCurrentLineBlame", { fg = "#8f5fbf", italic = true })
 
-	-- Syntax Highlighting
 	vim.api.nvim_set_hl(0, "Keyword", { fg = "#a37bff" })
 	vim.api.nvim_set_hl(0, "Function", { fg = "#bf80ff" })
 	vim.api.nvim_set_hl(0, "Parameter", { fg = "#d1c0f0" })
@@ -72,6 +67,9 @@ function theme.setup()
 	vim.api.nvim_set_hl(0, "Delimiter", { fg = "#bf80ff" })
 	vim.api.nvim_set_hl(0, "PunctuationBracket", { fg = "#a37bff" })
 	vim.api.nvim_set_hl(0, "Special", { fg = "#bf80ff" })
+	vim.api.nvim_set_hl(0, "IblIndent", { fg = "#8b5fbf" })
+	vim.api.nvim_set_hl(0, "Ibl", { fg = "#8b5fbf" })
+	vim.api.nvim_set_hl(0, "IblScope", { fg = "#a037bf", bold = true })
 end
 
 return theme
