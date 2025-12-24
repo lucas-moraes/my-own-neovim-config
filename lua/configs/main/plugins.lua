@@ -329,30 +329,12 @@ return require("packer").startup(function(use)
 
 	use({
 		"CopilotC-Nvim/CopilotChat.nvim",
-		branch = "main",
 		requires = {
-			{ "nvim-lua/plenary.nvim", branch = "master" },
-			{ "github/copilot.vim", branch = "main" },
+			{ "nvim-lua/plenary.nvim" },
 		},
 		run = "make tiktoken",
 		config = function()
-			require("CopilotChat").setup({
-				chat = {
-					welcome_message = "Hello! How can I assist you today?",
-					loading_text = "Loading...",
-					question_sign = " ",
-					answer_sign = " ",
-				},
-				popup = {
-					border = {
-						style = "rounded",
-						text = {
-							top = " Copilot Chat ",
-							top_align = "center",
-						},
-					},
-				},
-			})
+			require("configs.plugins_config.copilot-chat")
 		end,
 	})
 
