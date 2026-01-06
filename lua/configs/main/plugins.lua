@@ -29,6 +29,14 @@ require("lazy").setup({
 	},
 
 	{
+		"olimorris/opencode.nvim",
+		cmd = "OpenCode",
+		config = function()
+			require("configs.plugins_config.opencode")
+		end,
+	},
+
+	{
 		"stevearc/dressing.nvim",
 		config = function()
 			require("dressing").setup({})
@@ -283,16 +291,7 @@ require("lazy").setup({
 		"neovim/nvim-lspconfig",
 	},
 
-	{
-		"CopilotC-Nvim/CopilotChat.nvim",
-		dependencies = {
-			{ "nvim-lua/plenary.nvim" },
-		},
-		build = "make tiktoken",
-		config = function()
-			require("configs.plugins_config.copilot-chat")
-		end,
-	},
+
 
 	{
 		"nvim-lualine/lualine.nvim",

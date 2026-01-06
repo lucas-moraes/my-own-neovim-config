@@ -8,6 +8,7 @@ This is my personal Neovim configuration, written entirely in Lua. It is designe
 - Plugin Management: Powered by Lazy.nvim for a fast, modern, and efficient setup.
 - Advanced Debugging: Pre-configured DAP (Debug Adapter Protocol) located in the /debugger directory.
 - AI-Powered: Built-in support for GitHub Copilot.
+- External Editor Integration: OpenCode plugin for seamless integration with VSCode and other editors.
 - Terminal Integration: Smooth workflow with LazyGit, LazyDocker, and Zellij.
 
 </br>
@@ -53,6 +54,7 @@ nvim
 **Prettier**: Automatic code formatting on save.</br>
 **DAP**: Integrated debugger for Node.js/TypeScript environments.</br>
 **Treesitter**: Advanced syntax highlighting and code folding.</br>
+**OpenCode**: Quick integration with external editors like VSCode for when you need a full IDE experience.</br>
 
 ## 📦 Plugin Management Commands
 
@@ -65,3 +67,17 @@ Lazy.nvim provides a clean UI and useful commands:
 - `:Lazy check` - Check for plugin updates
 - `:Lazy restore` - Restore plugins to their lockfile state
 - `:Lazy profile` - Show detailed profiling information
+
+## 🔗 OpenCode Integration
+
+OpenCode provides quick access to external editors from within Neovim:
+
+**Keybindings:**
+- `<leader>oo` - Open current file in external editor (default: VSCode)
+- `<leader>op` - Open entire project in external editor
+
+**Commands:**
+- `:OpenCode` - Open current file in configured external editor
+- `:OpenCodeProject` - Open project root in configured external editor
+
+The default editor is VSCode, but you can configure it in `lua/configs/plugins_config/opencode.lua` to use other editors like Sublime Text, Atom, or VSCode Insiders.

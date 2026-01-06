@@ -44,14 +44,11 @@ wk.add({
 	{ "<leader>cf", ":Format<CR>", desc = "Format code" },
 })
 
--- Copilot Chat
+-- OpenCode
 wk.add({
-	mode = { "n", "v" },
-	{ "<leader>c", group = "Copilot Chat" },
-	{ "<leader>cc", "<cmd>CopilotChatToggle<CR>", desc = "Toggle Copilot Chat" },
-	{ "<leader>cs", "<cmd>CopilotChatStop<CR>", desc = "Stop Copilot Chat" },
-	{ "<leader>cx", "<cmd>CopilotChatReset<CR>", desc = "Reset Copilot Chat conversation" },
-	{ "<leader>cm", "<cmd>CopilotChatModels<CR>", desc = "View/Select models" },
+	{ "<leader>o", group = "OpenCode" },
+	{ "<leader>oo", "<cmd>OpenCode<CR>", desc = "Open current file in external editor" },
+	{ "<leader>op", "<cmd>OpenCodeProject<CR>", desc = "Open project in external editor" },
 })
 
 -- dap
