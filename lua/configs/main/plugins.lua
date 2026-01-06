@@ -29,7 +29,7 @@ require("lazy").setup({
 	},
 
 	{
-		"olimorris/opencode.nvim",
+		"NickvanDyke/opencode.nvim",
 		cmd = { "OpenCode", "OpenCodeProject" },
 		config = function()
 			require("configs.plugins_config.opencode")
