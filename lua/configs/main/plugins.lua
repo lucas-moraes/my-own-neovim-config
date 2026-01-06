@@ -30,7 +30,7 @@ require("lazy").setup({
 
 	{
 		"olimorris/opencode.nvim",
-		cmd = "OpenCode",
+		cmd = { "OpenCode", "OpenCodeProject" },
 		config = function()
 			require("configs.plugins_config.opencode")
 		end,
