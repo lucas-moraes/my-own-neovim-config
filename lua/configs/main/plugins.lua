@@ -289,6 +289,13 @@ require("lazy").setup({
 	},
 
 	{
+		"NickvanDyke/opencode.nvim",
+		dependencies = {
+			{ "folke/snacks.nvim", opts = { input = {}, picker = {}, terminal = {} } },
+		},
+	},
+
+	{
 		"xiyaowong/nvim-transparent",
 		config = function()
 			require("transparent").setup({

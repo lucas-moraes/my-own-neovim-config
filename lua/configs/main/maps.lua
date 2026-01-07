@@ -44,6 +44,64 @@ wk.add({
 	{ "<leader>cf", ":Format<CR>", desc = "Format code" },
 })
 
+-- OpenCode
+wk.add({
+	{ "<leader>o", group = "OpenCode" },
+	{
+		"<leader>oa",
+		function()
+			require("opencode").ask("@this: ", { submit = true })
+		end,
+		desc = "Ask OpenCode",
+	},
+	{
+		"<leader>ox",
+		function()
+			require("opencode").select()
+		end,
+		desc = "Execute OpenCode action",
+	},
+	{
+		"<leader>ot",
+		function()
+			require("opencode").toggle()
+		end,
+		desc = "Toggle OpenCode",
+	},
+	{
+		"<leader>op",
+		function()
+			return require("opencode").operator("@this ")
+		end,
+		mode = "x",
+		expr = true,
+		desc = "Add range to opencode",
+	},
+	{
+		"<leader>ol",
+		function()
+			return require("opencode").operator("@this ") .. "_"
+		end,
+		mode = "n",
+		expr = true,
+		desc = "Add line to opencode",
+	},
+	{
+		"<leader>ou",
+		function()
+			require("opencode").command("session.half.page.up")
+		end,
+		desc = "Opencode half page up",
+	},
+	{
+		"<leader>od",
+		function()
+			require("opencode").command("session.half.page.down")
+		end,
+		desc = "Opencode half page down",
+	},
+})
+
 -- dap
 wk.add({
 	{ "<leader>d", group = "DAP" },
