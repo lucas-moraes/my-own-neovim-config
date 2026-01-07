@@ -59,7 +59,7 @@ local function buffer_list()
 		["dapui_watches"] = true,
 		["dapui_console"] = true,
 		["dapui_hover"] = true,
-		["copilot-chat"] = true,
+		["27905:opencode"] = true,
 	}
 
 	for _, buf in ipairs(buffers) do
@@ -67,7 +67,7 @@ local function buffer_list()
 			local ft = vim.bo[buf].filetype
 			if not ignored_types[ft] then
 				local buf_name = vim.fn.fnamemodify(vim.api.nvim_buf_get_name(buf), ":t")
-				if buf_name ~= "" then
+				if buf_name ~= "" and not string.find(buf_name, ":opencode") then
 					if vim.bo[buf].modified then
 						buf_name = buf_name .. unsaved_icon
 					end
@@ -187,17 +187,10 @@ lualine.setup({
 		lualine_y = {
 			{
 				function()
-					local ok, copilot_enabled = pcall(vim.fn["copilot#Enabled"])
-					if ok and copilot_enabled == 1 then
-						return " " -- ícone do GitHub (Font Nerds ou NerdFont)
-					else
-						return ""
-					end
+					return require("opencode").statusline()
 				end,
-				color = { fg = "#6CC644" }, -- verde, igual Copilot
 				cond = function()
-					local ok, copilot_enabled = pcall(vim.fn["copilot#Enabled"])
-					return ok and copilot_enabled == 1
+					return pcall(require, "opencode")
 				end,
 			},
 		},

@@ -27,6 +27,7 @@ o.ruler = true -- Show the line and column number of the cursor position, separa
 o.mouse = "a" -- Enable the use of the mouse. "a" you can use on all modes
 o.title = true -- When on, the title of the window will be set to the value of 'titlestring'
 o.hidden = true -- When on a buffer becomes hidden when it is |abandon|ed
+o.autoread = true -- Automatically read file when changed outside of Neovim
 o.ttimeoutlen = 0 -- The time in milliseconds that is waited for a key code or mapped key sequence to complete.
 o.wildmenu = true -- When 'wildmenu' is on, command-line completion operates in an enhanced mode.
 o.showcmd = true -- Show (partial) command in the last line of the screen. Set this option off if your terminal is slow.

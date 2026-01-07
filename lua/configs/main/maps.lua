@@ -33,12 +33,6 @@ map("v", "<F3>", ">gv")
 -- Remover indentações no modo visual e permanecer no modo visual
 map("v", "<F4>", "<gv")
 
--- Atalho para fechar buffer
-wk.add({
-	{ "<leader>xx", ":lua close_current_buffer()<CR>", desc = "Close current buffer" },
-	{ "<leader>xa", ":lua close_all_buffers()<CR>", desc = "Close all buffers" },
-})
-
 -- Atalho para formatar o código
 wk.add({
 	{ "<leader>cf", ":Format<CR>", desc = "Format code" },
@@ -109,6 +103,64 @@ wk.add({
 	{ "<leader>mn", "<CMD>MarkdownPreviewStop<CR>", desc = "Markdown Preview Stop" },
 })
 
+-- OpenCode
+wk.add({
+	{ "<leader>o", group = "OpenCode" },
+	{
+		"<leader>oa",
+		function()
+			require("opencode").ask("@this: ", { submit = true })
+		end,
+		desc = "Ask OpenCode",
+	},
+	{
+		"<leader>ox",
+		function()
+			require("opencode").select()
+		end,
+		desc = "Execute OpenCode action",
+	},
+	{
+		"<leader>ot",
+		function()
+			require("opencode").toggle()
+		end,
+		desc = "Toggle OpenCode",
+	},
+	{
+		"<leader>op",
+		function()
+			return require("opencode").operator("@this ")
+		end,
+		mode = "x",
+		expr = true,
+		desc = "Add range to opencode",
+	},
+	{
+		"<leader>ol",
+		function()
+			return require("opencode").operator("@this ") .. "_"
+		end,
+		mode = "n",
+		expr = true,
+		desc = "Add line to opencode",
+	},
+	{
+		"<leader>ou",
+		function()
+			require("opencode").command("session.half.page.up")
+		end,
+		desc = "Opencode half page up",
+	},
+	{
+		"<leader>od",
+		function()
+			require("opencode").command("session.half.page.down")
+		end,
+		desc = "Opencode half page down",
+	},
+})
+
 wk.add({
 	"<leader>p",
 	function()
@@ -165,6 +217,12 @@ wk.add({
 	{ "<leader>w", "<CMD>update<CR>", desc = "Save this file" },
 	{ "<leader>wa", ":wa<CR>", desc = "Save all files" },
 	{ "<leader>wqa", ":wqa!<CR>", desc = "Save and quit all" },
+})
+
+-- Atalho para fechar buffer
+wk.add({
+	{ "<leader>xx", ":lua close_current_buffer()<CR>", desc = "Close current buffer" },
+	{ "<leader>xa", ":lua close_all_buffers()<CR>", desc = "Close all buffers" },
 })
 
 --UFO collapse
