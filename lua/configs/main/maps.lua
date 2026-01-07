@@ -44,16 +44,6 @@ wk.add({
 	{ "<leader>cf", ":Format<CR>", desc = "Format code" },
 })
 
--- Copilot Chat
-wk.add({
-	mode = { "n", "v" },
-	{ "<leader>c", group = "Copilot Chat" },
-	{ "<leader>cc", "<cmd>CopilotChatToggle<CR>", desc = "Toggle Copilot Chat" },
-	{ "<leader>cs", "<cmd>CopilotChatStop<CR>", desc = "Stop Copilot Chat" },
-	{ "<leader>cx", "<cmd>CopilotChatReset<CR>", desc = "Reset Copilot Chat conversation" },
-	{ "<leader>cm", "<cmd>CopilotChatModels<CR>", desc = "View/Select models" },
-})
-
 -- dap
 wk.add({
 	{ "<leader>d", group = "DAP" },

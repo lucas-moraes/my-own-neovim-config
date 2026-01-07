@@ -308,17 +308,6 @@ require("lazy").setup({
 	},
 
 	{
-		"CopilotC-Nvim/CopilotChat.nvim",
-		dependencies = {
-			{ "nvim-lua/plenary.nvim" },
-		},
-		build = "make tiktoken",
-		config = function()
-			require("configs.plugins_config.copilot-chat")
-		end,
-	},
-
-	{
 		"nvim-lualine/lualine.nvim",
 		dependencies = { "nvim-web-devicons" },
 	},
