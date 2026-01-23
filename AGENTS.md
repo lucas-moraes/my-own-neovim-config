@@ -1,144 +1,142 @@
-# AGENTS.md
+AGENTS.md
 
-This repository is a personal Neovim configuration written in Lua, optimized for TypeScript/JavaScript development with full DAP debugging support.
+This repo is a personal Neovim configuration written in Lua, optimized for TypeScript/JavaScript with full DAP debugging. No Cursor or Copilot rules are present in the repo as of this version.
 
-## Build/Lint/Test Commands
-
-This is a configuration repository with no traditional build/test pipeline. Code is formatted on save:
-
-- **Lua formatting**: Uses `stylua` (configured in formatter.nvim)
-- **JS/TS/JSON/HTML/CSS formatting**: Uses `prettier` via npx (configured in formatter.nvim)
-- **Formatting trigger**: Auto-formats on BufWritePost for *.lua, *.js, *.ts, *.tsx, *.json, *.html, *.css, *.scss, *.md, *.prisma
-
-Manual formatting: `:Format` or `:FormatWrite`
-
-Plugin management commands:
-- `:Lazy` - Open Lazy.nvim UI
-- `:Lazy sync` - Install/update plugins
-- `:Lazy update` - Update all plugins
-- `:Lazy clean` - Remove unused plugins
-
-## Code Style Guidelines
-
-### General Structure
-- Main entry point: `init.lua`
+## Quick Facts
+- Entry point: `init.lua`
 - Core configs: `lua/configs/main/` (settings.lua, plugins.lua, maps.lua)
 - Plugin configs: `lua/configs/plugins_config/`
 - Theme configs: `lua/configs/themes/`
+- Debugger: `debugger/vscode-js-debug` (used by nvim-dap)
+- Lockfile: `lazy-lock.json` pins plugin versions
 
-### Lua Code Style
+## Build / Lint / Test
+- No traditional build or automated test suite; manual verification inside Neovim.
+- Formatting is the main "lint":
+  - Lua: `stylua` via formatter.nvim
+  - JS/TS/JSON/HTML/CSS/SCSS/MD/Prisma: `prettier` via npx through formatter.nvim
+- Format-on-save: BufWritePost for *.lua, *.js, *.ts, *.tsx, *.json, *.html, *.css, *.scss, *.md, *.prisma
+- Manual format: `:Format` (writes buffer) or `:FormatWrite`
+- Single-test guidance: there are no tests; validate by opening Neovim and exercising features (LSP attach, DAP session, formatter trigger).
 
-**Indentation**: 2 spaces (never tabs)
-```lua
-o.shiftwidth = 2
-o.tabstop = 2
-o.expandtab = true
-```
+## Plugin Management (Lazy.nvim)
+- `:Lazy` open UI
+- `:Lazy sync` install/update
+- `:Lazy update` update all
+- `:Lazy clean` remove unused
+- `:Lazy check` inspect updates
+- `:Lazy restore` restore lockfile state
+- Keep `lazy-lock.json` committed when plugin versions change.
 
-**File Header**: Add diagnostic disable at top
-```lua
----@diagnostic disable: undefined-global
-```
+## Dependencies & Tooling
+- Required: Node.js (for prettier, LSP servers), ripgrep, Nerd Font (FiraCore recommended)
+- Optional but supported: lazygit, lazydocker, zellij
+- Mason auto-installs LSP servers (tsserver/ts_ls, html, cssls, tailwindcss, lua_ls) and DAP adapters
+- DAP path expected at `~/.config/nvim/debugger/vscode-js-debug`
 
-**Module Pattern**: Use pcall with status checking
+## Code Style (Lua)
+- Indent: 2 spaces, no tabs
+- File header: add `---@diagnostic disable: undefined-global` when globals are used
+- Strings: double quotes only
+- Tables: trailing comma preferred
+- Imports: wrap requires with pcall and return early on failure
 ```lua
 local status, module = pcall(require, "module_name")
 if not status then
   return
 end
 ```
-
-**Local Caching**: Cache vim APIs for performance
+- Cache vim APIs locally for speed
 ```lua
 local global = vim.g
 local o = vim.o
 local d = vim.diagnostic
 ```
-
-**Naming Conventions**:
-- Variables: snake_case (e.g., `local has_words_before`)
-- Functions: snake_case (e.g., `function set_copilot_chat_transparency()`)
-- Module names: kebab-case directories (e.g., `plugins_config/`)
-- Keys in tables: snake_case or camelCase depending on plugin API
-
-**String Literals**: Always use double quotes
+- Naming: snake_case for locals/functions; directory names kebab-case; table keys snake_case unless plugin API expects camelCase
+- Comments: use `--` sparingly for non-obvious intent
+- Error handling: guard optional plugins with pcall; use `vim.notify(msg, vim.log.levels.WARN/ERROR)` for user-visible issues; return early when prerequisites fail
+- Autocommands: create augroup per concern and set `clear = true`
 ```lua
-local path = "~/.config/nvim"
-vim.cmd("highlight clear")
-```
-
-**Tables**: Use comma-separated key-value pairs, trailing comma recommended
-```lua
-local nord = {
-  bg = "#242933",
-  fg = "#d8dee9",
-  comment = "#616e88",
-}
-```
-
-**Comments**: Use `--` for single-line, sparse usage (comment when non-obvious)
-```lua
--- Auto-install ripgrep if not present
-local function ensure_ripgrep()
-```
-
-**Error Handling**:
-- Always wrap requires with pcall
-- Check module status before using
-- Return early if module unavailable
-- Use vim.notify for user-facing messages with proper log levels
-
-**Autocommands**: Use vim.api.nvim_create_autocmd with augroups
-```lua
-vim.api.nvim_create_augroup("FormatAutogroup", { clear = true })
+local group = vim.api.nvim_create_augroup("FormatAutogroup", { clear = true })
 vim.api.nvim_create_autocmd("BufWritePost", {
-  pattern = { "*.lua" },
+  pattern = { "*.lua", "*.js", "*.ts", "*.tsx" },
   command = "FormatWrite",
-  group = "FormatAutogroup",
+  group = group,
 })
 ```
-
-**Keybindings**: Use which-key.nvim for organized groups
+- Keymaps: prefer which-key grouped declarations
 ```lua
+local wk = require("which-key")
 wk.add({
   { "<leader>f", group = "Telescope" },
-  { "<leader>ff", telescope.find_files, desc = "Telescope Find Files" },
+  { "<leader>ff", telescope.find_files, desc = "Find files" },
 })
 ```
-
-**Highlight Groups**: Use vim.api.nvim_set_hl with table syntax
+- Highlights: set via `vim.api.nvim_set_hl(0, name, opts)` with tables
 ```lua
 vim.api.nvim_set_hl(0, "Normal", { bg = nord.bg, fg = nord.fg })
-vim.api.nvim_set_hl(0, "Comment", { fg = nord.comment, italic = true })
 ```
 
-**Plugin Setup**:
-- Define setup function at top level
-- Use function() require() end pattern for lazy loading
-- Configure in dedicated files under plugins_config/
-- Main plugin list in lua/configs/main/plugins.lua
+## Code Style (Plugins & Config Layout)
+- One file per plugin in `lua/configs/plugins_config/`; avoid monoliths
+- Main plugin list lives in `lua/configs/main/plugins.lua`; keep lazy specs declarative and ordered by concern
+- Theme modules define palettes locally, clear highlights with `vim.cmd("syntax reset")`, set `vim.o.background`, and return a table
+- Shared utilities stay in main configs; avoid cross-import cycles between plugin configs
+- Keep mappings in `lua/configs/main/maps.lua`; keep core options in `lua/configs/main/settings.lua`
 
-**Theme Configuration**:
-- Define color palette as local table
-- Use vim.o.background = "dark" or "light"
-- Clear highlights before setting: `vim.cmd("syntax reset")`
-- Return theme module at end
+## Formatting & Imports
+- Let formatter.nvim drive stylua/prettier; avoid manual whitespace tweaks that fight formatters
+- Do not mix single/double quotes; always double
+- Prefer local requires over global side effects; avoid `vim.cmd("packadd ...")` unless necessary
+- For treesitter, ensure parsers in `lua/configs/plugins_config/treesitter.lua` list stay in sync with languages mentioned in README
 
-**LSP/DAP Config**:
-- DAP debugger path: `~/.config/nvim/debugger/vscode-js-debug`
-- Attach configuration uses pwa-node adapter on port 9229
-- Source maps enabled for TypeScript
-- Configured for ts_ls, cssls, html, lua_ls, tailwindcss
+## Types & Annotations
+- Use `---@diagnostic disable` only when needed; keep scope minimal
+- LuaLS annotations welcome for plugin APIs when clarity helps (e.g., `---@type table<string, string>`), but keep concise
 
-**File Organization**:
-- Keep configs modular - one file per plugin when possible
-- Shared utilities in main configs
-- Theme-specific overrides in theme files
-- Lazy-lock.json tracks plugin versions
+## Error Handling & Notifications
+- Guard optional dependencies (Copilot, OpenCode, transparent, theme modules) with pcall
+- When a plugin config fails, return early; avoid hard errors during startup
+- User-facing issues should call `vim.notify` with meaningful messages and log levels
 
-**Neovim API Usage**:
-- Prefer `vim.api.nvim_*` over deprecated `vim.*` when available
-- Use `vim.fn.expand()` for path expansion
-- Use `vim.env` for environment variables
+## Debugging (DAP)
+- Adapters live under `debugger/vscode-js-debug`; ensure path matches `dap.adapters` config
+- pwa-node default port 9229; source maps enabled for TS/JS
+- Verify DAP UI bindings in `maps.lua` (continue, step, toggle UI, REPL)
 
-No tests are present in this configuration repository. Changes should be manually verified by opening Neovim and checking functionality.
+## LSP
+- Servers: ts_ls/tsserver, cssls, html, lua_ls, tailwindcss configured via mason
+- Prefer `on_attach` to set buffer-local keymaps; keep capabilities in sync with nvim-cmp setup
+- Diagnostics: virtual text enabled, signs set to `//`; severity_sort on; floating windows rounded borders
+
+## UX Defaults
+- Leader: space; relative numbers on; termguicolors true
+- Folding via treesitter (`foldmethod=expr`, `foldexpr=nvim_treesitter#foldexpr()`, `foldlevelstart=99`)
+- Fillchars for folds set; custom Folded/FoldColumn highlights
+
+## Theming
+- Themes in `lua/configs/themes/` with matching lualine variants under `lua/configs/plugins_config/lualine/`
+- Last selected theme remembered by theme manager; `:ThemeSelect` provides interactive choice
+- Transparency supported via `dark-transparent` theme option
+
+## AI Helpers
+- Copilot plugin configured in `lua/configs/plugins_config/copilot.lua`; no additional org-wide Copilot rules present
+- OpenCode integration present (`lua/configs/plugins_config/opencodeconfig.lua`); keymaps under `<leader>o*`
+
+## Repo Hygiene
+- Keep files ASCII; double quotes; 2-space indent
+- Do not introduce new diagnostics without guards; prefer early returns on missing deps
+- When updating plugins, regenerate `lazy-lock.json`
+- No tests to run; sanity-check by opening Neovim, running `:Lazy`, `:checkhealth`, and triggering formatter on save
+
+## Not Present
+- Cursor rules: none (.cursor/ or .cursorrules absent)
+- Copilot org rules: none in .github/copilot-instructions.md
+
+## Verification Checklist (manual)
+- Launch nvim: plugins load without errors
+- Run `:Lazy` and ensure plugins are healthy
+- Open TS/JS file: LSP attaches, formatting on save runs prettier
+- Open Lua file: stylua formats on save
+- Run a DAP session against Node: adapter resolves from `debugger/vscode-js-debug`
+- Switch theme with `:ThemeSelect`: lualine and colors update and persist
