@@ -106,7 +106,24 @@ local function relative_file_path()
 	return file_path
 end
 
+local function copilot_status()
+	local ok, auth = pcall(require, "copilot.auth")
+	if not ok then
+		return ""
+	end
+
+	local authenticated = auth.is_authenticated()
+	if authenticated then
+		return "🤖"
+	end
+
+	return ""
+end
+
+local refresh_group = vim.api.nvim_create_augroup("LualineWinbarRefresh", { clear = true })
+
 vim.api.nvim_create_autocmd("BufDelete", {
+	group = refresh_group,
 	callback = function()
 		vim.schedule(function()
 			require("lualine").refresh({ winbar = true })
@@ -115,6 +132,7 @@ vim.api.nvim_create_autocmd("BufDelete", {
 })
 
 vim.api.nvim_create_autocmd("BufEnter", {
+	group = refresh_group,
 	callback = function()
 		vim.schedule(function()
 			require("lualine").refresh({ winbar = true })
@@ -177,16 +195,7 @@ lualine.setup({
 		lualine_b = { "branch", "diff", "diagnostics" },
 		lualine_c = { relative_file_path },
 		lualine_x = {},
-		lualine_y = {
-			{
-				function()
-					return require("opencode").statusline()
-				end,
-				cond = function()
-					return pcall(require, "opencode")
-				end,
-			},
-		},
+		lualine_y = { copilot_status },
 		lualine_z = { "location" },
 	},
 	inactive_sections = {
