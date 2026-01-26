@@ -13,7 +13,7 @@ global.maplocalleader = " "
 
 -- Editor options
 o.number = true -- Print the line number in front of each line
-o.relativenumber = true -- Show the line number relative to the line with the cursor in front of each line.
+o.relativenumber = false -- Show the line number relative to the line with the cursor in front of each line.
 o.clipboard = "unnamedplus" -- uses the clipboard register for all operations except yank.
 o.syntax = "on" -- When this option is set, the syntax with this name is loaded.
 o.autoindent = true -- Copy indent from current line when starting a new line.
@@ -40,11 +40,18 @@ o.foldexpr = "nvim_treesitter#foldexpr()"
 o.foldenable = true
 o.foldlevelstart = 99
 o.foldnestmax = 3
-o.fillchars = "fold: "
 o.termguicolors = true
+o.foldcolumn = "1"
+o.foldlevel = 99
+o.foldlevelstart = 99
+o.foldenable = true
+o.fillchars = "eob: ,fold: ,foldopen:,foldsep: ,foldclose:"
+o.statuscolumn = "%s %l  %C "
+o.numberwidth = 4
+
 vim.cmd([[
-  highlight Folded guibg=#282c34 guifg=#abb2bf
-  highlight FoldColumn guibg=#282c34 guifg=#abb2bf
+  highlight Folded guibg=NONE guifg=#6272a4
+  highlight FoldColumn guibg=NONE guifg=#ff79c6
 ]])
 
 d.config({
