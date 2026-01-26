@@ -34,6 +34,15 @@ formatter.setup({
     json = { prettier_config },
     prisma = { prettier_config },
     markdown = { prettier_config },
+    python = {
+      function()
+        return {
+          exe = "black",
+          args = { "-q", "-" },
+          stdin = true,
+        }
+      end,
+    },
     lua = {
       function()
         return {
@@ -54,7 +63,7 @@ formatter.setup({
 
 vim.api.nvim_create_augroup("FormatAutogroup", { clear = true })
 vim.api.nvim_create_autocmd("BufWritePost", {
-  pattern = { "*.css", "*.prisma", "*.js", "*.ts", "*.json", "*.html", "*.scss", "*.less", "*.md", "*.lua" },
+  pattern = { "*.css", "*.prisma", "*.js", "*.ts", "*.json", "*.html", "*.scss", "*.less", "*.md", "*.lua", "*.py" },
   command = "FormatWrite",
   group = "FormatAutogroup",
 })

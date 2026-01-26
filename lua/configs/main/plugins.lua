@@ -176,7 +176,7 @@ require("lazy").setup({
 		dependencies = { "williamboman/mason.nvim" },
 		config = function()
 			require("mason-lspconfig").setup({
-				ensure_installed = { "ts_ls", "cssls", "html", "lua_ls", "tailwindcss" },
+				ensure_installed = { "ts_ls", "cssls", "html", "lua_ls", "tailwindcss", "pyright" },
 			})
 		end,
 	},

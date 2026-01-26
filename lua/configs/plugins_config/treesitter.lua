@@ -29,6 +29,7 @@ ts.setup({
 		"html",
 		"lua",
 		"php",
+		"python",
 	},
 	incremental_selection = { enable = true },
 	indent = { enable = true },

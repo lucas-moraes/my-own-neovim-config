@@ -28,6 +28,10 @@ masontool.setup({
 		"json-lsp",
 		"typescript-language-server",
 		"stylua",
+		-- Python tools
+		"pyright",
+		"black",
+		"debugpy",
 	},
 	auto_update = true,
 	run_on_start = true,
