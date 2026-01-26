@@ -22,11 +22,9 @@ masonlsp.setup({
 
 masontool.setup({
 	ensure_installed = {
-		"css-lsp",
-		"html-lsp",
-		"js-debug-adapter",
-		"json-lsp",
-		"typescript-language-server",
+		"rust-analyzer",
+		"codelldb",
+		"taplo",
 		"stylua",
 	},
 	auto_update = true,

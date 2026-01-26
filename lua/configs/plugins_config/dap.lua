@@ -1,127 +1,144 @@
 vim.env.PATH = os.getenv("PATH")
 
-local dap = require("dap")
-local dapui = require("dapui")
-
-require("nvim-dap-virtual-text").setup()
-dapui.setup()
-
-dap.listeners.after.event_initialized["dapui_config"] = function()
-	dapui.open()
+local status_dap, dap = pcall(require, "dap")
+if not status_dap then
+  return
 end
 
-dap.listeners.before.event_terminated["dapui_config"] = function()
-	dapui.close()
+local status_dapui, dapui = pcall(require, "dapui")
+if status_dapui then
+  dapui.setup()
+
+  dap.listeners.after.event_initialized["dapui_config"] = function()
+    dapui.open()
+  end
+
+  dap.listeners.before.event_terminated["dapui_config"] = function()
+    dapui.close()
+  end
+
+  dap.listeners.before.event_exited["dapui_config"] = function()
+    dapui.close()
+  end
 end
 
-dap.listeners.before.event_exited["dapui_config"] = function()
-	dapui.close()
+local status_virtual_text, virtual_text = pcall(require, "nvim-dap-virtual-text")
+if status_virtual_text then
+  virtual_text.setup()
 end
 
-local debugger_path = vim.fn.expand("~/.config/nvim/debugger/vscode-js-debug")
+-- Codelldb adapter (installed via Mason)
+local mason_registry_ok, mason_registry = pcall(require, "mason-registry")
+local codelldb_path = nil
 
-require("dap-vscode-js").setup({
-	debugger_path = debugger_path,
-	adapters = { "pwa-node" },
-})
+if mason_registry_ok and mason_registry.is_installed("codelldb") then
+  local codelldb = mason_registry.get_package("codelldb")
+  local extension_path = codelldb:get_install_path() .. "/extension/"
+  codelldb_path = extension_path .. "adapter/codelldb"
+end
 
-dap.adapters["pwa-node"] = {
+-- Fallback to system paths if Mason codelldb not found
+if not codelldb_path then
+  codelldb_path = vim.fn.expand("~/.local/share/nvim/mason/bin/codelldb")
+end
+
+dap.adapters.codelldb = {
   type = "server",
-  host = "127.0.0.1",
   port = "${port}",
   executable = {
-    command = "node",
-    args = { debugger_path .. "/out/src/dapDebugServer.js", "${port}" },
+    command = codelldb_path,
+    args = { "--port", "${port}" },
   },
 }
 
-for _, language in ipairs({ "typescript", "javascript", "typescriptreact", "javascriptreact" }) do
-	dap.configurations[language] = {
-		{
-			name = "Launch file",
-			type = "pwa-node",
-			request = "launch",
-			program = "${file}",
-			cwd = "${workspaceFolder}",
-			sourceMaps = true,
-			protocol = "inspector",
-			console = "integratedTerminal",
-			resolveSourceMapLocations = {
-				"${workspaceFolder}/**",
-				"!**/node_modules/**",
-			},
-			skipFiles = { "<node_internals>/**", "node_modules/**" },
-		},
-		{
-			name = "Launch ts-node (current file)",
-			type = "pwa-node",
-			request = "launch",
-			cwd = "${workspaceFolder}",
-			runtimeExecutable = "npx",
-			runtimeArgs = { "ts-node", "${file}" },
-			sourceMaps = true,
-			protocol = "inspector",
-			console = "integratedTerminal",
-			resolveSourceMapLocations = {
-				"${workspaceFolder}/**",
-				"!**/node_modules/**",
-			},
-			skipFiles = { "<node_internals>/**", "node_modules/**" },
-		},
-		{
-			name = "Attach to process (port 9229)",
-			type = "pwa-node",
-			request = "attach",
-			port = 9229,
-			address = "127.0.0.1",
-			cwd = "${workspaceFolder}",
-			sourceMaps = true,
-			restart = true,
-			protocol = "inspector",
-			resolveSourceMapLocations = {
-				"${workspaceFolder}/**",
-				"!**/node_modules/**",
-			},
-			sourceMapPathOverrides = {
-				["webpack:///./~/*"] = "${workspaceFolder}/node_modules/*",
-				["webpack:///./*"] = "${workspaceFolder}/*",
-				["webpack:///*"] = "*",
-				["${workspaceFolder}/*"] = "${workspaceFolder}/*",
-			},
-			skipFiles = { "<node_internals>/**", "node_modules/**" },
-		},
-		{
-			name = "Attach to process (port 9230)",
-			type = "pwa-node",
-			request = "attach",
-			port = 9230,
-			address = "127.0.0.1",
-			cwd = "${workspaceFolder}",
-			sourceMaps = true,
-			restart = true,
-			protocol = "inspector",
-			resolveSourceMapLocations = {
-				"${workspaceFolder}/**",
-				"!**/node_modules/**",
-			},
-			sourceMapPathOverrides = {
-				["webpack:///./~/*"] = "${workspaceFolder}/node_modules/*",
-				["webpack:///./*"] = "${workspaceFolder}/*",
-				["webpack:///*"] = "*",
-				["${workspaceFolder}/*"] = "${workspaceFolder}/*",
-			},
-			skipFiles = { "<node_internals>/**", "node_modules/**" },
-		},
-	}
-end
+dap.configurations.rust = {
+  {
+    name = "Launch file",
+    type = "codelldb",
+    request = "launch",
+    program = function()
+      return vim.fn.input("Path to executable: ", vim.fn.getcwd() .. "/target/debug/", "file")
+    end,
+    cwd = "${workspaceFolder}",
+    stopOnEntry = false,
+    args = {},
+    runInTerminal = false,
+  },
+  {
+    name = "Launch cargo build",
+    type = "codelldb",
+    request = "launch",
+    program = function()
+      -- Build first
+      vim.fn.system("cargo build")
+      -- Get package name from Cargo.toml
+      local cargo_toml = vim.fn.getcwd() .. "/Cargo.toml"
+      if vim.fn.filereadable(cargo_toml) == 0 then
+        return vim.fn.input("Path to executable: ", vim.fn.getcwd() .. "/target/debug/", "file")
+      end
+      local cargo_content = vim.fn.readfile(cargo_toml)
+      local package_name = nil
+      for _, line in ipairs(cargo_content) do
+        local name = line:match('^name%s*=%s*"([^"]+)"')
+        if name then
+          package_name = name
+          break
+        end
+      end
+      if package_name then
+        return vim.fn.getcwd() .. "/target/debug/" .. package_name
+      end
+      return vim.fn.input("Path to executable: ", vim.fn.getcwd() .. "/target/debug/", "file")
+    end,
+    cwd = "${workspaceFolder}",
+    stopOnEntry = false,
+    args = {},
+    runInTerminal = false,
+  },
+  {
+    name = "Attach to process",
+    type = "codelldb",
+    request = "attach",
+    pid = require("dap.utils").pick_process,
+    cwd = "${workspaceFolder}",
+  },
+}
 
-for name, sign in pairs({
-	DapBreakpoint = "🔴",
-	DapBreakpointCondition = "🟡",
-	DapBreakpointRejected = "⛔",
-	DapLogPoint = "🪵",
-	DapStopped = "➡️",
-	DapBreakpointDisabled = "⚪",
-}) do
-	vim.fn.sign_define(name, { text = sign, texthl = name })
-end
+-- DAP signs
+vim.fn.sign_define("DapBreakpoint", {
+  text = "",
+  texthl = "DiagnosticSignError",
+  linehl = "",
+  numhl = "",
+})
+
+vim.fn.sign_define("DapBreakpointCondition", {
+  text = "",
+  texthl = "DiagnosticSignWarn",
+  linehl = "",
+  numhl = "",
+})
+
+vim.fn.sign_define("DapLogPoint", {
+  text = "",
+  texthl = "DiagnosticSignInfo",
+  linehl = "",
+  numhl = "",
+})
+
+vim.fn.sign_define("DapStopped", {
+  text = "",
+  texthl = "DiagnosticSignOk",
+  linehl = "DapStoppedLine",
+  numhl = "",
+})
+
+vim.fn.sign_define("DapBreakpointRejected", {
+  text = "",
+  texthl = "DiagnosticSignHint",
+  linehl = "",
+  numhl = "",
+})
+
+-- Highlight for stopped line
+vim.api.nvim_set_hl(0, "DapStoppedLine", { bg = "#3d4220" })

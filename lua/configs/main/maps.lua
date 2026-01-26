@@ -164,35 +164,26 @@ wk.add({
 wk.add({
 	"<leader>p",
 	function()
-		vim.lsp.buf.definition({
-			on_list = function(options)
-				local items = vim.tbl_filter(function(item)
-					return not item.filename:match("node_modules")
-				end, options.items)
-
-				if vim.tbl_isempty(items) then
-					vim.notify("Nenhuma definição fora de node_modules", vim.log.levels.INFO)
-					return
-				end
-
-				vim.ui.select(items, {
-					prompt = "Definições",
-					format_item = function(item)
-						return string.format("%s:%d:%d", vim.fn.fnamemodify(item.filename, ":~:."), item.lnum, item.col)
-					end,
-				}, function(choice)
-					if choice then
-						vim.cmd("edit " .. choice.filename)
-						vim.api.nvim_win_set_cursor(0, { choice.lnum, choice.col - 1 })
-					end
-				end)
-			end,
-		})
+		vim.lsp.buf.definition()
 	end,
-	desc = "Mostrar documentação flutuante",
+	desc = "Go to definition",
 })
 
-wk.add({ "<leader>se", vim.diagnostic.open_float, desc = "Mostrar diagnóstico flutuante" })
+wk.add({ "<leader>se", vim.diagnostic.open_float, desc = "Show diagnostic float" })
+
+-- Rust specific keymaps
+wk.add({
+	{ "<leader>r", group = "Rust" },
+	{ "<leader>rr", "<CMD>RustRunnables<CR>", desc = "Rust Runnables" },
+	{ "<leader>rd", "<CMD>RustDebuggables<CR>", desc = "Rust Debuggables" },
+	{ "<leader>re", "<CMD>RustExpandMacro<CR>", desc = "Rust Expand Macro" },
+	{ "<leader>rc", "<CMD>RustOpenCargo<CR>", desc = "Open Cargo.toml" },
+	{ "<leader>rp", "<CMD>RustParentModule<CR>", desc = "Rust Parent Module" },
+	{ "<leader>rm", "<CMD>RustMoveItemUp<CR>", desc = "Move Item Up" },
+	{ "<leader>rn", "<CMD>RustMoveItemDown<CR>", desc = "Move Item Down" },
+	{ "<leader>rh", "<CMD>RustHoverActions<CR>", desc = "Rust Hover Actions" },
+	{ "<leader>rj", "<CMD>RustJoinLines<CR>", desc = "Rust Join Lines" },
+})
 
 -- Quit
 wk.add({

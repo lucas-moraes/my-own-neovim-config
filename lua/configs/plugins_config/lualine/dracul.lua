@@ -106,18 +106,18 @@ local function relative_file_path()
 	return file_path
 end
 
-local function copilot_status()
-	local ok, auth = pcall(require, "copilot.auth")
-	if not ok then
+local function opencode_status()
+	local ok, opencode = pcall(require, "opencode")
+	if not ok or not opencode.statusline then
 		return ""
 	end
 
-	local authenticated = auth.is_authenticated()
-	if authenticated then
-		return "🤖"
+	local ok_status, status = pcall(opencode.statusline)
+	if not ok_status then
+		return ""
 	end
 
-	return ""
+	return status
 end
 
 local refresh_group = vim.api.nvim_create_augroup("LualineWinbarRefresh", { clear = true })
@@ -195,7 +195,7 @@ lualine.setup({
 		lualine_b = { "branch", "diff", "diagnostics" },
 		lualine_c = { relative_file_path },
 		lualine_x = {},
-		lualine_y = { copilot_status },
+		lualine_y = { opencode_status },
 		lualine_z = { "location" },
 	},
 	inactive_sections = {

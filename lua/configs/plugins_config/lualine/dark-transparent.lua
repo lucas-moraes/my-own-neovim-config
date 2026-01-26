@@ -104,20 +104,6 @@ local function relative_file_path()
 	return file_path
 end
 
-local function copilot_status()
-	local ok, auth = pcall(require, "copilot.auth")
-	if not ok then
-		return ""
-	end
-
-	local authenticated = auth.is_authenticated()
-	if authenticated then
-		return "🤖"
-	end
-
-	return ""
-end
-
 local function opencode_status()
 	local ok, opencode = pcall(require, "opencode")
 	if not ok or not opencode.statusline then
@@ -234,7 +220,7 @@ lualine.setup({
 		lualine_a = { "mode" },
 		lualine_b = { "branch", "diff", "diagnostics" },
 		lualine_c = { relative_file_path },
-		lualine_x = { copilot_status },
+		lualine_x = {},
 		lualine_y = { opencode_status },
 		lualine_z = { "location" },
 	},
