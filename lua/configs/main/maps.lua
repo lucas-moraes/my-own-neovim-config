@@ -37,7 +37,7 @@ map("v", "<F4>", "<gv")
 local utils_status, utils = pcall(require, "utils")
 if utils_status then
 	wk.add({
-		{ "<leader>cp", utils.copy_absolute_path, desc = "Copy absolute path" },
+		{ "<C-c>", utils.copy_absolute_path, desc = "Copy absolute path" },
 	})
 end
 
