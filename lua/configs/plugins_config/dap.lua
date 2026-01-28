@@ -26,91 +26,43 @@ require("dap-vscode-js").setup({
 })
 
 dap.adapters["pwa-node"] = {
-  type = "server",
-  host = "127.0.0.1",
-  port = "${port}",
-  executable = {
-    command = "node",
-    args = { debugger_path .. "/out/src/dapDebugServer.js", "${port}" },
-  },
+	type = "server",
+	host = "localhost",
+	port = "${port}", -- O nvim-dap escolherá uma porta livre automaticamente
+	executable = {
+		command = "node",
+		args = {
+			debugger_path .. "/out/src/dapDebugServer.js",
+			"${port}",
+		},
+	},
 }
 
 for _, language in ipairs({ "typescript", "javascript", "typescriptreact", "javascriptreact" }) do
 	dap.configurations[language] = {
 		{
-			name = "Launch file",
-			type = "pwa-node",
-			request = "launch",
-			program = "${file}",
-			cwd = "${workspaceFolder}",
-			sourceMaps = true,
-			protocol = "inspector",
-			console = "integratedTerminal",
-			resolveSourceMapLocations = {
-				"${workspaceFolder}/**",
-				"!**/node_modules/**",
-			},
-			skipFiles = { "<node_internals>/**", "node_modules/**" },
-		},
-		{
-			name = "Launch ts-node (current file)",
-			type = "pwa-node",
-			request = "launch",
-			cwd = "${workspaceFolder}",
-			runtimeExecutable = "npx",
-			runtimeArgs = { "ts-node", "${file}" },
-			sourceMaps = true,
-			protocol = "inspector",
-			console = "integratedTerminal",
-			resolveSourceMapLocations = {
-				"${workspaceFolder}/**",
-				"!**/node_modules/**",
-			},
-			skipFiles = { "<node_internals>/**", "node_modules/**" },
-		},
-		{
-			name = "Attach to process (port 9229)",
+			name = "🧩 Attach ts-node (porta 9229) adicionar --inspect:9229 ao iniciar o script",
 			type = "pwa-node",
 			request = "attach",
 			port = 9229,
 			address = "127.0.0.1",
 			cwd = "${workspaceFolder}",
 			sourceMaps = true,
-			restart = true,
-			protocol = "inspector",
 			resolveSourceMapLocations = {
 				"${workspaceFolder}/**",
 				"!**/node_modules/**",
+				"!**/.git/**",
 			},
+			pauseForSourceMap = true,
 			sourceMapPathOverrides = {
 				["webpack:///./~/*"] = "${workspaceFolder}/node_modules/*",
 				["webpack:///./*"] = "${workspaceFolder}/*",
 				["webpack:///*"] = "*",
-				["${workspaceFolder}/*"] = "${workspaceFolder}/*",
+				["*/src/*"] = "${workspaceFolder}/src/*",
+				["../*"] = "${workspaceFolder}/*",
 			},
-			skipFiles = { "<node_internals>/**", "node_modules/**" },
-		},
-		{
-			name = "Attach to process (port 9230)",
-			type = "pwa-node",
-			request = "attach",
-			port = 9230,
-			address = "127.0.0.1",
-			cwd = "${workspaceFolder}",
-			sourceMaps = true,
-			restart = true,
-			protocol = "inspector",
-			resolveSourceMapLocations = {
-				"${workspaceFolder}/**",
-				"!**/node_modules/**",
-			},
-			sourceMapPathOverrides = {
-				["webpack:///./~/*"] = "${workspaceFolder}/node_modules/*",
-				["webpack:///./*"] = "${workspaceFolder}/*",
-				["webpack:///*"] = "*",
-				["${workspaceFolder}/*"] = "${workspaceFolder}/*",
-			},
-			skipFiles = { "<node_internals>/**", "node_modules/**" },
+			skipFiles = { "<node_internals>/**" },
+			attachExistingChildren = true,
 		},
 	}
 end
@@ -120,7 +72,7 @@ for name, sign in pairs({
 	DapBreakpointCondition = "🟡",
 	DapBreakpointRejected = "⛔",
 	DapLogPoint = "🪵",
-	DapStopped = "➡️",
+	DapStopped = "→ ",
 	DapBreakpointDisabled = "⚪",
 }) do
 	vim.fn.sign_define(name, { text = sign, texthl = name })
