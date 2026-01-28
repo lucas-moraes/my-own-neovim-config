@@ -33,7 +33,14 @@ map("v", "<F3>", ">gv")
 -- Remover indentações no modo visual e permanecer no modo visual
 map("v", "<F4>", "<gv")
 
--- Atalho para formatar o código
+-- Copy utilities
+local utils_status, utils = pcall(require, "utils")
+if utils_status then
+	wk.add({
+		{ "<leader>cp", utils.copy_absolute_path, desc = "Copy absolute path" },
+	})
+end
+
 wk.add({
 	{ "<leader>cf", ":Format<CR>", desc = "Format code" },
 })
