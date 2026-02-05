@@ -16,7 +16,6 @@ local on_attach = function(_, bufnr)
   vim.keymap.set("n", "gr", vim.lsp.buf.references, opts)
   vim.keymap.set("n", "gi", vim.lsp.buf.implementation, opts)
   vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, opts)
-  vim.keymap.set("n", "<leader>e", vim.diagnostic.open_float, opts)
   vim.keymap.set("n", "[d", vim.diagnostic.goto_prev, opts)
   vim.keymap.set("n", "]d", vim.diagnostic.goto_next, opts)
 
@@ -67,9 +66,8 @@ rt.setup({
           runBuildScripts = true,
         },
         checkOnSave = {
-          allFeatures = true,
           command = "clippy",
-          extraArgs = { "--no-deps" },
+          extraArgs = { "--all-targets", "--all-features", "--", "-D", "warnings" },
         },
         procMacro = {
           enable = true,
@@ -91,7 +89,10 @@ rt.setup({
           closingBraceHints = { enable = true },
           closureReturnTypeHints = { enable = "always" },
           lifetimeElisionHints = { enable = "always" },
+          lifetimeElisionHintsUseParameterNames = { enable = true },
+          maxLength = 25,
           parameterHints = { enable = true },
+          reborrowHints = { enable = "always" },
           typeHints = { enable = true },
         },
       },
