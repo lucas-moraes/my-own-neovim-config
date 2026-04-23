@@ -101,18 +101,16 @@ local function relative_file_path()
 	return file_path
 end
 
-local function copilot_status()
-	local ok, auth = pcall(require, "copilot.auth")
-	if not ok then
-		return ""
-	end
-
-	local authenticated = auth.is_authenticated()
-	if authenticated then
-		return "🤖"
-	end
-
-	return ""
+local function neocodeium_status()
+  local ok, neocodeium = pcall(require, "neocodeium")
+  if not ok then
+    return ""
+  end
+  local status, server_status = neocodeium.get_status()
+  if status == 0 and server_status == 0 then
+    return "🤖"
+  end
+  return ""
 end
 
 local function opencode_status()
@@ -203,7 +201,7 @@ require("lualine").setup({
 		lualine_a = { "mode" },
 		lualine_b = { "branch", "diff", "diagnostics" },
 		lualine_c = { relative_file_path },
-		lualine_x = { copilot_status },
+		lualine_x = { neocodeium_status },
 		lualine_y = { opencode_status },
 		lualine_z = { "location" },
 	},

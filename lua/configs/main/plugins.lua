@@ -20,11 +20,10 @@ require("lazy").setup({
 	},
 
 	{
-		"zbirenbaum/copilot.lua",
-		cmd = "Copilot",
-		event = "InsertEnter",
+		"monkoose/neocodeium",
+		event = "VeryLazy",
 		config = function()
-			require("configs.plugins_config.copilot")
+			require("configs.plugins_config.neocodeium")
 		end,
 	},
 
