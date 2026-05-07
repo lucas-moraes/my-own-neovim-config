@@ -28,7 +28,7 @@ ts.setup({
 		"css",
 		"html",
 		"lua",
-		"php",
+		"dockerfile",
 	},
 	incremental_selection = { enable = true },
 	indent = { enable = true },
