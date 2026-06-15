@@ -246,6 +246,15 @@ require("lazy").setup({
 	},
 
 	{
+		"OXY2DEV/markview.nvim",
+		dependencies = { "nvim-treesitter/nvim-treesitter" },
+		ft = "markdown",
+		config = function()
+			require("configs.plugins_config.markview")
+		end,
+	},
+
+	{
 		"folke/which-key.nvim",
 		config = function()
 			require("which-key")

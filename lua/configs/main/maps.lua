@@ -104,10 +104,12 @@ wk.add({
 	--{"<leader>ld", ":LazyDocker<CR>", desc = "LazyDocker"},
 })
 
--- Markdown Preview
 wk.add({
-	{ "<leader>m", "<CMD>MarkdownPreview<CR>", desc = "Markdown Preview" },
-	{ "<leader>mn", "<CMD>MarkdownPreviewStop<CR>", desc = "Markdown Preview Stop" },
+	{ "<leader>m", group = "Markdown" },
+	{ "<leader>mp", "<CMD>MarkdownPreview<CR>", desc = "Browser Preview" },
+	{ "<leader>mn", "<CMD>MarkdownPreviewStop<CR>", desc = "Browser Preview Stop" },
+	{ "<leader>mv", "<CMD>Markview toggle<CR>", desc = "Toggle Markview" },
+	{ "<leader>ms", "<CMD>Markview hybridToggle<CR>", desc = "Toggle Hybrid Mode" },
 })
 
 -- OpenCode
