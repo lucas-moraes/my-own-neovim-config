@@ -14,18 +14,18 @@ map("n", "<BS>", "<CMD>bnext<CR>")
 map("n", "<TAB>", "<CMD>bprevious<CR>")
 
 -- Mover linha para baixo no modo normal
-map("n", "<A-K>", ":m .+1<CR>==")
-map("n", "<A-J>", ":m .-2<CR>==")
-map("v", "<A-K>", ":m '>+1<CR>gv=gv")
-map("v", "<A-J>", ":m '<-2<CR>gv=gv")
+map("n", "<A-j>", ":m .+1<CR>==")
+map("n", "<A-k>", ":m .-2<CR>==")
+map("v", "<A-j>", ":m '>+1<CR>gv=gv")
+map("v", "<A-k>", ":m '<-2<CR>gv=gv")
 
--- Adicionar mapeamento de teclado para Ctrl+Alt+Down para copiar a linha abaixo
-map("n", "<C-A-k>", "yyp")
-map("v", "<C-A-k>", "y`>pgv")
+-- Clonar linha para baixo
+map("n", "<C-A-j>", "yyp")
+map("v", "<C-A-j>", "y`>pgv")
 
--- Adicionar mapeamento de teclado para Ctrl+Alt+Up para copiar a linha acima
-map("n", "<C-A-i>", "yyP")
-map("v", "<C-A-i>", "y`<Pgv")
+-- Clonar linha para cima
+map("n", "<C-A-k>", "yyP")
+map("v", "<C-A-k>", "y`<Pgv")
 
 -- Adicionar indentações no modo visual e permanecer no modo visual
 map("v", "<F3>", ">gv")
