@@ -94,79 +94,22 @@ function theme.setup()
 		Variable = { fg = dracula.pink },
 	})
 
-	set_many({
-		typescriptTypeReference = { fg = dracula.cyan, italic = true },
-		typescriptTypeParameter = { fg = dracula.orange, italic = true },
-		typescriptInterfaceName = { fg = dracula.cyan, bold = true },
-		typescriptEnumName = { fg = dracula.cyan },
-		typescriptIdentifier = { fg = dracula.cyan },
-		typescriptVariable = { fg = dracula.green },
-		typescriptProp = { fg = dracula.yellow },
-		typescriptFunction = { fg = dracula.green },
-		typescriptMethod = { fg = dracula.green },
-		typescriptCall = { fg = dracula.green },
-		typescriptDecorator = { fg = dracula.orange },
-		typescriptReserved = { fg = dracula.pink },
-		typescriptStatement = { fg = dracula.pink },
-		typescriptKeyword = { fg = dracula.pink },
-		typescriptOperator = { fg = dracula.magenta },
-		typescriptArrowFunc = { fg = dracula.magenta },
-	})
 
-	set_many({
-		tsxTagName = { fg = dracula.pink },
-		tsxComponentName = { fg = dracula.magenta, bold = true },
-		tsxCloseString = { fg = dracula.comment },
-		tsxAttrib = { fg = dracula.green, italic = true },
-		tsxTag = { fg = dracula.magenta },
-		tsxCloseTag = { fg = dracula.magenta },
-		tsxEqual = { fg = dracula.pink },
-		tsxEscapedContent = { fg = dracula.yellow },
-		tsxBraces = { fg = dracula.white },
-	})
 
-	set_many({
-		htmlTag = { fg = dracula.fg },
-		htmlEndTag = { fg = dracula.fg },
-		htmlTagName = { fg = dracula.pink },
-		htmlSpecialTagName = { fg = dracula.pink },
-		htmlArg = { fg = dracula.green, italic = true },
-		htmlLink = { fg = dracula.cyan, underline = true },
-		htmlString = { fg = dracula.yellow },
-	})
-
-	set_many({
-		cssTagName = { fg = dracula.pink },
-		cssClassName = { fg = dracula.green },
-		cssIdentifier = { fg = dracula.orange },
-		cssSelectorOp = { fg = dracula.pink },
-		cssProp = { fg = dracula.cyan },
-		cssAttr = { fg = dracula.orange },
-		cssUnitDecorators = { fg = dracula.pink },
-		cssColor = { fg = dracula.magenta },
-	})
-
-	set_many({
-		javaScriptReserved = { fg = dracula.pink },
-		javaScriptConditional = { fg = dracula.pink },
-		javaScriptRepeat = { fg = dracula.pink },
-		javaScriptOperator = { fg = dracula.pink },
-		javaScriptFunction = { fg = dracula.cyan },
-		javaScriptIdentifier = { fg = dracula.cyan },
-		javaScriptGlobal = { fg = dracula.cyan },
-		javaScriptMember = { fg = dracula.orange },
-		javaScriptBraces = { fg = dracula.fg },
-		javaScriptParens = { fg = dracula.fg },
-	})
-
-	set_many({
-		luaFunctionCall = { fg = dracula.green },
-		luaTable = { fg = dracula.yellow },
-		pythonBuiltin = { fg = dracula.cyan },
-		pythonStatement = { fg = dracula.pink },
-		jsonKeyword = { fg = dracula.pink },
-		yamlPlainScalar = { fg = dracula.yellow },
-	})
+  set_many({
+    luaFunctionCall = { fg = dracula.green },
+    luaTable = { fg = dracula.yellow },
+    pythonBuiltin = { fg = dracula.cyan },
+    pythonStatement = { fg = dracula.pink },
+    pythonFunction = { fg = dracula.green },
+    pythonMethod = { fg = dracula.green },
+    pythonClass = { fg = dracula.cyan, bold = true },
+    pythonDecorator = { fg = dracula.orange },
+    pythonParameters = { fg = dracula.white },
+    pythonSelf = { fg = dracula.magenta, italic = true },
+    pythonReturnAnnotation = { fg = dracula.cyan, italic = true },
+    pythonDocstring = { fg = dracula.comment, italic = true },
+  })
 end
 
 return theme

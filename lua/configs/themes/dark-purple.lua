@@ -92,78 +92,21 @@ function theme.setup()
     Special = { fg = purple.cyan },
   })
 
-  set_many({
-    typescriptTypeReference = { fg = purple.fg, italic = true },
-    typescriptTypeParameter = { fg = purple.orange, italic = true },
-    typescriptInterfaceName = { fg = purple.fg, bold = true },
-    typescriptEnumName = { fg = purple.fg },
-    typescriptIdentifier = { fg = purple.fg },
-    typescriptVariable = { fg = purple.cyan },
-    typescriptProp = { fg = purple.yellow },
-    typescriptFunction = { fg = purple.cyan },
-    typescriptMethod = { fg = purple.cyan },
-    typescriptCall = { fg = purple.cyan },
-    typescriptDecorator = { fg = purple.orange },
-    typescriptReserved = { fg = purple.magenta },
-    typescriptStatement = { fg = purple.magenta },
-    typescriptKeyword = { fg = purple.magenta },
-    typescriptOperator = { fg = purple.cyan },
-    typescriptArrowFunc = { fg = purple.cyan },
-  })
 
-  set_many({
-    tsxTagName = { fg = purple.magenta },
-    tsxComponentName = { fg = purple.cyan, bold = true },
-    tsxCloseString = { fg = purple.gray },
-    tsxAttrib = { fg = purple.magenta, italic = true },
-    tsxTag = { fg = purple.magenta },
-    tsxCloseTag = { fg = purple.magenta },
-    tsxEqual = { fg = purple.magenta },
-    tsxEscapedContent = { fg = purple.yellow },
-    tsxBraces = { fg = purple.white },
-  })
-
-  set_many({
-    htmlTag = { fg = purple.fg },
-    htmlEndTag = { fg = purple.fg },
-    htmlTagName = { fg = purple.magenta },
-    htmlSpecialTagName = { fg = purple.magenta },
-    htmlArg = { fg = purple.magenta, italic = true },
-    htmlLink = { fg = purple.cyan, underline = true },
-    htmlString = { fg = purple.yellow },
-  })
-
-  set_many({
-    cssTagName = { fg = purple.magenta },
-    cssClassName = { fg = purple.cyan },
-    cssIdentifier = { fg = purple.orange },
-    cssSelectorOp = { fg = purple.magenta },
-    cssProp = { fg = purple.cyan },
-    cssAttr = { fg = purple.orange },
-    cssUnitDecorators = { fg = purple.magenta },
-    cssColor = { fg = purple.cyan },
-  })
-
-  set_many({
-    javaScriptReserved = { fg = purple.magenta },
-    javaScriptConditional = { fg = purple.magenta },
-    javaScriptRepeat = { fg = purple.magenta },
-    javaScriptOperator = { fg = purple.magenta },
-    javaScriptFunction = { fg = purple.cyan },
-    javaScriptIdentifier = { fg = purple.cyan },
-    javaScriptGlobal = { fg = purple.fg },
-    javaScriptMember = { fg = purple.orange },
-    javaScriptBraces = { fg = purple.fg },
-    javaScriptParens = { fg = purple.fg },
-  })
 
   set_many({
     luaFunctionCall = { fg = purple.cyan },
     luaTable = { fg = purple.yellow },
     pythonBuiltin = { fg = purple.cyan },
     pythonStatement = { fg = purple.magenta },
-    jsonKeyword = { fg = purple.magenta },
-    yamlPlainScalar = { fg = purple.yellow },
+    pythonFunction = { fg = purple.cyan },
+    pythonMethod = { fg = purple.cyan },
+    pythonClass = { fg = purple.fg, bold = true },
+    pythonDecorator = { fg = purple.orange },
+    pythonParameters = { fg = purple.white },
+    pythonSelf = { fg = purple.magenta, italic = true },
+    pythonReturnAnnotation = { fg = purple.cyan, italic = true },
+    pythonDocstring = { fg = purple.comment, italic = true },
   })
 end
 

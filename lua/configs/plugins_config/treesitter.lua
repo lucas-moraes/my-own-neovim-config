@@ -18,23 +18,17 @@ ts.setup({
 		enable = true,
 	},
 	ensure_installed = {
-		"markdown",
-		"tsx",
-		"typescript",
-		"javascript",
+		"python",
+		"rst",
 		"toml",
+		"markdown",
+		"lua",
 		"json",
 		"yaml",
-		"css",
-		"html",
-		"lua",
-		"php",
-		"python",
 	},
 	incremental_selection = { enable = true },
 	indent = { enable = true },
 })
 
--- Configuração para foldmethod usando Treesitter
 vim.o.foldmethod = "expr"
 vim.o.foldexpr = "nvim_treesitter#foldexpr()"

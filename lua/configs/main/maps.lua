@@ -41,8 +41,16 @@ if utils_status then
 	})
 end
 
+-- Format
 wk.add({
 	{ "<leader>cf", ":Format<CR>", desc = "Format code" },
+})
+
+-- Run Python
+wk.add({
+	{ "<leader>r", group = "Run" },
+	{ "<leader>rr", "<CMD>term python3 %<CR>", desc = "Run current file" },
+	{ "<leader>rp", "<CMD>term pytest %<CR>", desc = "Run pytest current file" },
 })
 
 -- dap
@@ -173,16 +181,7 @@ wk.add({
 	function()
 		vim.lsp.buf.definition({
 			on_list = function(options)
-				local items = vim.tbl_filter(function(item)
-					return not item.filename:match("node_modules")
-				end, options.items)
-
-				if vim.tbl_isempty(items) then
-					vim.notify("Nenhuma definição fora de node_modules", vim.log.levels.INFO)
-					return
-				end
-
-				vim.ui.select(items, {
+				vim.ui.select(options.items, {
 					prompt = "Definições",
 					format_item = function(item)
 						return string.format("%s:%d:%d", vim.fn.fnamemodify(item.filename, ":~:."), item.lnum, item.col)

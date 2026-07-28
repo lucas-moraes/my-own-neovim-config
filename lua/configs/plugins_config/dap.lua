@@ -1,5 +1,3 @@
-vim.env.PATH = os.getenv("PATH")
-
 local dap = require("dap")
 local dapui = require("dapui")
 
@@ -16,55 +14,6 @@ end
 
 dap.listeners.before.event_exited["dapui_config"] = function()
 	dapui.close()
-end
-
-local debugger_path = vim.fn.expand("~/.config/nvim/debugger/vscode-js-debug")
-
-require("dap-vscode-js").setup({
-	debugger_path = debugger_path,
-	adapters = { "pwa-node" },
-})
-
-dap.adapters["pwa-node"] = {
-	type = "server",
-	host = "localhost",
-	port = "${port}", -- O nvim-dap escolherá uma porta livre automaticamente
-	executable = {
-		command = "node",
-		args = {
-			debugger_path .. "/out/src/dapDebugServer.js",
-			"${port}",
-		},
-	},
-}
-
-for _, language in ipairs({ "typescript", "javascript", "typescriptreact", "javascriptreact" }) do
-	dap.configurations[language] = {
-		{
-			name = "🧩 Attach ts-node (porta 9229) adicionar --inspect:9229 ao iniciar o script",
-			type = "pwa-node",
-			request = "attach",
-			port = 9229,
-			address = "127.0.0.1",
-			cwd = "${workspaceFolder}",
-			sourceMaps = true,
-			resolveSourceMapLocations = {
-				"${workspaceFolder}/**",
-				"!**/node_modules/**",
-				"!**/.git/**",
-			},
-			pauseForSourceMap = true,
-			sourceMapPathOverrides = {
-				["webpack:///./~/*"] = "${workspaceFolder}/node_modules/*",
-				["webpack:///./*"] = "${workspaceFolder}/*",
-				["webpack:///*"] = "*",
-				["*/src/*"] = "${workspaceFolder}/src/*",
-				["../*"] = "${workspaceFolder}/*",
-			},
-			skipFiles = { "<node_internals>/**" },
-			attachExistingChildren = true,
-		},
-	}
 end
 
 for name, sign in pairs({
@@ -103,22 +52,25 @@ dap.adapters.python = function(cb, config)
 	end
 end
 
+local function get_python_path()
+	local cwd = vim.fn.getcwd()
+	local venvs = { "venv", ".venv", ".env", "env" }
+	for _, venv in ipairs(venvs) do
+		local path = cwd .. "/" .. venv .. "/bin/python"
+		if vim.fn.executable(path) == 1 then
+			return path
+		end
+	end
+	return "python"
+end
+
 dap.configurations.python = {
 	{
 		name = "Launch file",
 		type = "python",
 		request = "launch",
 		program = "${file}",
-		pythonPath = function()
-			local cwd = vim.fn.getcwd()
-			if vim.fn.executable(cwd .. "/venv/bin/python") == 1 then
-				return cwd .. "/venv/bin/python"
-			elseif vim.fn.executable(cwd .. "/.venv/bin/python") == 1 then
-				return cwd .. "/.venv/bin/python"
-			else
-				return "python"
-			end
-		end,
+		pythonPath = get_python_path,
 	},
 	{
 		name = "Launch file with arguments",
@@ -129,16 +81,53 @@ dap.configurations.python = {
 			local args_string = vim.fn.input("Arguments: ")
 			return vim.split(args_string, " +")
 		end,
-		pythonPath = function()
-			local cwd = vim.fn.getcwd()
-			if vim.fn.executable(cwd .. "/venv/bin/python") == 1 then
-				return cwd .. "/venv/bin/python"
-			elseif vim.fn.executable(cwd .. "/.venv/bin/python") == 1 then
-				return cwd .. "/.venv/bin/python"
-			else
-				return "python"
-			end
+		pythonPath = get_python_path,
+	},
+	{
+		name = "Django: runserver",
+		type = "python",
+		request = "launch",
+		program = "${workspaceFolder}/manage.py",
+		args = { "runserver", "0.0.0.0:8000" },
+		django = true,
+		pythonPath = get_python_path,
+	},
+	{
+		name = "Flask: run",
+		type = "python",
+		request = "launch",
+		module = "flask",
+		env = {
+			FLASK_APP = "${workspaceFolder}/app.py",
+			FLASK_DEBUG = "1",
+		},
+		args = { "run", "--no-debugger", "--no-reload" },
+		pythonPath = get_python_path,
+	},
+	{
+		name = "Pytest: current file",
+		type = "python",
+		request = "launch",
+		module = "pytest",
+		args = {
+			"${file}",
+			"-v",
+		},
+		console = "integratedTerminal",
+		pythonPath = get_python_path,
+	},
+	{
+		name = "Pytest: current function",
+		type = "python",
+		request = "launch",
+		module = "pytest",
+		args = function()
+			local file = vim.fn.expand("%:p")
+			local line = vim.fn.line(".")
+			return { file, "-v", "-k", line }
 		end,
+		console = "integratedTerminal",
+		pythonPath = get_python_path,
 	},
 	{
 		name = "Attach to remote",

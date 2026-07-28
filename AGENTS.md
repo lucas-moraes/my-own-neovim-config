@@ -1,23 +1,22 @@
 AGENTS.md
 
-This repo is a personal Neovim configuration written in Lua, optimized for TypeScript/JavaScript with full DAP debugging. No Cursor or Copilot rules are present in the repo as of this version.
+This repo is a personal Neovim configuration written in Lua, optimized for Python development with full DAP debugging.
 
 ## Quick Facts
 - Entry point: `init.lua`
 - Core configs: `lua/configs/main/` (settings.lua, plugins.lua, maps.lua)
 - Plugin configs: `lua/configs/plugins_config/`
 - Theme configs: `lua/configs/themes/`
-- Debugger: `debugger/vscode-js-debug` (used by nvim-dap)
 - Lockfile: `lazy-lock.json` pins plugin versions
 
 ## Build / Lint / Test
 - No traditional build or automated test suite; manual verification inside Neovim.
-- Formatting is the main "lint":
+- Formatting:
+  - Python: `ruff format` via formatter.nvim
   - Lua: `stylua` via formatter.nvim
-  - JS/TS/JSON/HTML/CSS/SCSS/MD/Prisma: `prettier` via npx through formatter.nvim
-- Format-on-save: BufWritePost for *.lua, *.js, *.ts, *.tsx, *.json, *.html, *.css, *.scss, *.md, *.prisma
+- Format-on-save: BufWritePost for *.lua, *.py
 - Manual format: `:Format` (writes buffer) or `:FormatWrite`
-- Single-test guidance: there are no tests; validate by opening Neovim and exercising features (LSP attach, DAP session, formatter trigger).
+- Validate by opening Neovim and exercising features (LSP attach, DAP session, formatter trigger).
 
 ## Plugin Management (Lazy.nvim)
 - `:Lazy` open UI
@@ -29,10 +28,9 @@ This repo is a personal Neovim configuration written in Lua, optimized for TypeS
 - Keep `lazy-lock.json` committed when plugin versions change.
 
 ## Dependencies & Tooling
-- Required: Node.js (for prettier, LSP servers), ripgrep, Nerd Font (FiraCore recommended)
+- Required: Python 3, pip (for Ruff, pyright, debugpy), ripgrep, Nerd Font (FiraCore recommended)
 - Optional but supported: lazygit, lazydocker, zellij
-- Mason auto-installs LSP servers (tsserver/ts_ls, html, cssls, tailwindcss, lua_ls) and DAP adapters
-- DAP path expected at `~/.config/nvim/debugger/vscode-js-debug`
+- Mason auto-installs LSP servers (pyright, ruff, lua_ls) and DAP adapter (debugpy)
 
 ## Code Style (Lua)
 - Indent: 2 spaces, no tabs
@@ -59,7 +57,7 @@ local d = vim.diagnostic
 ```lua
 local group = vim.api.nvim_create_augroup("FormatAutogroup", { clear = true })
 vim.api.nvim_create_autocmd("BufWritePost", {
-  pattern = { "*.lua", "*.js", "*.ts", "*.tsx" },
+  pattern = { "*.lua", "*.py" },
   command = "FormatWrite",
   group = group,
 })
@@ -85,7 +83,7 @@ vim.api.nvim_set_hl(0, "Normal", { bg = nord.bg, fg = nord.fg })
 - Keep mappings in `lua/configs/main/maps.lua`; keep core options in `lua/configs/main/settings.lua`
 
 ## Formatting & Imports
-- Let formatter.nvim drive stylua/prettier; avoid manual whitespace tweaks that fight formatters
+- Let formatter.nvim drive ruff format / stylua; avoid manual whitespace tweaks that fight formatters
 - Do not mix single/double quotes; always double
 - Prefer local requires over global side effects; avoid `vim.cmd("packadd ...")` unless necessary
 - For treesitter, ensure parsers in `lua/configs/plugins_config/treesitter.lua` list stay in sync with languages mentioned in README
@@ -100,12 +98,13 @@ vim.api.nvim_set_hl(0, "Normal", { bg = nord.bg, fg = nord.fg })
 - User-facing issues should call `vim.notify` with meaningful messages and log levels
 
 ## Debugging (DAP)
-- Adapters live under `debugger/vscode-js-debug`; ensure path matches `dap.adapters` config
-- pwa-node default port 9229; source maps enabled for TS/JS
+- Python debugger via debugpy (installed by Mason)
+- Adapter auto-detects venv/.venv/.env python path
+- Configurations: Launch file, Launch with args, Django runserver, Flask run, Pytest (file/function), Attach remote (port 5678)
 - Verify DAP UI bindings in `maps.lua` (continue, step, toggle UI, REPL)
 
 ## LSP
-- Servers: ts_ls/tsserver, cssls, html, lua_ls, tailwindcss configured via mason
+- Servers: pyright, ruff, lua_ls configured via mason
 - Prefer `on_attach` to set buffer-local keymaps; keep capabilities in sync with nvim-cmp setup
 - Diagnostics: virtual text enabled, signs set to `//`; severity_sort on; floating windows rounded borders
 
@@ -118,6 +117,7 @@ vim.api.nvim_set_hl(0, "Normal", { bg = nord.bg, fg = nord.fg })
 - Themes in `lua/configs/themes/` with matching lualine variants under `lua/configs/plugins_config/lualine/`
 - Last selected theme remembered by theme manager; `:ThemeSelect` provides interactive choice
 - Transparency supported via `dark-transparent` theme option
+- All themes include Python-specific highlight groups (pythonFunction, pythonMethod, pythonClass, pythonDecorator, pythonSelf, pythonDocstring)
 
 ## AI Helpers
 - Copilot plugin configured in `lua/configs/plugins_config/copilot.lua`; no additional org-wide Copilot rules present
@@ -136,7 +136,7 @@ vim.api.nvim_set_hl(0, "Normal", { bg = nord.bg, fg = nord.fg })
 ## Verification Checklist (manual)
 - Launch nvim: plugins load without errors
 - Run `:Lazy` and ensure plugins are healthy
-- Open TS/JS file: LSP attaches, formatting on save runs prettier
+- Open Python file: LSP attaches (pyright + ruff), formatting on save runs ruff format
 - Open Lua file: stylua formats on save
-- Run a DAP session against Node: adapter resolves from `debugger/vscode-js-debug`
+- Run a DAP session against Python: debugpy adapter works
 - Switch theme with `:ThemeSelect`: lualine and colors update and persist

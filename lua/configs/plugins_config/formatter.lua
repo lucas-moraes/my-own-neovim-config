@@ -4,66 +4,44 @@ if not status then
 	return
 end
 
-local prettier_config = function() 
-  return{
-    exe = "npx",
-    args = {
-      "prettier",
-      string.format("--stdin-filepath=%s", vim.api.nvim_buf_get_name(0)),
-			"--tab-width", "2", 
-			"--use-tabs", "false",
-			"--html-whitespace-sensitivity", "ignore",
-      "--print-width", "120"
-    },
-    stdin = true
-  }
-
+local ruff_format = function()
+	return {
+		exe = "ruff",
+		args = {
+			"format",
+			"--stdin-filename",
+			vim.api.nvim_buf_get_name(0),
+			"-",
+		},
+		stdin = true,
+	}
 end
 
 formatter.setup({
 	logging = false,
 	filetype = {
-		javascript = { prettier_config },
-    typescript = { prettier_config },
-    javascriptreact = { prettier_config },
-    typescriptreact = { prettier_config },
-    html = { prettier_config },
-    css = { prettier_config },
-    scss = { prettier_config },
-    less = { prettier_config },
-    json = { prettier_config },
-    prisma = { prettier_config },
-    markdown = { prettier_config },
-    python = {
-      function()
-        return {
-          exe = "black",
-          args = { "-q", "-" },
-          stdin = true,
-        }
-      end,
-    },
-    lua = {
-      function()
-        return {
-          exe = "stylua",
-          args = {
-            "--search-parent-directories",
-            "--stdin-filepath",
-            vim.api.nvim_buf_get_name(0),
-            "--",
-            "-",
-          },
-          stdin = true,
-        }
-      end,
-    },
+		python = { ruff_format },
+		lua = {
+			function()
+				return {
+					exe = "stylua",
+					args = {
+						"--search-parent-directories",
+						"--stdin-filepath",
+						vim.api.nvim_buf_get_name(0),
+						"--",
+						"-",
+					},
+					stdin = true,
+				}
+			end,
+		},
 	},
 })
 
 vim.api.nvim_create_augroup("FormatAutogroup", { clear = true })
 vim.api.nvim_create_autocmd("BufWritePost", {
-  pattern = { "*.css", "*.prisma", "*.js", "*.ts", "*.json", "*.html", "*.scss", "*.less", "*.md", "*.lua", "*.py" },
-  command = "FormatWrite",
-  group = "FormatAutogroup",
+	pattern = { "*.lua", "*.py" },
+	command = "FormatWrite",
+	group = "FormatAutogroup",
 })

@@ -91,78 +91,21 @@ function theme.setup()
     Special = { fg = nord.cyan },
   })
 
-  set_many({
-    typescriptTypeReference = { fg = nord.cyan, italic = true },
-    typescriptTypeParameter = { fg = nord.orange, italic = true },
-    typescriptInterfaceName = { fg = nord.cyan, bold = true },
-    typescriptEnumName = { fg = nord.cyan },
-    typescriptIdentifier = { fg = nord.cyan },
-    typescriptVariable = { fg = nord.blue },
-    typescriptProp = { fg = nord.yellow },
-    typescriptFunction = { fg = nord.cyan },
-    typescriptMethod = { fg = nord.cyan },
-    typescriptCall = { fg = nord.cyan },
-    typescriptDecorator = { fg = nord.orange },
-    typescriptReserved = { fg = nord.magenta },
-    typescriptStatement = { fg = nord.magenta },
-    typescriptKeyword = { fg = nord.magenta },
-    typescriptOperator = { fg = nord.blue },
-    typescriptArrowFunc = { fg = nord.blue },
-  })
 
-  set_many({
-    tsxTagName = { fg = nord.magenta },
-    tsxComponentName = { fg = nord.blue, bold = true },
-    tsxCloseString = { fg = nord.gray },
-    tsxAttrib = { fg = nord.cyan, italic = true },
-    tsxTag = { fg = nord.magenta },
-    tsxCloseTag = { fg = nord.magenta },
-    tsxEqual = { fg = nord.magenta },
-    tsxEscapedContent = { fg = nord.green },
-    tsxBraces = { fg = nord.white },
-  })
-
-  set_many({
-    htmlTag = { fg = nord.fg },
-    htmlEndTag = { fg = nord.fg },
-    htmlTagName = { fg = nord.magenta },
-    htmlSpecialTagName = { fg = nord.magenta },
-    htmlArg = { fg = nord.cyan, italic = true },
-    htmlLink = { fg = nord.cyan, underline = true },
-    htmlString = { fg = nord.green },
-  })
-
-  set_many({
-    cssTagName = { fg = nord.magenta },
-    cssClassName = { fg = nord.green },
-    cssIdentifier = { fg = nord.orange },
-    cssSelectorOp = { fg = nord.magenta },
-    cssProp = { fg = nord.cyan },
-    cssAttr = { fg = nord.orange },
-    cssUnitDecorators = { fg = nord.magenta },
-    cssColor = { fg = nord.magenta },
-  })
-
-  set_many({
-    javaScriptReserved = { fg = nord.magenta },
-    javaScriptConditional = { fg = nord.magenta },
-    javaScriptRepeat = { fg = nord.magenta },
-    javaScriptOperator = { fg = nord.magenta },
-    javaScriptFunction = { fg = nord.cyan },
-    javaScriptIdentifier = { fg = nord.blue },
-    javaScriptGlobal = { fg = nord.cyan },
-    javaScriptMember = { fg = nord.orange },
-    javaScriptBraces = { fg = nord.fg },
-    javaScriptParens = { fg = nord.fg },
-  })
 
   set_many({
     luaFunctionCall = { fg = nord.cyan },
     luaTable = { fg = nord.green },
     pythonBuiltin = { fg = nord.cyan },
     pythonStatement = { fg = nord.magenta },
-    jsonKeyword = { fg = nord.magenta },
-    yamlPlainScalar = { fg = nord.yellow },
+    pythonFunction = { fg = nord.cyan },
+    pythonMethod = { fg = nord.cyan },
+    pythonClass = { fg = nord.cyan, bold = true },
+    pythonDecorator = { fg = nord.orange },
+    pythonParameters = { fg = nord.white },
+    pythonSelf = { fg = nord.magenta, italic = true },
+    pythonReturnAnnotation = { fg = nord.cyan, italic = true },
+    pythonDocstring = { fg = nord.comment, italic = true },
   })
 end
 

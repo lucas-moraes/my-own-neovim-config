@@ -14,50 +14,40 @@ ls.config.set_config({
 	updateevents = "TextChanged,TextChangedI",
 })
 
-for _, ft in ipairs({ "javascript", "typescript", "javascriptreact", "typescriptreact" }) do
-	ls.add_snippets(ft, {
-		s("$-cl", { t({ "console.log(`=>`, 'hi')" }) }),
-	})
-end
-
-for _, ft in ipairs({ "javascriptreact", "typescriptreact" }) do
-	ls.add_snippets(ft, {
-		s("$-raf", {
-			t({ "export const ReactFunction = () => {", " console.log('hi');", "}" }),
-		}),
-	})
-end
-
-for _, ft in ipairs({ "javascriptreact", "typescriptreact", "javascript", "typescript",}) do
-  ls.add_snippets(ft, {
-    s("$-sc", {
-      t({
-        "export const StyledComponent = styled.div`",
-        "  display: flex;",
-        "`;",
-        "",
-      }),
-    }),
-  })
-end
-
-for _, ft in ipairs({ "javascriptreact", "typescriptreact", "javascript", "typescript", }) do
-  ls.add_snippets(ft, {
-    s("$-sc_init", {
-      t({
-        "import styled from 'styled-components';",
-        "",
-        "export const StyledComponent = styled.div`",
-        "  display: flex;",
-        "`;",
-        "",
-      }),
-    }),
-  })
-end
-
-
-
+-- Python snippets
+ls.add_snippets("python", {
+	s("$-cl", {
+		t({ "print(f\"{" }),
+		t({ "", "}\")" }),
+	}),
+	s("$-main", {
+		t({ "if __name__ == \"__main__\":", "    " }),
+	}),
+	s("$-class", {
+		t({ "class ClassName:", "    " }),
+	}),
+	s("$-def", {
+		t({ "def function_name():", "    " }),
+	}),
+	s("$-deco", {
+		t({ "@decorator", "def function_name():", "    " }),
+	}),
+	s("$-prop", {
+		t({ "@property", "def name(self):", '    """The name property."""', "    return self._name" }),
+	}),
+	s("$-datac", {
+		t({ "from dataclasses import dataclass", "", "@dataclass", "class ClassName:", "    " }),
+	}),
+	s("$-imp", {
+		t({ "import " }),
+	}),
+	s("$-impf", {
+		t({ "from  import ", "" }),
+	}),
+	s("$-type", {
+		t({ "from typing import TypeAlias", "", "TypeAlias = " }),
+	}),
+})
 
 -- Mapeamento para expandir ou pular para o próximo placeholder no modo de inserção
 vim.api.nvim_set_keymap(

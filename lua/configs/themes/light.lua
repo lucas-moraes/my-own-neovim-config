@@ -96,78 +96,21 @@ function theme.setup()
     Special = { fg = dracula_light.cyan },
   })
 
-  set_many({
-    typescriptTypeReference = { fg = dracula_light.cyan, italic = true },
-    typescriptTypeParameter = { fg = dracula_light.orange, italic = true },
-    typescriptInterfaceName = { fg = dracula_light.cyan, bold = true },
-    typescriptEnumName = { fg = dracula_light.cyan },
-    typescriptIdentifier = { fg = dracula_light.cyan },
-    typescriptVariable = { fg = dracula_light.green },
-    typescriptProp = { fg = dracula_light.yellow },
-    typescriptFunction = { fg = dracula_light.green },
-    typescriptMethod = { fg = dracula_light.green },
-    typescriptCall = { fg = dracula_light.green },
-    typescriptDecorator = { fg = dracula_light.orange },
-    typescriptReserved = { fg = dracula_light.pink },
-    typescriptStatement = { fg = dracula_light.pink },
-    typescriptKeyword = { fg = dracula_light.pink },
-    typescriptOperator = { fg = dracula_light.magenta },
-    typescriptArrowFunc = { fg = dracula_light.magenta },
-  })
 
-  set_many({
-    tsxTagName = { fg = dracula_light.pink },
-    tsxComponentName = { fg = dracula_light.magenta, bold = true },
-    tsxCloseString = { fg = dracula_light.black },
-    tsxAttrib = { fg = dracula_light.green, italic = true },
-    tsxTag = { fg = dracula_light.magenta },
-    tsxCloseTag = { fg = dracula_light.magenta },
-    tsxEqual = { fg = dracula_light.pink },
-    tsxEscapedContent = { fg = dracula_light.yellow },
-    tsxBraces = { fg = dracula_light.white },
-  })
-
-  set_many({
-    htmlTag = { fg = dracula_light.fg },
-    htmlEndTag = { fg = dracula_light.fg },
-    htmlTagName = { fg = dracula_light.pink },
-    htmlSpecialTagName = { fg = dracula_light.pink },
-    htmlArg = { fg = dracula_light.green, italic = true },
-    htmlLink = { fg = dracula_light.cyan, underline = true },
-    htmlString = { fg = dracula_light.yellow },
-  })
-
-  set_many({
-    cssTagName = { fg = dracula_light.pink },
-    cssClassName = { fg = dracula_light.green },
-    cssIdentifier = { fg = dracula_light.orange },
-    cssSelectorOp = { fg = dracula_light.pink },
-    cssProp = { fg = dracula_light.cyan },
-    cssAttr = { fg = dracula_light.orange },
-    cssUnitDecorators = { fg = dracula_light.pink },
-    cssColor = { fg = dracula_light.magenta },
-  })
-
-  set_many({
-    javaScriptReserved = { fg = dracula_light.pink },
-    javaScriptConditional = { fg = dracula_light.pink },
-    javaScriptRepeat = { fg = dracula_light.pink },
-    javaScriptOperator = { fg = dracula_light.pink },
-    javaScriptFunction = { fg = dracula_light.green },
-    javaScriptIdentifier = { fg = dracula_light.magenta },
-    javaScriptGlobal = { fg = dracula_light.cyan },
-    javaScriptMember = { fg = dracula_light.orange },
-    javaScriptBraces = { fg = dracula_light.fg },
-    javaScriptParens = { fg = dracula_light.fg },
-  })
 
   set_many({
     luaFunctionCall = { fg = dracula_light.green },
     luaTable = { fg = dracula_light.yellow },
     pythonBuiltin = { fg = dracula_light.cyan },
     pythonStatement = { fg = dracula_light.pink },
-    jsonKeyword = { fg = dracula_light.pink },
-    yamlPlainScalar = { fg = dracula_light.yellow },
+    pythonFunction = { fg = dracula_light.green },
+    pythonMethod = { fg = dracula_light.green },
+    pythonClass = { fg = dracula_light.cyan, bold = true },
+    pythonDecorator = { fg = dracula_light.orange },
+    pythonParameters = { fg = dracula_light.fg },
+    pythonSelf = { fg = dracula_light.magenta, italic = true },
+    pythonReturnAnnotation = { fg = dracula_light.cyan, italic = true },
+    pythonDocstring = { fg = dracula_light.comment, italic = true },
   })
 end
 

@@ -8,7 +8,6 @@ require("lazy").setup({
 	{
 		"mfussenegger/nvim-dap",
 		dependencies = {
-			"mxsdev/nvim-dap-vscode-js",
 			"jay-babu/mason-nvim-dap.nvim",
 			"rcarriga/nvim-dap-ui",
 			"theHamsta/nvim-dap-virtual-text",
@@ -96,9 +95,7 @@ require("lazy").setup({
 		opts = {},
 	},
 
-	{
-		"pantharshit00/vim-prisma",
-	},
+
 
 	{ "nvim-tree/nvim-web-devicons" },
 
@@ -123,18 +120,7 @@ require("lazy").setup({
 
 	{ "onsails/lspkind-nvim" },
 
-	{
-		"windwp/nvim-ts-autotag",
-		config = function()
-			require("nvim-ts-autotag").setup({
-				opts = {
-					enable_close = true,
-					enable_rename = true,
-					enable_close_on_slash = false,
-				},
-			})
-		end,
-	},
+
 
 	{ "weilbith/nvim-code-action-menu" },
 
@@ -176,7 +162,7 @@ require("lazy").setup({
 		dependencies = { "williamboman/mason.nvim" },
 		config = function()
 			require("mason-lspconfig").setup({
-				ensure_installed = { "ts_ls", "cssls", "html", "lua_ls", "tailwindcss", "pyright" },
+				ensure_installed = { "pyright", "ruff", "lua_ls" },
 			})
 		end,
 	},

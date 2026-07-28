@@ -22,15 +22,11 @@ masonlsp.setup({
 
 masontool.setup({
 	ensure_installed = {
-		"css-lsp",
-		"html-lsp",
-		"js-debug-adapter",
-		"json-lsp",
-		"typescript-language-server",
 		"stylua",
 		-- Python tools
 		"pyright",
-		"black",
+		"ruff",
+		"ruff-lsp",
 		"debugpy",
 	},
 	auto_update = true,
