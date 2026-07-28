@@ -19,15 +19,6 @@ require("lazy").setup({
 	},
 
 	{
-		"zbirenbaum/copilot.lua",
-		cmd = "Copilot",
-		event = "InsertEnter",
-		config = function()
-			require("configs.plugins_config.copilot")
-		end,
-	},
-
-	{
 		"stevearc/dressing.nvim",
 		config = function()
 			require("dressing").setup({})
