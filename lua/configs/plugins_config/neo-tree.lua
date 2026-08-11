@@ -28,7 +28,7 @@ nt.setup({
 			hide_dotfiles = false,
 			hide_gitignored = false,
 			hide_by_name = {},
-			hide_by_patter = {},
+			hide_by_pattern = {},
 			always_show = {
 				".gitignore",
 			},

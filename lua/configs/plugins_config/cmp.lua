@@ -39,7 +39,7 @@ cmp.setup({
 	},
 	sources = {
 		{ name = "luasnip" },
-		{ name = "nvim_lsp" },
+		{ name = "lsp" },
 		-- ...
 	},
 })

@@ -230,8 +230,8 @@ wk.add({
 
 -- Atalho para fechar buffer
 wk.add({
-	{ "<leader>xx", ":lua close_current_buffer()<CR>", desc = "Close current buffer" },
-	{ "<leader>xa", ":lua close_all_buffers()<CR>", desc = "Close all buffers" },
+	{ "<leader>xx", ":lua require('configs.plugins_config.lualine.common').close_current_buffer()<CR>", desc = "Close current buffer" },
+	{ "<leader>xa", ":lua require('configs.plugins_config.lualine.common').close_all_buffers()<CR>", desc = "Close all buffers" },
 })
 
 --UFO collapse

@@ -1,234 +1,42 @@
-local status, lualine = pcall(require, "lualine")
-if not status then
-	return
-end
+local common = require("configs.plugins_config.lualine.common")
 
-function _G.close_current_buffer()
-	local current_buf = vim.api.nvim_get_current_buf()
-	local alt_buf = vim.fn.bufnr("#")
-	if alt_buf == -1 or alt_buf == current_buf then
-		vim.cmd("enew")
-	else
-		vim.cmd("buffer " .. alt_buf)
-	end
-	vim.api.nvim_buf_delete(current_buf, { force = true })
-	lualine.refresh()
-end
-
-function _G.close_all_buffers()
-	local buffers = vim.api.nvim_list_bufs()
-
-	-- Create a new empty buffer first
-	vim.cmd("enew")
-	local new_buf = vim.api.nvim_get_current_buf()
-
-	-- Close all other listed buffers (file buffers)
-	for _, buf in ipairs(buffers) do
-		if buf ~= new_buf and vim.api.nvim_buf_is_valid(buf) and vim.bo[buf].buflisted then
-			vim.api.nvim_buf_delete(buf, { force = true })
-		end
-	end
-
-	lualine.refresh()
-end
-
-vim.cmd([[
-  highlight LualineBufferActive guifg=#34004c guibg=#b000ff
-  highlight LualineBufferInactive guifg=#a799ad guibg=#34004c
-  highlight WinbarLeftIndent guifg=#4e325b guibg=NONE
-  highlight WinbarNormal guifg=#b0aba6 guibg=NONE
-]])
-
-local function buffer_list()
-	local buffers = vim.api.nvim_list_bufs()
-	local buffer_names = {}
-	local current_buf = vim.api.nvim_get_current_buf()
-	local unsaved_icon = "  ◉"
-
-	local ignored_types = {
-		["neo-tree"] = true,
-		["neo-tree filesystem [1]"] = true,
-		["toggleterm"] = true,
-		["dap-repl"] = true,
-		["dapui_scopes"] = true,
-		["dapui_stacks"] = true,
-		["dapui_breakpoints"] = true,
-		["dapui_watches"] = true,
-		["dapui_console"] = true,
-		["dapui_hover"] = true,
-		["opencode"] = true,
-	}
-
-	for _, buf in ipairs(buffers) do
-		if vim.api.nvim_buf_is_loaded(buf) then
-			local ft = vim.bo[buf].filetype
-			if not ignored_types[ft] then
-				local buf_name = vim.fn.fnamemodify(vim.api.nvim_buf_get_name(buf), ":t")
-				if buf_name ~= "" and not string.find(buf_name, ":opencode") then
-					if vim.bo[buf].modified then
-						buf_name = buf_name .. unsaved_icon
-					end
-					buf_name = " " .. buf_name .. " "
-					if buf == current_buf then
-						table.insert(buffer_names, "%#LualineBufferActive#" .. buf_name)
-					else
-						table.insert(buffer_names, "%#LualineBufferInactive#" .. buf_name)
-					end
-				end
-			end
-		end
-	end
-
-	if #buffer_names == 0 then
-		return "%#LualineBufferInactive# No buffers "
-	end
-
-	return table.concat(buffer_names, "%*" .. " " .. "%*")
-end
-
-local function left_separator()
-	local separator = " ▶ "
-	return separator
-end
-
-local function right_separator()
-	local separator = " ◀ "
-	return separator
-end
-
-local function relative_file_path()
-	local file_path = vim.fn.expand("%:~:.")
-	return file_path
-end
-
-local function neocodeium_status()
-  local ok, neocodeium = pcall(require, "neocodeium")
-  if not ok then
-    return ""
-  end
-  local status, server_status = neocodeium.get_status()
-  if status == 0 and server_status == 0 then
-    return "🤖"
-  end
-  return ""
-end
-
-local function opencode_status()
-	local ok, opencode = pcall(require, "opencode")
-	if not ok or not opencode.statusline then
-		return ""
-	end
-
-	local ok_status, status = pcall(opencode.statusline)
-	if not ok_status then
-		return ""
-	end
-
-	return status
-end
-
-local refresh_group = vim.api.nvim_create_augroup("LualineWinbarRefresh", { clear = true })
-
-vim.api.nvim_create_autocmd("BufDelete", {
-	group = refresh_group,
-	callback = function()
-		vim.schedule(function()
-			require("lualine").refresh({ winbar = true })
-		end)
-	end,
-})
-
-vim.api.nvim_create_autocmd("BufEnter", {
-	group = refresh_group,
-	callback = function()
-		vim.schedule(function()
-			require("lualine").refresh({ winbar = true })
-		end)
-	end,
-})
-
-lualine.setup({
-	options = {
-		icons_enabled = true,
-		theme = {
-			normal = {
-				a = { fg = "#b000ff", bg = "#58007f", gui = "bold" },
-				b = { fg = "#b000ff", bg = "#34004c" },
-				c = { fg = "#b000ff", bg = "#110019" },
-			},
-			insert = {
-				a = { fg = "#34004c", bg = "#00ff04", gui = "bold" },
-				b = { fg = "#b000ff", bg = "#34004c" },
-				c = { fg = "#b000ff", bg = "#110019" },
-			},
-			visual = {
-				a = { fg = "#34004c", bg = "#fdff00", gui = "bold" },
-				b = { fg = "#b000ff", bg = "#34004c" },
-				c = { fg = "#b000ff", bg = "#110019" },
-			},
-			replace = {
-				a = { fg = "#b000ff", bg = "#ff00c1", gui = "bold" },
-				b = { fg = "#b000ff", bg = "#34004c" },
-				c = { fg = "#b000ff", bg = "#110019" },
-			},
-			command = {
-				a = { fg = "#34004c", bg = "#00dfff", gui = "bold" },
-				b = { fg = "#b000ff", bg = "#34004c" },
-				c = { fg = "#b000ff", bg = "#110019" },
-			},
-			inactive = {
-				a = { fg = "#b000ff", bg = "#110019", gui = "bold" },
-				b = { fg = "#b000ff", bg = "#110019" },
-				c = { fg = "#b000ff", bg = "#110019" },
-			},
-		},
-		section_separators = { left = "", right = "" },
-		component_separators = { left = "", right = "" },
-		disabled_filetypes = {
-			statusline = { "neo-tree", "neo-tree filesystem [1]", "toggleterm" },
-			winbar = { "neo-tree", "lazy", "neo-tree filesystem [1]", "toggleterm" },
-		},
-		ignore_focus = { "neo-tree", "lazy", "neo-tree filesystem [1]", "toggleterm" },
-		always_divide_middle = true,
-		globalstatus = false,
-		refresh = {
-			statusline = 1000,
-			tabline = 1000,
-			winbar = 1000,
-		},
-	},
-	sections = {
-		lualine_a = { "mode" },
-		lualine_b = { "branch", "diff", "diagnostics" },
-		lualine_c = { relative_file_path },
-		lualine_x = { neocodeium_status },
-		lualine_y = { opencode_status },
-		lualine_z = { "location" },
-	},
-	inactive_sections = {
-		lualine_a = {},
-		lualine_b = {},
-		lualine_c = { "filename" },
-		lualine_x = { "location" },
-		lualine_y = {},
-		lualine_z = {},
-	},
-	tabline = {},
-	winbar = {
-		lualine_a = { left_separator },
-		lualine_b = { buffer_list },
-		lualine_c = { right_separator },
-		lualine_x = {},
-		lualine_y = {},
-		lualine_z = {},
-	},
-	inactive_winbar = {
-		lualine_a = {},
-		lualine_b = {},
-		lualine_c = {},
-		lualine_x = {},
-		lualine_y = {},
-		lualine_z = {},
-	},
-	extensions = {},
+common.setup({
+  buffer_active_fg = "#34004c",
+  buffer_active_bg = "#b000ff",
+  buffer_inactive_fg = "#a799ad",
+  buffer_inactive_bg = "#34004c",
+  winbar_left_fg = "#4e325b",
+  winbar_fg = "#b0aba6",
+  theme = {
+    normal = {
+      a = { fg = "#b000ff", bg = "#58007f", gui = "bold" },
+      b = { fg = "#b000ff", bg = "#34004c" },
+      c = { fg = "#b000ff", bg = "#110019" },
+    },
+    insert = {
+      a = { fg = "#34004c", bg = "#00ff04", gui = "bold" },
+      b = { fg = "#b000ff", bg = "#34004c" },
+      c = { fg = "#b000ff", bg = "#110019" },
+    },
+    visual = {
+      a = { fg = "#34004c", bg = "#fdff00", gui = "bold" },
+      b = { fg = "#b000ff", bg = "#34004c" },
+      c = { fg = "#b000ff", bg = "#110019" },
+    },
+    replace = {
+      a = { fg = "#b000ff", bg = "#ff00c1", gui = "bold" },
+      b = { fg = "#b000ff", bg = "#34004c" },
+      c = { fg = "#b000ff", bg = "#110019" },
+    },
+    command = {
+      a = { fg = "#34004c", bg = "#00dfff", gui = "bold" },
+      b = { fg = "#b000ff", bg = "#34004c" },
+      c = { fg = "#b000ff", bg = "#110019" },
+    },
+    inactive = {
+      a = { fg = "#b000ff", bg = "#110019", gui = "bold" },
+      b = { fg = "#b000ff", bg = "#110019" },
+      c = { fg = "#b000ff", bg = "#110019" },
+    },
+  },
 })
