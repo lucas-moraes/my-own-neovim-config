@@ -92,32 +92,6 @@ local function relative_file_path()
   return vim.fn.expand("%:~:.")
 end
 
-local function neocodeium_status()
-  local ok_status, neocodeium = pcall(require, "neocodeium")
-  if not ok_status then
-    return ""
-  end
-  local status_code, server_status = neocodeium.get_status()
-  if status_code == 0 and server_status == 0 then
-    return "🤖"
-  end
-  return ""
-end
-
-local function opencode_status()
-  local ok_status, opencode = pcall(require, "opencode")
-  if not ok_status or not opencode.statusline then
-    return ""
-  end
-
-  local ok_call, status = pcall(opencode.statusline)
-  if not ok_call then
-    return ""
-  end
-
-  return status
-end
-
 M.setup = function(colors)
   if not ok then
     return
@@ -153,6 +127,15 @@ M.setup = function(colors)
     end,
   })
 
+  local function minuet_status()
+    local ok_minuet = pcall(require, "minuet")
+    local key = vim.env.DEEPINFRA_API_KEY
+    if not ok_minuet or key == nil or key == "" then
+      return ""
+    end
+    return "󰚩"
+  end
+
   lualine.setup({
     options = {
       icons_enabled = true,
@@ -176,8 +159,8 @@ M.setup = function(colors)
       lualine_a = { "mode" },
       lualine_b = { "branch", "diff", "diagnostics" },
       lualine_c = { relative_file_path },
-      lualine_x = { neocodeium_status },
-      lualine_y = { opencode_status },
+      lualine_x = {},
+      lualine_y = { minuet_status },
       lualine_z = { "location" },
     },
     inactive_sections = {

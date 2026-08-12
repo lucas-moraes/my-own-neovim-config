@@ -42,4 +42,7 @@ cmp.setup({
 		{ name = "lsp" },
 		-- ...
 	},
+	performance = {
+		fetching_timeout = 2000,
+	},
 })

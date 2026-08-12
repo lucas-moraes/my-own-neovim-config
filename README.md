@@ -7,7 +7,7 @@ This is my personal Neovim configuration, written entirely in Lua. It is designe
 - Fullstack Optimized: Fine-tuned for React, Node.js, and modern web development.
 - Plugin Management: Powered by Lazy.nvim for a fast, modern, and efficient setup.
 - Advanced Debugging: Pre-configured DAP (Debug Adapter Protocol) located in the /debugger directory.
-- AI-Powered: Built-in support for Codeium (neocodeium) and OpenCode integration.
+- AI-Powered: Built-in support for Minuet AI (code completion via DeepInfra) and OpenCode integration.
 - Terminal Integration: Smooth workflow with LazyGit, LazyDocker, and Zellij.
 - Theme Manager: 7 curated themes with interactive theme selection via `:ThemeSelect`.
 - File Explorer: Neo-tree for intuitive file navigation and management.
@@ -27,7 +27,7 @@ This is my personal Neovim configuration, written entirely in Lua. It is designe
 - LazyGit: https://github.com/jesseduffield/lazygit (Optional)
 - LazyDocker: https://github.com/jesseduffield/LazyDocker (Optional)
 - Zellij: https://zellij.dev/ (Optional)
-- Codeium (neocodeium): https://github.com/monkoose/neocodeium (Optional - AI code completion)
+- Minuet AI: https://github.com/milanglacier/minuet-ai.nvim (Optional - AI code completion via DeepInfra)
 - OpenCode: https://github.com/NickvanDyke/opencode.nvim (Optional - AI coding assistant)
 
 ### Configurations dependencies:

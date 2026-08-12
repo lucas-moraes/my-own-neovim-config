@@ -20,10 +20,10 @@ require("lazy").setup({
 	},
 
 	{
-		"monkoose/neocodeium",
+		"milanglacier/minuet-ai.nvim",
 		event = "VeryLazy",
 		config = function()
-			require("configs.plugins_config.neocodeium")
+			require("configs.plugins_config.minuet")
 		end,
 	},
 
