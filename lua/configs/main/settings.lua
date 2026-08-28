@@ -41,6 +41,7 @@ o.foldenable = true
 o.foldlevelstart = 99
 o.foldnestmax = 3
 o.termguicolors = true
+o.completeopt = "menu,menuone,noselect"
 o.foldcolumn = "1"
 o.foldlevel = 99
 o.foldlevelstart = 99
